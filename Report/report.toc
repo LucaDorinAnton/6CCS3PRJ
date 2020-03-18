@@ -1,0 +1,42 @@
+\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}
+\contentsline {section}{\numberline {1.1}Inspiration and Motivation}{4}{section.1.1}
+\contentsline {section}{\numberline {1.2}Objectives}{4}{section.1.2}
+\contentsline {section}{\numberline {1.3}Project Structure}{5}{section.1.3}
+\contentsline {chapter}{\numberline {2}Background}{6}{chapter.2}
+\contentsline {section}{\numberline {2.1}Computer Architecture}{6}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Instruction Set Architecture (ISA)}{6}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Microarchitecture}{7}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}General High-Level Architecture}{7}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}The Processor}{8}{subsection.2.1.4}
+\contentsline {subsection}{\numberline {2.1.5}Memory}{8}{subsection.2.1.5}
+\contentsline {subsection}{\numberline {2.1.6}The Control Unit}{9}{subsection.2.1.6}
+\contentsline {subsection}{\numberline {2.1.7}Input/Output Devices}{9}{subsection.2.1.7}
+\contentsline {subsection}{\numberline {2.1.8}The Clock Pulse Generator}{9}{subsection.2.1.8}
+\contentsline {subsection}{\numberline {2.1.9}The Data Bus}{9}{subsection.2.1.9}
+\contentsline {subsection}{\numberline {2.1.10}Other Important Components}{10}{subsection.2.1.10}
+\contentsline {subsubsection}{Registers}{10}{section*.2}
+\contentsline {subsubsection}{Power Supply}{10}{section*.3}
+\contentsline {section}{\numberline {2.2}Implementing individual modules}{10}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Types of electrical circuits}{10}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Logic Gates}{11}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}The Transistor}{11}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Buffers}{11}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Inverters}{12}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}AND Gates}{12}{subsection.2.2.6}
+\contentsline {subsection}{\numberline {2.2.7}OR Gates}{12}{subsection.2.2.7}
+\contentsline {subsection}{\numberline {2.2.8}XOR Gates}{13}{subsection.2.2.8}
+\contentsline {subsection}{\numberline {2.2.9}NAND Gates}{13}{subsection.2.2.9}
+\contentsline {subsection}{\numberline {2.2.10}NOR Gates}{14}{subsection.2.2.10}
+\contentsline {subsection}{\numberline {2.2.11}Flip Flops}{14}{subsection.2.2.11}
+\contentsline {section}{\numberline {2.3}8-Bit Computer Architecture Designed by Ben Eater \cite {eater2019breadboard}}{14}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Main Features}{15}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}High-Level Overview}{15}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Module Design Conventions}{16}{subsection.2.3.3}
+\contentsline {subsubsection}{Simplicity of understanding over cost and efficiency}{16}{section*.4}
+\contentsline {subsubsection}{Connection to the Bus}{16}{section*.5}
+\contentsline {chapter}{\numberline {3}Specification \& Design}{21}{chapter.3}
+\contentsline {section}{\numberline {3.1}Specification Guidelines}{21}{section.3.1}
+\contentsline {section}{\numberline {3.2}Major Architecture Changes}{22}{section.3.2}
+\contentsline {section}{\numberline {3.3}Operational Enhancments}{22}{section.3.3}
+\contentsline {section}{\numberline {3.4}I/O Enhancements}{22}{section.3.4}
+\contentsline {section}{Bibliography}{23}{chapter*.6}

@@ -1,0 +1,129 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 6CCS3PRJ Final Year Individual Project Report
+% luca-dorin.anton@kcl.ac.uk
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{informatics-report}
+\usepackage{color}
+\usepackage[square,sort,comma,numbers]{natbib} %References
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{ {./Images/} }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front Matter - project title, name, supervisor name and date
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{6CCS3PRJ Background Specification Progress Report\\\vspace{0.2cm}Breadboard Computer Architecture}
+\author{Luca-Dorin Anton}
+\studentID{1710700}
+\supervisor{Christian Urban}
+
+\date{\today}
+
+\abstractFile{FrontMatter/abstract.tex}
+\ackFile{FrontMatter/acknowledgements.tex} %Remove line if you do not want acknowledgements
+
+\begin{document}
+\createFrontMatter
+\onehalfspacing
+\tableofcontents
+\doublespacing
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Report Content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% You can write each chapter directly here or in a separate .tex file and use the include command.
+
+\chapter{Introduction}
+As the demand for high speed, low power, efficient and cheap computers rose over the past three decades,
+manufacturers invested heavily into improving production processes, shrinking transistors, pipelining
+instructions, creating new aggressive branch prediction models and implementing more and more functionality
+into the hardware directly. Moore's prediction on the number of electronic components doubling on the
+same surface area every two years held up well until recently when issues of quantum tunnelling started to
+arise. This hasn't stopped the continuous enhancement of microprocessor and microsystems though. Now, instead
+of making components smaller, manufacturers are installing more processing cores onto a single computing chip
+package.
+\begin{figure}[ht]
+  \centering
+  \includegraphics{45nm_quad_core_die}
+  \caption{Intel quad-core 45nm CPU die}
+  \label{intel_die}
+\end{figure}
+\linebreak
+Another way of improving hardware is by implementing complex functionality, which would have been achieved traditionally through software, directly in hardware. An example of this is the implementation of the \emph{Advanced Encryption Standard} (AES) by \emph{Intel} directly in their lineup of CPUs through the \emph{AES-NI} instruction set extension \cite{aes2012ni}.
+While the advantages for modern society of the continuous and accelerated development of hardware cannot be doubted,
+there are also some worrying disadvantages. Such an advanced level of complexity in microprocessor design has been reached, that system and chip designers have started to increasingly rely on abstraction tools like \emph{ High-Level Synesthesis} to accommodate the advanced design requirements and meet user needs, as noted by Coussy in the \emph{User Needs} chapter \cite{coussy2008high}. On the one hand, this increasing complexity of hardware poses challenges for operating system and compiler developers, who need to constantly stay up to date with the newest improvements in the hardware space and integrate them into their products, to ensure user satisfaction and sustained quality over time. One the other hand, people, including developers, are presented with no need to understand the underlying machines with which they are interacting. To quote Bruce Scheiner, a famous cryptographer and computer scientist:
+\begin{quotation}
+People don't understand computers. Computers are magical boxes that do things. People believe what computers tell them. \cite{schneier2011secrets}
+\end{quotation}
+As a possible solution to this general human trend towards treating computers as ~~magical boxes'', this project proposes a simple and understandable \emph{practically implementable} machine architecture which has the same computational capabilities as a Turing machine. \linebreak
+Some core features of the architecture are:
+{\begin{itemize}
+  \item 16-bit word length
+  \item variable clock speed for live execution visualization
+  \item single clock step function
+  \item simplified input and output
+  \item hardware addition and subtraction implementation
+\end{itemize}}
+
+The rest of the report will go through the steps involved in specifying, designing, building and testing the machine and the software to go along with it in great detail.
+\pagebreak
+\section{Inspiration and Motivation}
+The main inspiration for this project is a YouTube series created by \emph{Ben Eater} titled \emph{~~Building an 8-bit breadboard computer!''} \cite{eater2019breadboard}. After going through the content, it became apparent that such a computer could serve as a great learning medium for developing a better understanding of computers, even more so with some hardware improvements and a sizable effort in writing some bespoke software for it. \emph{This project is largely based around Eater's design.} It serves not only as the motivational source for the project, but it also provides a solid foundation for which extension, enhancement and improvement can be within the scope of a final year project.
+
+\section{Objectives}
+The main goal of this project is the physical implementation of a 16-bit computer system modelled after an architecture designed around the ideas of \emph{explainability and ease of understanding} down to the transistor level. Breaking down this objective by specific hardware and software requirements, the following can be stated:
+The main hardware  objectives are:
+\begin{enumerate}
+  \item 16 bit word length
+  \item appropiatley sized memory space
+  \item memory read/write capability
+  \item capability to decode and execute instructions sequentially
+  \item program counter alteration (jumps)
+  \item I/O functionality
+  \item hardware-implemented ability to perform basic arithmetical operations
+  \item simple branching
+  \item variable speed clock
+  \item single step clock function
+\end{enumerate}\pagebreak
+The main software objectives are:
+\begin{enumerate}
+  \item adequate microcode for the control mechanisms
+  \item assembly mnemonics
+  \item assembler package to turn assembly files into binaries
+  \item compiler for the WHILE-language to breadboard computer binaries
+\end{enumerate}
+
+\section{Project Structure}
+The report begins with an in-depth circuit specification, design and analysis literature review. These core skills lay the theoretical foundation necessary for understanding the reasoning for choices when designing the hardware.
+The next section is concerned with a detailed analysis of the computer built by Ben Eater \cite{eater2019breadboard}. Eater's computer serves as the template from which the design of the computer described in this report will originate. As such, it makes sense to analyse it carefully and classify its capabilities. \\
+This will be followed by a specification of what the new computer should achieve in contrast to the capabilities of the existing computer. \\
+The next chapter will cover the updated design of the computer. Important design decisions will be scrutinised and held against the main goals of the project. Both high-level, as well as in-depth design choices, will be taken into account. Main design challenges will be discussed and appropriate solutions presented. \\
+After the design stage is complete, the following chapter will document the build phase. A detailed chronological breakdown of build progress will be presented. Testing will be executed in parallel with the building, so testing documentation will be found in this chapter as well. \\
+With the build phase complete, the software development phase will follow. The design and implementation of the various software tools necessary for running the breadboard computer will be documented in this chapter.
+With the software as well as the hardware ready, a rigorous testing phase will follow, coupled with an in-depth evaluation of the end product in comparison to the success criteria set at the start of the report. \\
+Finally, the conclusion chapter summarises everything done so far and highlights the learning outcomes of the project and the possible continuation paths for future work. \\
+
+\include{Chapters/Background}
+% \include{Chapters/Body}
+\include{Chapters/DesignSpecification}
+% \include{Chapters/Implementation}
+% \include{Chapters/ProfessionalIssues}
+% \include{Chapters/Evaluation}
+% \include{Chapters/Conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% References
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{plain}
+\bibliography{mybib}
+\addcontentsline{toc}{section}{Bibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Appendices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \appendix
+% \include{Appendices/appendix}
+% \include{Appendices/UserGuide}
+% \include{Appendices/SourceCode}
+\end{document}

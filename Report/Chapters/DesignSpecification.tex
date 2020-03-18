@@ -1,0 +1,27 @@
+\chapter{Specification \& Design}
+This chapter of the report focuses on creating a comprehensive set of specifications for the computer
+to be built as a part of the project and then provides a detailed listing of the design choices made to satisfy
+the specifications provided. Since the design will be based on Bean Eater's 8-bit breadboard computer \cite{eater2019breadboard}, most specification criterions will be phrased as additions and enhancements to the existing designs.
+
+\section{Specification Guidelines}
+The specifications which are about to be presented serve the purpose of adding functionality to the 8-bit breadboard computer such that its educational potential is harnessed more effectively, while at the same time avoiding over-complication and over-extensions of scope. As such, it makes sense to list some of the features which will fall out of the scope of this build for practical and time considerations.
+\begin{itemize}
+  \item Interrupts and Interrupt handling
+  \item Processes (The computer will only run one process, there will be no threading interface/ no operating system)
+  \item Floating-Point operations
+  \item Support for any kind of advanced in-hardware operations (for example encryption)
+  \item Native support for signed integers over 16 bits
+  \item Graphical User Interfaces (GUIs)
+  \item Input through traditional peripheral (mouse and keyboard)
+\end{itemize}
+
+\section{Major Architecture Changes}
+The computer should broadly follow the architecture o the 8-bit computer designed and built by Bean Eater \cite{eater2019breadboard}. The major architectural difference should be \emph{the extension to 16-bit words}.
+Since the word length of the computer should be 16 bits, its bus and most of its modules should be extended to accommodate this extra capacity.
+
+\section{Operational Enhancments}
+Besides Addition and Subtraction, the computer should also implement \emph{bit-shifting} (both left and right, with the option to choose to insert a 0 or a 1 after the shift). Bit-shifting is a crucial operation which is very often performed to increase the efficiency of certain operations (for example, multiplication and division by 2 can be expressed in binary as a left or a right shift of 1 bit)
+
+\section{I/O Enhancements}
+Currently, the only way to provide input to the 8-bit computer is by \emph{manually} programming each memory address through dip-switches. This is slow, clunky and prone to errors. There should exist a mechanism to quickly program the computer, for example through an external \emph{microcontroller} like an Arduino. Besides this, there should also exist a way for the computer to request input \emph{while executing} from an external device like a microcontroller.
+Similarly, to provide persistence to the values from calculated by the computer, instead of being able to display only one value at a time, the computer should also have the ability to communicate with an existing external device like a separate microcontroller, providing it with the values it has calculated. In turn, the microcontroller a the be connected to a regular personal computer and then programmed to display those values to the screen.

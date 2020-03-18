@@ -1,0 +1,54 @@
+\begin{thebibliography}{1}
+
+\bibitem{eater2019microcode}
+Eater Ben.
+\newblock Conditional jump instructions.
+\newblock \url{https://www.youtube.com/watch?v=Zg1NdPKoosU}, 2018.
+\newblock Accessed: 2019-12-13.
+
+\bibitem{eater2019highlevel}
+Eater Ben.
+\newblock 8-bit computer high level architecture diagram.
+\newblock \url{https://eater.net/8bit/schematics}, 2019.
+\newblock Accessed: 2019-12-13.
+
+\bibitem{eater2019breadboard}
+Eater Ben.
+\newblock Building an 8-bit breadboard computer!
+\newblock
+  \url{https://www.youtube.com/playlist?list=PLowKtXNTBypGqImE405J2565dvjafglHU},
+  2019.
+\newblock Accessed: 2019-07-15.
+
+\bibitem{coussy2008high}
+Philippe Coussy and Adam Morawiec.
+\newblock {\em High-level synthesis: from algorithm to digital circuit}.
+\newblock Springer Science \& Business Media, 2008.
+
+\bibitem{chm2019mosfet}
+Laws David.
+\newblock Mosfet.
+\newblock
+  \url{https://computerhistory.org/blog/13-sextillion-counting-the-long-winding-road-to-the-most-frequently-manufactured-human-artifact-in-history/?key=13-sextillion-counting-the-long-winding-road-to-the-most-frequently-manufactured-human-artifact-in-history},
+  2018.
+\newblock Accessed: 2019-12-8.
+
+\bibitem{aes2012ni}
+Rott Jeffrey.
+\newblock {(AES-NI)} intel advanced encryption standard instructions.
+\newblock
+  \url{https://software.intel.com/en-us/articles/intel-advanced-encryption-standard-instructions-aes-ni},
+  2012.
+\newblock Accessed: 2019-12-8.
+
+\bibitem{mano2017digital}
+M~Morris Mano.
+\newblock {\em Digital logic and computer design}.
+\newblock Pearson Education India, 2017.
+
+\bibitem{schneier2011secrets}
+Bruce Schneier.
+\newblock {\em Secrets and lies: digital security in a networked world}.
+\newblock John Wiley \& Sons, 2011.
+
+\end{thebibliography}

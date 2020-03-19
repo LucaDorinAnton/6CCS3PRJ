@@ -2028,8 +2028,6 @@ Wire Wire Line
 	2700 9900 2700 10500
 Wire Wire Line
 	2600 9900 2600 10500
-Wire Bus Line
-	2400 10600 6400 10600
 Text Label 6400 10400 1    50   ~ 0
 B0
 Text Label 6300 10400 1    50   ~ 0
@@ -2064,4 +2062,6 @@ Text Label 2600 10400 1    50   ~ 0
 B15
 Text HLabel 6400 10600 2    50   BiDi ~ 0
 BUS
+Wire Bus Line
+	2400 10600 6400 10600
 $EndSCHEMATC

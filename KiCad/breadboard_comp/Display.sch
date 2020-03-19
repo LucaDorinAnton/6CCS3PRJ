@@ -435,8 +435,8 @@ Wire Wire Line
 	2300 6250 2300 6150
 Wire Wire Line
 	2500 6250 2500 6150
-Wire Bus Line
-	1950 1700 1950 4900
 Text HLabel 1950 4900 3    50   BiDi ~ 0
 BUS
+Wire Bus Line
+	1950 1700 1950 4900
 $EndSCHEMATC

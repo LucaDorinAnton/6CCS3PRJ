@@ -1385,8 +1385,8 @@ Wire Wire Line
 Connection ~ 1750 1900
 Wire Wire Line
 	900  1800 1050 1800
-Wire Bus Line
-	1850 2400 9600 2400
 Text HLabel 9600 2400 2    50   BiDi ~ 0
 BUS
+Wire Bus Line
+	1850 2400 9600 2400
 $EndSCHEMATC

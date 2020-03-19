@@ -754,10 +754,6 @@ F 3 "" H 1800 2250 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	1800 2250 1800 2450
-Wire Bus Line
-	1700 6450 9900 6450
-Wire Bus Line
-	1500 900  10000 900 
 Text Label 9950 1250 1    50   ~ 0
 B0
 Text Label 9850 1250 1    50   ~ 0
@@ -826,4 +822,8 @@ Text Label 4150 6300 1    50   ~ 0
 B15
 Text HLabel 1700 6450 0    50   BiDi ~ 0
 BUS
+Wire Bus Line
+	1700 6450 9900 6450
+Wire Bus Line
+	1500 900  10000 900 
 $EndSCHEMATC

@@ -617,8 +617,6 @@ Wire Wire Line
 Wire Wire Line
 	2600 1500 2600 1600
 Wire Wire Line
-	2600 1600 6950 1600
-Wire Wire Line
 	6950 1600 6950 2700
 Text Label 7350 6300 0    50   ~ 0
 B0
@@ -682,12 +680,24 @@ F 3 "~" H 9350 3300 50  0001 C CNN
 	1    9350 3300
 	1    0    0    -1  
 $EndComp
-Wire Bus Line
-	3150 1050 7900 1050
-Wire Bus Line
-	3450 6500 7350 6500
 Text HLabel 3150 1050 0    50   BiDi ~ 0
 BUS
 Text HLabel 3450 6500 0    50   BiDi ~ 0
 BUS
+Wire Wire Line
+	4850 2700 4850 1600
+Connection ~ 4850 1600
+Wire Wire Line
+	4850 1600 6950 1600
+Wire Wire Line
+	2750 2700 2750 1600
+Wire Wire Line
+	2600 1600 2750 1600
+Wire Bus Line
+	3150 1050 7900 1050
+Wire Bus Line
+	3450 6500 7350 6500
+Connection ~ 2750 1600
+Wire Wire Line
+	2750 1600 4850 1600
 $EndSCHEMATC

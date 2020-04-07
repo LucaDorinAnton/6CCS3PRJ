@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 18
+Sheet 18 18
 Title ""
 Date ""
 Rev ""
@@ -428,21 +428,21 @@ Wire Wire Line
 	9400 2500 9400 3250
 Wire Wire Line
 	9500 2500 9500 3250
-Text Label 9500 2600 1    50   ~ 0
+Text Label 8800 2600 1    50   ~ 0
 B0
-Text Label 9400 2650 1    50   ~ 0
+Text Label 8900 2650 1    50   ~ 0
 B1
-Text Label 9300 2750 1    50   ~ 0
+Text Label 9000 2750 1    50   ~ 0
 B2
-Text Label 9200 2800 1    50   ~ 0
+Text Label 9100 2800 1    50   ~ 0
 B3
-Text Label 9100 2850 1    50   ~ 0
+Text Label 9200 2850 1    50   ~ 0
 B4
-Text Label 9000 2900 1    50   ~ 0
+Text Label 9300 2900 1    50   ~ 0
 B5
-Text Label 8900 2950 1    50   ~ 0
+Text Label 9400 2950 1    50   ~ 0
 B6
-Text Label 8800 3000 1    50   ~ 0
+Text Label 9500 3000 1    50   ~ 0
 B7
 Entry Wire Line
 	6550 2400 6650 2500
@@ -476,30 +476,26 @@ Wire Wire Line
 	7250 2500 7250 3250
 Wire Wire Line
 	7350 2500 7350 3250
-Text Label 7350 2600 1    50   ~ 0
+Text Label 6650 2600 1    50   ~ 0
 B8
-Text Label 7250 2650 1    50   ~ 0
+Text Label 6750 2650 1    50   ~ 0
 B9
-Text Label 7150 2750 1    50   ~ 0
+Text Label 6850 2750 1    50   ~ 0
 B10
-Text Label 7050 2800 1    50   ~ 0
+Text Label 6950 2800 1    50   ~ 0
 B11
-Text Label 6950 2850 1    50   ~ 0
+Text Label 7050 2850 1    50   ~ 0
 B12
-Text Label 6850 2900 1    50   ~ 0
+Text Label 7150 2900 1    50   ~ 0
 B13
-Text Label 6750 2950 1    50   ~ 0
+Text Label 7250 2950 1    50   ~ 0
 B14
-Text Label 6650 3000 1    50   ~ 0
+Text Label 7350 3000 1    50   ~ 0
 B15
 Wire Wire Line
 	2650 4250 2650 4650
 Wire Wire Line
-	7350 4650 7350 4250
-Wire Wire Line
 	2550 4250 2550 4750
-Wire Wire Line
-	7250 4750 7250 4250
 Wire Wire Line
 	2450 4250 2450 4850
 Wire Wire Line
@@ -523,39 +519,23 @@ Wire Wire Line
 Wire Wire Line
 	5150 4250 5150 5650
 Wire Wire Line
-	9500 5650 9500 4250
-Wire Wire Line
 	5050 4250 5050 5750
-Wire Wire Line
-	9400 5750 9400 4250
 Wire Wire Line
 	4950 4250 4950 5850
 Wire Wire Line
 	4950 5850 5550 5850
 Wire Wire Line
-	9300 5850 9300 4250
-Wire Wire Line
 	4850 4250 4850 5950
-Wire Wire Line
-	9200 5950 9200 4250
 Wire Wire Line
 	4750 4250 4750 6050
 Wire Wire Line
-	9100 6050 9100 4250
-Wire Wire Line
 	4650 4250 4650 6150
 Wire Wire Line
-	9000 6150 9000 4250
-Wire Wire Line
 	4550 4250 4550 6250
-Wire Wire Line
-	8900 6250 8900 4250
 Wire Wire Line
 	4450 4250 4450 6350
 Wire Wire Line
 	4450 6350 4550 6350
-Wire Wire Line
-	8800 6350 8800 4250
 $Comp
 L power:GND #PWR?
 U 1 1 5E6467E7
@@ -1269,7 +1249,7 @@ Wire Wire Line
 	4350 6700 4350 4650
 Connection ~ 4350 4650
 Wire Wire Line
-	4350 4650 7350 4650
+	4350 4650 6650 4650
 Wire Wire Line
 	4150 4750 4150 6700
 Wire Wire Line
@@ -1284,54 +1264,46 @@ Wire Wire Line
 	4550 6700 4550 6350
 Connection ~ 4550 6350
 Wire Wire Line
-	4550 6350 8800 6350
-Wire Wire Line
 	4750 6700 4750 6250
 Wire Wire Line
 	4550 6250 4750 6250
 Connection ~ 4750 6250
-Wire Wire Line
-	4750 6250 8900 6250
 Wire Wire Line
 	4950 6700 4950 6150
 Wire Wire Line
 	4650 6150 4950 6150
 Connection ~ 4950 6150
 Wire Wire Line
-	4950 6150 9000 6150
-Wire Wire Line
 	5150 6700 5150 6050
 Wire Wire Line
 	4750 6050 5150 6050
 Connection ~ 5150 6050
-Wire Wire Line
-	5150 6050 9100 6050
 Wire Wire Line
 	5350 6700 5350 5950
 Wire Wire Line
 	4850 5950 5350 5950
 Connection ~ 5350 5950
 Wire Wire Line
-	5350 5950 9200 5950
+	5350 5950 9100 5950
 Wire Wire Line
 	5550 6700 5550 5850
 Connection ~ 5550 5850
 Wire Wire Line
-	5550 5850 9300 5850
+	5550 5850 9000 5850
 Wire Wire Line
 	5750 6700 5750 5750
 Wire Wire Line
 	5050 5750 5750 5750
 Connection ~ 5750 5750
 Wire Wire Line
-	5750 5750 9400 5750
+	5750 5750 8900 5750
 Wire Wire Line
 	5950 6700 5950 5650
 Wire Wire Line
 	5150 5650 5950 5650
 Connection ~ 5950 5650
 Wire Wire Line
-	5950 5650 9500 5650
+	5950 5650 8800 5650
 Wire Wire Line
 	1250 2150 6350 2150
 Wire Wire Line
@@ -1355,50 +1327,48 @@ Wire Wire Line
 	4250 1900 1750 1900
 Connection ~ 1750 1900
 Connection ~ 4150 4750
-Wire Wire Line
-	4150 4750 7250 4750
 $Comp
 L power:GND #PWR0100
 U 1 1 5EFB5A5B
-P 6900 4400
-F 0 "#PWR0100" H 6900 4150 50  0001 C CNN
-F 1 "GND" H 6905 4227 50  0000 C CNN
-F 2 "" H 6900 4400 50  0001 C CNN
-F 3 "" H 6900 4400 50  0001 C CNN
-	1    6900 4400
+P 7100 4400
+F 0 "#PWR0100" H 7100 4150 50  0001 C CNN
+F 1 "GND" H 7105 4227 50  0000 C CNN
+F 2 "" H 7100 4400 50  0001 C CNN
+F 3 "" H 7100 4400 50  0001 C CNN
+	1    7100 4400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6650 4250 6650 4350
+	6850 4250 6850 4350
 Wire Wire Line
-	6650 4350 6750 4350
+	6850 4350 6950 4350
+Wire Wire Line
+	7350 4350 7350 4250
+Wire Wire Line
+	7250 4250 7250 4350
+Connection ~ 7250 4350
+Wire Wire Line
+	7250 4350 7350 4350
+Wire Wire Line
+	7100 4350 7100 4400
+Connection ~ 7100 4350
+Wire Wire Line
+	7100 4350 7150 4350
 Wire Wire Line
 	7150 4350 7150 4250
+Connection ~ 7150 4350
+Wire Wire Line
+	7150 4350 7250 4350
 Wire Wire Line
 	7050 4250 7050 4350
 Connection ~ 7050 4350
 Wire Wire Line
-	7050 4350 7150 4350
-Wire Wire Line
-	6900 4350 6900 4400
-Connection ~ 6900 4350
-Wire Wire Line
-	6900 4350 6950 4350
+	7050 4350 7100 4350
 Wire Wire Line
 	6950 4350 6950 4250
 Connection ~ 6950 4350
 Wire Wire Line
 	6950 4350 7050 4350
-Wire Wire Line
-	6850 4250 6850 4350
-Connection ~ 6850 4350
-Wire Wire Line
-	6850 4350 6900 4350
-Wire Wire Line
-	6750 4350 6750 4250
-Connection ~ 6750 4350
-Wire Wire Line
-	6750 4350 6850 4350
 Text HLabel 2200 5700 0    50   Output ~ 0
 IR10
 Text HLabel 2200 5800 0    50   Output ~ 0
@@ -1447,6 +1417,36 @@ Wire Wire Line
 	2950 6200 2950 6700
 Text HLabel 9600 2400 2    50   BiDi ~ 0
 BUS
+Wire Wire Line
+	4150 4750 6750 4750
+Wire Wire Line
+	8800 4250 8800 5650
+Wire Wire Line
+	8900 5750 8900 4250
+Wire Wire Line
+	9000 4250 9000 5850
+Wire Wire Line
+	9100 5950 9100 4250
+Wire Wire Line
+	5150 6050 9200 6050
+Wire Wire Line
+	9200 4250 9200 6050
+Wire Wire Line
+	9300 6150 9300 4250
+Wire Wire Line
+	4950 6150 9300 6150
+Wire Wire Line
+	9400 4250 9400 6250
+Wire Wire Line
+	4750 6250 9400 6250
+Wire Wire Line
+	9500 6350 9500 4250
+Wire Wire Line
+	4550 6350 9500 6350
+Wire Wire Line
+	6650 4250 6650 4650
+Wire Wire Line
+	6750 4750 6750 4250
 Wire Bus Line
 	1850 2400 9600 2400
 $EndSCHEMATC

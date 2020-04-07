@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 14 18
+Sheet 13 18
 Title ""
 Date ""
 Rev ""
@@ -15,37 +15,37 @@ Comment4 ""
 $EndDescr
 Text Notes 5550 1800 0    50   ~ 10
 16-Bit Common Bus
-Text HLabel 5600 5050 3    50   BiDi ~ 0
-ARDUINO_IO_1
-Text HLabel 5700 5050 3    50   BiDi ~ 0
-ARDUINO_IO_2
-Text HLabel 5500 5050 3    50   BiDi ~ 0
-ARDUINO_IO_0
-Text HLabel 5800 5050 3    50   BiDi ~ 0
-ARDUINO_IO_3
-Text HLabel 6000 5050 3    50   BiDi ~ 0
-ARDUINO_IO_5
-Text HLabel 6100 5050 3    50   BiDi ~ 0
-ARDUINO_IO_6
-Text HLabel 6200 5050 3    50   BiDi ~ 0
-ARDUINO_IO_7
-Text HLabel 7500 5050 3    50   BiDi ~ 0
-ARDUINO_IO_8
 Text HLabel 7600 5050 3    50   BiDi ~ 0
-ARDUINO_IO_9
+ARDUINO_IO_1
 Text HLabel 7700 5050 3    50   BiDi ~ 0
-ARDUINO_IO_10
+ARDUINO_IO_2
+Text HLabel 7500 5050 3    50   BiDi ~ 0
+ARDUINO_IO_0
 Text HLabel 7800 5050 3    50   BiDi ~ 0
-ARDUINO_IO_11
-Text HLabel 7900 5050 3    50   BiDi ~ 0
-ARDUINO_IO_12
+ARDUINO_IO_3
 Text HLabel 8000 5050 3    50   BiDi ~ 0
-ARDUINO_IO_13
+ARDUINO_IO_5
 Text HLabel 8100 5050 3    50   BiDi ~ 0
-ARDUINO_IO_14
+ARDUINO_IO_6
 Text HLabel 8200 5050 3    50   BiDi ~ 0
-ARDUINO_IO_15
+ARDUINO_IO_7
+Text HLabel 5500 5050 3    50   BiDi ~ 0
+ARDUINO_IO_8
+Text HLabel 5600 5050 3    50   BiDi ~ 0
+ARDUINO_IO_9
+Text HLabel 5700 5050 3    50   BiDi ~ 0
+ARDUINO_IO_10
+Text HLabel 5800 5050 3    50   BiDi ~ 0
+ARDUINO_IO_11
 Text HLabel 5900 5050 3    50   BiDi ~ 0
+ARDUINO_IO_12
+Text HLabel 6000 5050 3    50   BiDi ~ 0
+ARDUINO_IO_13
+Text HLabel 6100 5050 3    50   BiDi ~ 0
+ARDUINO_IO_14
+Text HLabel 6200 5050 3    50   BiDi ~ 0
+ARDUINO_IO_15
+Text HLabel 7900 5050 3    50   BiDi ~ 0
 ARDUINO_IO_4
 Text HLabel 4300 5000 3    50   Output ~ 0
 CLK_ARDUINO
@@ -312,37 +312,37 @@ Wire Wire Line
 	8600 1850 8600 1950
 Text HLabel 4150 5000 3    50   Output ~ 0
 R-~W~_ARDUINO
-Text Label 8200 1950 3    50   ~ 0
+Text Label 7500 2050 3    50   ~ 0
 B0
-Text Label 8100 1950 3    50   ~ 0
+Text Label 7600 2050 3    50   ~ 0
 B1
-Text Label 8000 1950 3    50   ~ 0
+Text Label 7700 2050 3    50   ~ 0
 B2
-Text Label 7900 1950 3    50   ~ 0
+Text Label 7800 2050 3    50   ~ 0
 B3
-Text Label 7800 1950 3    50   ~ 0
+Text Label 7900 2050 3    50   ~ 0
 B4
-Text Label 7700 1950 3    50   ~ 0
+Text Label 8000 2050 3    50   ~ 0
 B5
-Text Label 7600 1950 3    50   ~ 0
+Text Label 8100 2050 3    50   ~ 0
 B6
-Text Label 7500 1950 3    50   ~ 0
+Text Label 8200 2050 3    50   ~ 0
 B7
-Text Label 6200 1950 3    50   ~ 0
+Text Label 5500 2050 3    50   ~ 0
 B8
-Text Label 6100 1950 3    50   ~ 0
+Text Label 5600 2050 3    50   ~ 0
 B9
-Text Label 6000 2050 1    50   ~ 0
+Text Label 5700 2150 1    50   ~ 0
 B10
-Text Label 5900 2050 1    50   ~ 0
+Text Label 5800 2150 1    50   ~ 0
 B11
-Text Label 5800 2050 1    50   ~ 0
+Text Label 5900 2150 1    50   ~ 0
 B12
-Text Label 5700 2050 1    50   ~ 0
+Text Label 6000 2150 1    50   ~ 0
 B13
-Text Label 5600 2050 1    50   ~ 0
+Text Label 6100 2150 1    50   ~ 0
 B14
-Text Label 5500 2050 1    50   ~ 0
+Text Label 6200 2150 1    50   ~ 0
 B15
 Text HLabel 3700 1800 0    50   BiDi ~ 0
 BUS

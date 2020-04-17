@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A2 16535 23386 portrait
 encoding utf-8
-Sheet 1 18
+Sheet 1 19
 Title ""
 Date ""
 Rev ""
@@ -2519,4 +2519,10 @@ F12 "BUS" B R 4000 17700 50
 $EndSheet
 Wire Bus Line
 	7650 19500 15550 19500
+$Sheet
+S 14250 15100 1200 1300
+U 5E9E51CE
+F0 "Test" 50
+F1 "test.sch" 50
+$EndSheet
 $EndSCHEMATC

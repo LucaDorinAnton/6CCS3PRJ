@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.12.12)  13 DEC 2019 17:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.12.12)  16 APR 2020 23:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -537,186 +537,198 @@ File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 62.
- [3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 98--106
+ [3]
+<./Images/sap1.jpeg, id=121, 216.81pt x 256.96pt>
+File: ./Images/sap1.jpeg Graphic file (type jpg)
+<use ./Images/sap1.jpeg>
+Package pdftex.def Info: ./Images/sap1.jpeg  used on input line 76.
+(pdftex.def)             Requested size: 216.80946pt x 256.95937pt.
+ [4pdfTeX warning (ext4): destination with the same identifier (name{figure.1.2
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.87   \item 1
+              6 bit word length <./Images/sap1.jpeg>] [5]
+Underfull \hbox (badness 10000) in paragraph at lines 107--115
 
  []
 
-[5]
+[6]
 \openout2 = `Chapters/Background.aux'.
 
  (./Chapters/Background.tex
 Chapter 2.
-[6
+[7
 
 
 ]
-<./Images/comp_architecture.png, id=148, 335.00156pt x 236.38312pt>
+<./Images/comp_architecture.png, id=157, 335.00156pt x 236.38312pt>
 File: ./Images/comp_architecture.png Graphic file (type png)
 <use ./Images/comp_architecture.png>
 Package pdftex.def Info: ./Images/comp_architecture.png  used on input line 31.
 
 (pdftex.def)             Requested size: 335.00073pt x 236.38254pt.
- [7] [8pdfTeX warning (ext4): destination with the same identifier (name{figure
+ [8] [9pdfTeX warning (ext4): destination with the same identifier (name{figure
 .2.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.47 
-      <./Images/comp_architecture.png>] [9] [10]
-<./Images/trans.png, id=186, 261.97874pt x 207.77625pt>
-File: ./Images/trans.png Graphic file (type png)
-<use ./Images/trans.png>
-Package pdftex.def Info: ./Images/trans.png  used on input line 84.
-(pdftex.def)             Requested size: 261.9781pt x 207.77573pt.
- [11pdfTeX warning (ext4): destination with the same identifier (name{figure.2.
-2}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.104 T
-       O DO: ADD CIRCUIT DIAGRAM <./Images/trans.png>] [12pdfTeX warning (ext4)
-: destination with the same identifier (name{table.2.1}) has been already used,
- duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.153 T
-       O DO: ADD CIRCUIT DIAGRAMpdfTeX warning (ext4): destination with the sam
-e identifier (name{table.2.2}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.153 T
-       O DO: ADD CIRCUIT DIAGRAMpdfTeX warning (ext4): destination with the sam
-e identifier (name{table.2.3}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.153 T
-       O DO: ADD CIRCUIT DIAGRAM] [13pdfTeX warning (ext4): destination with th
-e same identifier (name{table.2.4}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.205 \end{table}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{table.2.5}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.205 \end{table}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{table.2.6}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.205 \end{table}
-                 ]
+      <./Images/comp_architecture.png>] [10]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\begingroup' on input line 213.
+(hyperref)                removing `\begingroup' on input line 70.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\<let>-command' on input line 213.
+(hyperref)                removing `\<let>-command' on input line 70.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\NAT@ctype' on input line 213.
+(hyperref)                removing `\NAT@ctype' on input line 70.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\z@' on input line 213.
+(hyperref)                removing `\z@' on input line 70.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\let' on input line 213.
+(hyperref)                removing `\let' on input line 70.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\let' on input line 213.
+(hyperref)                removing `\let' on input line 70.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 213.
+(hyperref)                removing `\@ifnextchar' on input line 70.
 
-[14pdfTeX warning (ext4): destination with the same identifier (name{table.2.7}
-) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.219   \item 1
-               6 by 8 memory space (4-bit addresses, 8-bit words)]
-Overfull \hbox (1.05206pt too wide) in paragraph at lines 224--225
+[11]
+Overfull \hbox (1.05206pt too wide) in paragraph at lines 81--82
 []\OT1/lmr/m/n/10 Microcode-based con-trol logic us-ing \OT1/lmr/m/it/10 EEP-RO
 Ms \OT1/lmr/m/n/10 (elec-tron-i-cally erasable and pro-grammable
  []
 
-<./Images/8-bit-high-level.png, id=228, 335.00156pt x 467.49657pt>
+<./Images/8-bit-high-level.png, id=195, 335.00156pt x 467.49657pt>
 File: ./Images/8-bit-high-level.png Graphic file (type png)
 <use ./Images/8-bit-high-level.png>
-Package pdftex.def Info: ./Images/8-bit-high-level.png  used on input line 231.
-
+Package pdftex.def Info: ./Images/8-bit-high-level.png  used on input line 88.
 (pdftex.def)             Requested size: 335.00073pt x 467.49542pt.
-[15]
-
-LaTeX Warning: Reference `eater2019clock' on page 16 undefined on input line 25
-4.
-
-<./Images/8-bit-clock.png, id=252, 494.59781pt x 285.31593pt>
+[12]
+<./Images/8-bit-clock.png, id=219, 494.59781pt x 285.31593pt>
 File: ./Images/8-bit-clock.png Graphic file (type png)
 <use ./Images/8-bit-clock.png>
-Package pdftex.def Info: ./Images/8-bit-clock.png  used on input line 258.
+Package pdftex.def Info: ./Images/8-bit-clock.png  used on input line 115.
 (pdftex.def)             Requested size: 494.59659pt x 285.31523pt.
 
-Overfull \hbox (82.6567pt too wide) in paragraph at lines 258--259
+Overfull \hbox (82.6567pt too wide) in paragraph at lines 115--116
  [][] 
  []
 
-[16]
-<./Images/8-bit-a-register.png, id=265, 449.42906pt x 329.73187pt>
+[13]
+<./Images/8-bit-a-register.png, id=232, 449.42906pt x 329.73187pt>
 File: ./Images/8-bit-a-register.png Graphic file (type png)
 <use ./Images/8-bit-a-register.png>
-Package pdftex.def Info: ./Images/8-bit-a-register.png  used on input line 271.
+Package pdftex.def Info: ./Images/8-bit-a-register.png  used on input line 128.
 
 (pdftex.def)             Requested size: 449.42795pt x 329.73105pt.
 
-Overfull \hbox (37.48805pt too wide) in paragraph at lines 271--272
+Overfull \hbox (37.48805pt too wide) in paragraph at lines 128--129
  [][] 
  []
 
-) [17] [18pdfTeX warning (ext4): destination with the same identifier (name{fig
-ure.2.3}) has been already used, duplicate ignored
+) [14] [15pdfTeX warning (ext4): destination with the same identifier (name{fig
+ure.2.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.107 \include{Chapters/Background}
-                                    <./Images/8-bit-high-level.png>] [19pdfTeX 
-warning (ext4): destination with the same identifier (name{figure.2.4}) has bee
+l.116 \include{Chapters/Background}
+                                    <./Images/8-bit-high-level.png>] [16pdfTeX 
+warning (ext4): destination with the same identifier (name{figure.2.3}) has bee
 n already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.107 \include{Chapters/Background}
-                                    <./Images/8-bit-clock.png>] [20pdfTeX warni
-ng (ext4): destination with the same identifier (name{figure.2.5}) has been alr
+l.116 \include{Chapters/Background}
+                                    <./Images/8-bit-clock.png>] [17pdfTeX warni
+ng (ext4): destination with the same identifier (name{figure.2.4}) has been alr
 eady used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.107 \include{Chapters/Background}
+l.116 \include{Chapters/Background}
                                     <./Images/8-bit-a-register.png>]
 \openout2 = `Chapters/DesignSpecification.aux'.
 
 
 (./Chapters/DesignSpecification.tex
 Chapter 3.
-[21
+[18
 
 
 
-]) [22] (./report.bbl
+] [19]
+<./Images/16-bit-layout.png, id=273, 290.08376pt x 628.3475pt>
+File: ./Images/16-bit-layout.png Graphic file (type png)
+<use ./Images/16-bit-layout.png>
+Package pdftex.def Info: ./Images/16-bit-layout.png  used on input line 55.
+(pdftex.def)             Requested size: 290.08304pt x 628.34596pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[20] [21pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.3.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.59 \clearpage
+                <./Images/16-bit-layout.png>]
+
+LaTeX Warning: Reference `alu' on page 22 undefined on input line 68.
+
+
+LaTeX Warning: Reference `addr-select' on page 22 undefined on input line 80.
+
+[22
+
+]
+
+LaTeX Warning: Reference `alu' on page 23 undefined on input line 114.
+
+[23]
+
+LaTeX Warning: Reference `alu' on page 24 undefined on input line 121.
+
+
+Overfull \hbox (0.73459pt too wide) in paragraph at lines 119--124
+\OT1/lmr/m/n/10 also have a di-rect 16-bit con-nec-tion to the \OT1/lmr/m/it/10
+ ALU []\OT1/lmr/m/n/10 . $\OML/lmm/m/it/10 InputControlSignals \OT1/lmr/m/n/10 
+: \OML/lmm/m/it/10 CLK; BI; []; []$
+ []
+
+
+LaTeX Warning: Reference `alu' on page 24 undefined on input line 143.
+
+[24]
+
+LaTeX Warning: Reference `addr-select' on page 25 undefined on input line 174.
+
+[25] [26] [27] [28]
+
+LaTeX Warning: Reference `arduino2020mega' on page 29 undefined on input line 2
+76.
+
+
+Overfull \hbox (462.3201pt too wide) in paragraph at lines 281--289
+\OML/lmm/m/it/10 InputControlSignals \OT1/lmr/m/n/10 : []$ $\OML/lmm/m/it/10 Ou
+tputControlSignals \OT1/lmr/m/n/10 : \OML/lmm/m/it/10 HLT; []; AI; []; BI; []; 
+[]; SU; FI; CI; []; SI; []; SFL; SFR; RI; RO; CE; []; []; []; []; []; []; OUT; 
+[]; R=[]; MI; II; []$
+ []
+
+) [29] (./report.bbl
 LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 6.
  (/usr/share/texmf/tex/latex/lm/ot1lmtt.fd
 File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -727,79 +739,68 @@ m/n/10 https : / / www . youtube . com / watch ? v =
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 29--35
-[]\OT1/lmr/m/n/10 Laws David.  Mos-fet.  []$\OT1/lmtt/m/n/10 https : / / comput
-erhistory . org / blog /
+Underfull \hbox (badness 10000) in paragraph at lines 29--33
+[]\OT1/lmr/m/n/10 Arduino Foun-da-tion.  Ar-duino mega rev3.  []$\OT1/lmtt/m/n/
+10 https : / / store . arduino . cc /
  []
 
 
-Overfull \hbox (172.86398pt too wide) in paragraph at lines 29--35
-\OT1/lmtt/m/n/10 13-[]sextillion-[]counting-[]the-[]long-[]winding-[]road-[]to-
-[]the-[]most-[]frequently-[]manufactured-[]human-[]artifact-[]in-[]history /
- []
-
-
-Overfull \hbox (196.64168pt too wide) in paragraph at lines 29--35
-\OT1/lmtt/m/n/10 ?key = 13-[]sextillion-[]counting-[]the-[]long-[]winding-[]roa
-d-[]to-[]the-[]most-[]frequently-[]manufactured-[]human-[]artifact-[]in-[]histo
-ry$[]\OT1/lmr/m/n/10 ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 37--43
+Underfull \hbox (badness 10000) in paragraph at lines 35--41
 []\OT1/lmr/m/n/10 Rott Jef-frey.  (AES-NI) in-tel ad-vanced en-cryp-tion stan-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--43
+Underfull \hbox (badness 10000) in paragraph at lines 35--41
 \OT1/lmr/m/n/10 dard in-struc-tions.  []$\OT1/lmtt/m/n/10 https : / / software 
 . intel . com / en-[]us / articles /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 37--43
+Underfull \hbox (badness 10000) in paragraph at lines 35--41
 \OT1/lmtt/m/n/10 intel-[]advanced-[]encryption-[]standard-[]instructions-[]aes-
 []ni$[]\OT1/lmr/m/n/10 , 2012.  Ac-cessed:
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 129.
- [23
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 138.
+ [30
 
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 129.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 138.
  (./report.aux (./Chapters/Background.aux)
 (./Chapters/DesignSpecification.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 129.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 129.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 138.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 138.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 8E209E53ADFD14AF185D5BC2B3EC6EC3;937.
+(rerunfilecheck)             Checksum: 669303CA537C34E91B2651F03C718507;961.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 129.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 138.
  ) 
 Here is how much of TeX's memory you used:
- 7582 strings out of 492982
- 112485 string characters out of 6134895
- 209686 words of memory out of 5000000
- 10912 multiletter control sequences out of 15000+600000
+ 7648 strings out of 492982
+ 113252 string characters out of 6134895
+ 209543 words of memory out of 5000000
+ 10934 multiletter control sequences out of 15000+600000
  45731 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 33i,10n,34p,968b,405s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 33i,7n,34p,968b,403s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-rmtt.enc}{/usr/share/texmf/fonts/enc/
-dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}</usr/sha
-re/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/
-lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/tex
-mf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri
-10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fon
-ts/type1/public/lm/lmtt10.pfb>
-Output written on report.pdf (27 pages, 400191 bytes).
+dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/sha
+re/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/public/
+lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/te
+xmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lm
+mi7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fon
+ts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb><
+/usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1
+/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb>
+Output written on report.pdf (34 pages, 512899 bytes).
 PDF statistics:
- 372 PDF objects out of 1000 (max. 8388607)
- 319 compressed objects within 4 object streams
- 118 named destinations out of 1000 (max. 500000)
- 148 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 497 PDF objects out of 1000 (max. 8388607)
+ 432 compressed objects within 5 object streams
+ 159 named destinations out of 1000 (max. 500000)
+ 153 words of extra memory for PDF output out of 10000 (max. 10000000)
 

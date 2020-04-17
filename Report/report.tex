@@ -69,7 +69,16 @@ Some core features of the architecture are:
 The rest of the report will go through the steps involved in specifying, designing, building and testing the machine and the software to go along with it in great detail.
 \pagebreak
 \section{Inspiration and Motivation}
-The main inspiration for this project is a YouTube series created by \emph{Ben Eater} titled \emph{~~Building an 8-bit breadboard computer!''} \cite{eater2019breadboard}. After going through the content, it became apparent that such a computer could serve as a great learning medium for developing a better understanding of computers, even more so with some hardware improvements and a sizable effort in writing some bespoke software for it. \emph{This project is largely based around Eater's design.} It serves not only as the motivational source for the project, but it also provides a solid foundation for which extension, enhancement and improvement can be within the scope of a final year project.
+The main inspiration for this project is a YouTube series created by \emph{Ben Eater} titled \emph{~~Building an 8-bit breadboard computer!''} \cite{eater2019breadboard}. Eater's computer is itself a physical implementation of a theoretical
+architecture called \emph{SAP-1}, which stands for \emph{Simple as Possible}. There are three variants of the SAP Architecture, SAP-1, SAP-2 and SAP-3, in inreasing order of complexity, all of which have been created by Malvino and Brown in their book \emph{Digital computer electronics} \cite{malvino1992digital}.
+\begin{figure}[ht]
+  \centering
+  \includegraphics{sap1}
+  \caption{Block Diagram of the SAP-1 architecture}
+  \label{sap1}
+\end{figure}
+\linebreak
+After going through the content, it became apparent that such a computer could serve as a great learning medium for developing a better understanding of computers, even more so with some hardware improvements and a sizable effort in writing some bespoke software for it. \emph{This project is largely based around Eater's design.} It serves not only as the motivational source for the project, but it also provides a solid foundation for which extension, enhancement and improvement can be within the scope of a final year project.
 
 \section{Objectives}
 The main goal of this project is the physical implementation of a 16-bit computer system modelled after an architecture designed around the ideas of \emph{explainability and ease of understanding} down to the transistor level. Breaking down this objective by specific hardware and software requirements, the following can be stated:

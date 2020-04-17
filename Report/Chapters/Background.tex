@@ -36,7 +36,7 @@ Each individual component will be discussed in great detail in this report.
 Figure \ref{comp_architecture} is a block diagram based on the previous listing of modules. The Data Bus is represented as the double-ended arrows connecting the different components together. The clock is omitted.
 
 \subsection{The Processor}
-The processor module is tasked with executing certain operations on data. Its mode of operation is only dependent on two inputs: the data to be operated on and the operation to be applied to that data. As such, the processor does not have to hold any kind of internal state; its output will always be the same for a certain input. This makes the processor a \emph{cobinatorial circuit}, meaning that it just implements some (albeit complex) logic function and does not have any internal state or memory.
+The processor module is tasked with executing certain operations on data. Its mode of operation is only dependent on two inputs: the data to be operated on and the operation to be applied to that data. As such, the processor does not have to hold any kind of internal state; its output will always be the same for a certain input. This makes the processor a \emph{combinatorial circuit}, meaning that it just implements some (albeit complex) logic function and does not have any internal state or memory.
 
 \subsection{Memory}
 Memory serves the purpose of storing data and instructions and returning the stored information when requested. By nature, it is a \emph{sequential} circuit, meaning that it has some internal state besides the logical function implementations used to communicate with the rest of the computer. Memory is organized in addresses, each address storing a word of information.
@@ -61,157 +61,14 @@ Besides the main modules listed above, there are a few more components which are
 Registers are small memory units which can store only one word of memory. A computer system normally has a very limited amount of registers. In modern computers, registers have much shorter access times than memory. Besides storing data and programs, registers can have special functions, for example, input and output registers, registers tied to certain operations, flags registers and instruction registers.
 
 \subsubsection{Power Supply}
-Since the focus of this project is electrical computers, some sort of electrical power supply will be necessary. A simple solution for a power supply based on a mobile phone charger will be presented in a later section of the report.
+Since the focus of this project is electrical computers, some sort of electrical power supply will be necessary. A simple solution for a power supply based on a standard ATX power supply will be presented in a later section of the report.
 
 \section{Implementing individual modules}
-With the general architecture of a computer system in place, the next design step is to create and implement design for each individual module. This can be achieved by using circuit design theory and best practices.
-
-\subsection{Types of electrical circuits}
-Electrical circuits can be broadly classified into two main categories: \emph{combinatorial} and \emph{sequential} circuits. \emph{Combinatorial circuits} are circuits without any internal state (no memory) which implement a certain logic function. A logic function maps binary inputs to binary outputs. They are implemented as cascading layers of \emph{logic gates.} The main techniques which can be used to transform a logic function into a combinatorial circuit are standard form reductions, map creations and adequate use of don't care conditions (input/output conditions which are considered to be invalid/ will never happen). \emph{Sequential circuits} are composed of two parts:
-\begin{enumerate}
-  \item A memory structure usually built out of \emph{flip flops}
-  \item One ore more combinatorial circuits, implementing some logical functions
-\end{enumerate}
-
-\subsection{Logic Gates}
-Logic gates are electronic devices usually built out of transistors which perform certain logic functions.
-A \emph{logic function} is a function which maps binary inputs to binary outputs.
-
-\subsection{The Transistor}
-A transistor is an electronic device which allows the control of the flow of one current source through a second, potentially smaller current source. This serves as the basic component for creating more advanced electronic components like logic gates.
-\begin{figure}[h]
-  \centering
-  \includegraphics{trans}
-  \caption{Transistor Symbol}
-  \label{trans}
-\end{figure}
-Today, the most popular type of transistor and the most widley produced device in the world is the MOSFET \cite{chm2019mosfet}.
+With the general architecture of a computer system in place, the next design step is to create and implement designs for each individual module. This can be achieved by using circuit design theory and best practices, which are the ~~tools'' in the circuits designer's ~~toolbox''. An in-depth analysis of these can be found in the Appendix section of the report.
 
 
-\subsection{Buffers}
-Buffers are simple logic gates which just pass through the signal they receive.
-\begin{table}[H]
-\centering
-\begin{tabular}{l|l}
-\hline
-\multicolumn{1}{|l|}{\textbf{A}} & \multicolumn{1}{l|}{\textbf{B}} \\ \hline
-0                                & 0                               \\
-1                                & 1
-\end{tabular}
-\caption{Truth table of a buffer}
-\label{tab:buffer-table}
-\end{table}
-TO DO: ADD CIRCUIT DIAGRAM
-
-\subsection{Inverters}
-Inverters are similar in complexity to buffers. They invert the signal they receive.
-\begin{table}[H]
-\centering
-\begin{tabular}{l|l}
-\hline
-\multicolumn{1}{|l|}{\textbf{A}} & \multicolumn{1}{l|}{\textbf{B}} \\ \hline
-0                                & 1                               \\
-1                                & 0
-\end{tabular}
-\caption{Truth table of an inverter}
-\label{tab:inverter-table}
-\end{table}
-TO DO: ADD CIRCUIT DIAGRAM
-
-\subsection{AND Gates}
-And gates output a logic 1 only if all of their inputs are logic 1's.
-\begin{table}[H]
-\centering
-\begin{tabular}{l|l|l}
-\hline
-\multicolumn{1}{|l|}{\textbf{A}} & \textbf{B} & \multicolumn{1}{l|}{\textbf{O}} \\ \hline
-0                                & 0          & 0                               \\
-1                                & 0          & 0                               \\
-0                                & 1          & 0                               \\
-1                                & 1          & 1
-\end{tabular}
-\caption{AND Gate Truth Table}
-\label{tab:and-table}
-\end{table}
-TO DO: ADD CIRCUIT DIAGRAM
-
-\subsection{OR Gates}
-OR gates output a logic 1 if either of their inputs or both of them are logic 1's.
-\begin{table}[H]
-\centering
-\begin{tabular}{l|l|l}
-\hline
-\multicolumn{1}{|l|}{\textbf{A}} & \textbf{B} & \multicolumn{1}{l|}{\textbf{O}} \\ \hline
-0                                & 0          & 0                               \\
-1                                & 0          & 1                               \\
-0                                & 1          & 1                               \\
-1                                & 1          & 1
-\end{tabular}
-\caption{OR Gate Truth Table}
-\label{tab:or-table}
-\end{table}
-TO DO: ADD CIRCUIT DIAGRAM
-
-\subsection{XOR Gates}
-Exclusive OR, or XOR gates output a logic 1 only if either of their inputs is a 1, but not both.
-\begin{table}[H]
-\centering
-\begin{tabular}{l|l|l}
-\hline
-\multicolumn{1}{|l|}{\textbf{A}} & \textbf{B} & \multicolumn{1}{l|}{\textbf{O}} \\ \hline
-0                                & 0          & 0                               \\
-1                                & 0          & 1                               \\
-0                                & 1          & 1                               \\
-1                                & 1          & 0
-\end{tabular}
-\caption{XOR Gate Truth Table}
-\label{tab:xor-table}
-\end{table}
-TO DO: ADD CIRCUIT DIAGRAM
-
-\subsection{NAND Gates}
-A NAND gate is an inverted AND gate. This means it outputs a logic 1 in all situations except for when all of its inputs are logic 1's.
-\begin{table}[H]
-\centering
-\begin{tabular}{l|l|l}
-\hline
-\multicolumn{1}{|l|}{\textbf{A}} & \textbf{B} & \multicolumn{1}{l|}{\textbf{O}} \\ \hline
-0                                & 0          & 1                               \\
-1                                & 0          & 1                               \\
-0                                & 1          & 1                               \\
-1                                & 1          & 0
-\end{tabular}
-\caption{NAND Gate Truth Table}
-\label{tab:nand-table}
-\end{table}
-TO DO: ADD CIRCUIT DIAGRAM
-
-
-\subsection{NOR Gates}
-A NOR Gate is an inverted OR gate. This means it outputs a logic 1 only if all of its inputs are logic 0's.
-NAND and NOR gates are considered \emph{universal gates}. This means that any logic circuit can be built exclusivley out of NAND or out of NOR gates.
-\begin{table}[H]
-\centering
-\begin{tabular}{l|l|l}
-\hline
-\multicolumn{1}{|l|}{\textbf{A}} & \textbf{B} & \multicolumn{1}{l|}{\textbf{O}} \\ \hline
-0                                & 0          & 1                               \\
-1                                & 0          & 0                               \\
-0                                & 1          & 0                               \\
-1                                & 1          & 0
-\end{tabular}
-\caption{NOR Gate Truth Table}
-\label{tab:nor-table}
-\end{table}
-TO DO: ADD CIRCUIT DIAGRAM
-
-\subsection{Flip Flops}
-Flip Flops are circuits usually built out of logic gates which can store one bit of information, i.e. they can be either on or off. There are many types of flip flops: RS-flip-flops (Reset-Set), D-flip-flops (Data), JK-flip flops (refined RS flip flops) and T flops (single input JK flip-flops). Each flip flop performs best in a certain scenario. Since they all implement de storage and retrieval of one bit of information, only the D-flip-flop (the most commonly used one) will be discussed. \\
-TODO: ADD D FLIP FLOP DESC.
-
-
-\section{8-Bit Computer Architecture Designed by Ben Eater \cite{eater2019breadboard}}
-This section concerns itself with the detailed analysis of the 8-bit computer architecture designed by Ben Eater in his YouTube tutorial series \cite{eater2019breadboard}. This computer serves as the starting design for the computer discussed in this report in the later section, as such, it presents itself as a good topic for discussion.
+\section{8-Bit Computer Architecture Implementation by Ben Eater \cite{eater2019breadboard}}
+This section concerns itself with the detailed analysis of the 8-bit computer architecture implemented by Ben Eater in his YouTube tutorial series \cite{eater2019breadboard}. This computer serves as the starting design for the computer discussed in this report in the later section, as such, it presents itself as a good topic for discussion.
 
 \subsection{Main Features}
 The main features of Bean Eater's 8-bit computer on a breadboard can be broken down as follows:
@@ -251,7 +108,7 @@ The following subsections describe those conventions.
 
 \subsubsection{Simplicity of understanding over cost and efficiency}
 
-In many situations where a simpler solution from cost or efficiency makes itself notices, Eater often chooses to go for a more pragmatical approach which focuses on the simplicity of understanding. Since his computer mostly serves as an educational tool, it makes sense to pursue solutions which are easy to understand, over solutions which might be slightly cheaper or more efficient. A good example of this is in the design of the clock module \ref{eater2019clock}.
+In many situations where a simpler solution from cost or efficiency makes itself notices, Eater often chooses to go for a more pragmatical approach which focuses on the simplicity of understanding. Since his computer mostly serves as an educational tool, it makes sense to pursue solutions which are easy to understand, over solutions which might be slightly cheaper or more efficient. A good example of this is in the design of the clock module \ref{8-bit-clock}.
 
 \begin{figure}[ht]
   \centering
@@ -272,3 +129,15 @@ Eater's computer features an 8-bit common bus for both data and instructions. Mo
   \caption{Schematic of the A register in Bean Eater's 8-bit computer \cite{eater2019highlevel}}
   \label{8-bit-a-register}
 \end{figure}
+
+\subsection{Analysis Conclusions}
+Based on the previous analysis we can draw the following conclusions about Eater's approach towards implementing SAP-1:
+
+\begin{itemize}
+  \item When faced with a choice between efficieny/cost or simplicity, simplicity should always be chosen, since the purpose of the build is academic/educational in nature.
+  \item Each module of the computer should follow the following pattern: data inputs and outputs come and go from the common bus,
+  while control signals come directly from the \emph{Control Logic} module.
+  \item Each module should execute one function and do it well. This is very similar to the Unix Programming Philosophy.
+\end{itemize}
+
+Taking all of these finding into account, the next step is to set out the specifications for the enhanced computer which is to be built in this report and then come up with designs matching those specifications.

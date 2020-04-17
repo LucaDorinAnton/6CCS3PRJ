@@ -25,13 +25,11 @@ Philippe Coussy and Adam Morawiec.
 \newblock {\em High-level synthesis: from algorithm to digital circuit}.
 \newblock Springer Science \& Business Media, 2008.
 
-\bibitem{chm2019mosfet}
-Laws David.
-\newblock Mosfet.
-\newblock
-  \url{https://computerhistory.org/blog/13-sextillion-counting-the-long-winding-road-to-the-most-frequently-manufactured-human-artifact-in-history/?key=13-sextillion-counting-the-long-winding-road-to-the-most-frequently-manufactured-human-artifact-in-history},
-  2018.
-\newblock Accessed: 2019-12-8.
+\bibitem{arduino2020mega}
+Arduino Foundation.
+\newblock Arduino mega rev3.
+\newblock \url{https://store.arduino.cc/arduino-mega-2560-rev3}.
+\newblock Accessed: 2020-03-16.
 
 \bibitem{aes2012ni}
 Rott Jeffrey.
@@ -40,6 +38,11 @@ Rott Jeffrey.
   \url{https://software.intel.com/en-us/articles/intel-advanced-encryption-standard-instructions-aes-ni},
   2012.
 \newblock Accessed: 2019-12-8.
+
+\bibitem{malvino1992digital}
+Albert~Paul Malvino and Jerald~A Brown.
+\newblock {\em Digital computer electronics}.
+\newblock Glencoe, 1992.
 
 \bibitem{mano2017digital}
 M~Morris Mano.

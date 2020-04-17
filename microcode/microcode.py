@@ -1,4 +1,5 @@
-from classes import instr_lst
+from microinstructions import instr_lst
+import sys, time
 # print(NOP)
 
 # for step in NOP.steps['other']:
@@ -29,23 +30,42 @@ def generate_microcode(instr_lst):
 
 def write_files(instr_lst):
     eeproms = generate_microcode(instr_lst)
+    print("Binary translation finished")
 
     with open('eeprom1.bin', 'wb') as f:
         f.write(eeproms[0])
+    print("eeprom1.bin saved")
 
     with open('eeprom2.bin', 'wb') as f:
         f.write(eeproms[1])
+    print("eeprom2.bin saved")
 
     with open('eeprom3.bin', 'wb') as f:
         f.write(eeproms[2])
+    print("eeprom3.bin saved")
 
     with open('eeprom4.bin', 'wb') as f:
         f.write(eeproms[3])
+    print("eeprom4.bin saved")
 
 def print_instr_lst(instr_lst):
     for i in instr_lst:
         print(i)
 
-
-print_instr_lst(instr_lst)
-write_files(instr_lst)
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Error: Please specify 'gen' or 'print' ")
+        sys.exit(1)
+    if sys.argv[1].lower() not in ['print', 'gen']:
+        print("Error: Please specify 'gen' or 'print' ")
+        sys.exit(1)
+    if sys.argv[1].lower() == 'print':
+        print_instr_lst(instr_lst)
+        sys.exit(0)
+    else:
+        print("Starting EEPROM binary generation")
+        start = time.time()
+        write_files(instr_lst)
+        end = time.time()
+        print("Finished generating EEPROM binaries")
+        print("Exec time: %s s" % str(round(end - start, 2)))

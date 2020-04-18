@@ -4,7 +4,10 @@ to be built as a part of the project and then provides a detailed listing of the
 the specifications provided. Since the design will be based on Bean Eater's 8-bit breadboard computer \cite{eater2019breadboard}, but it will also include parts of SAP-2 and SAP-3 \cite{malvino1992digital}. Most specification criterions will be phrased as additions and enhancements to the existing designs.
 
 \section{Specification Guidelines}
-The specifications which are about to be presented serve the purpose of adding functionality to the 8-bit breadboard computer such that its educational potential is harnessed more effectively, while at the same time avoiding over-complication and over-extensions of scope. As such, it makes sense to list some of the features which will \emph{fall out of the scope} of this build for practical and time considerations.
+The specifications which are about to be presented serve the purpose of adding functionality to the 8-bit breadboard computer such
+that its educational potential is harnessed more effectively, while at the same time avoiding over-complication and over-extensions
+of scope. As such, it makes sense to list some of the features which will \emph{fall out of the scope} of this build for practical
+and time considerations.
 \begin{itemize}
   \item Interrupts and Interrupt handling
   \item Processes (The computer will only run one process, there will be no threading interface/ no operating system)
@@ -294,3 +297,294 @@ essentially consist of a labeled LED on each control signal.
 
 \section{Specification Conclusion}
 This concludes the specification phase of the project. The next step is to design each module to this specification.
+
+\section{Design}
+This section of the report focuses on the design process for the individual modules of the 16-bit breadboard computer.
+The goal is to satisfy all specification criterions designated in the last section, while also adhering to the general goal
+and philosophy of the project as close as project. First of all, the design process will be documented and analysed. After that,
+the tools used to facilitate the design will be presented. Finally, each module design will be presented and scrutinized.
+
+\subsection{How to design a 16-bit computer module}
+In order to successfully come up with a design for a computer module while also meeting the specification outline and
+keeping the schematics as simple as possible, a simple yet effective design process has been implemented. It consists
+broadly of 4 distinct steps:
+\begin{itemize}
+  \item Chip Discovery
+  \item Chip Analysis
+  \item Chip Selection
+  \item Schematic Creation
+\end{itemize}
+
+\subsection{Chip Discovery and Analysis}
+The first step towards the design of a 16-bit computer module is the \emph{integrated circuit/IC/chip} discovery and analysis phase.
+
+\paragraph{Why use Integrated Circuits/Chips?}
+Since the general goal of the project is to produce a Turing complete computer which is as simple as possible to understand
+and also relies as little as possible on any other form of abstraction, one might argue that using integrated circuits, or chips,
+woud be against that goal. While this argument is theoretically correct, it doesn't take into account any practical considerations.
+The lowest level of the technology stack from which one could go ahead and phisically construct a computer would probably be
+the transistor. That being said, trying to implement any computer, let alone a 16-bit computer with many different modules, would
+be next to impossible to successfully do within the time frame of this project and also without a team of people. The physical
+scale would be many, many times what the scale of the computer built in this project is and the amount of errors which would arise
+from connecting individual transistors together by hand would probably be so large, that one would quickly lose interest in
+finishing the build. As such, simple integrated circuits pose themselves as a great compromise. These circuits, which usually
+implement simple logic functions, like \emph{AND, OR, Inverter, etc.}, or even a little bit more complex functions,
+like \emph{registers or binary adders}, can each contain tens to hundreds of individual transistors. That being said, they should
+all be simple enough so thatthe functionality provided by each chip should be \emph{understandable down to the transistor level}.
+
+\paragraph{Understanding Integrated Circuits}
+While this may sound daunting at first, it can actually be relatively straight forward. Individual logic gates are each made up of
+a few transistors. For example, Ben Eater has created an excellent YouTube tutorial on how to create logic gates out of transistors
+\cite{eater2015logicgates}. Armed with this knowledge, we can now approach the datasheet of a particular circuit we intend to use.
+For example, on page 2 of the datasheet of the \emph{74LS157} \cite{74ls157} multiplexer chip, we can find the logic diagram.
+By analysing the logic diagram and calculating boolean outputs based on arbitrary inputs and then comparing the results
+to the truth table of the chip provided on the first page of the datasheet, one can verify that the chip actually implements its
+specified interface in a logical manner. This can be applied to all chips which are considered to be potential building blocks
+for a module, as long as the individual chip complexity is relatively limited.
+
+\subsection{Where to look for Integrated Circuits}
+There are three main sources of chips which where consulted when conducting chip discovery. The first one was the Wikipedia list
+of chips from \emph{7400} family \cite{wikipedia74lslist}. This particualr logic family was chosen because it is the most popular
+and widley spread and adopted logic family in the world \cite{wikipedia74ls}. The second souce of chips, which served as a quick
+reference, was Eater's part listing for his 8-bit breadboard computer build \cite{eater2020parts}. Since the 16-bit computer which
+is to be built is largley based around the 8-bit computer built be Eater, many of the chips used in the 8-bit version will also
+work in modules of the 16-bit version. Finally, for the few chips which were needed but weren't part of the 7400 family,
+the websites of the retailers from which the chips were to be bought were searched. Two retailers were used, \emph{Mouser UK}
+\cite{mouser} and \emph{Farnell UK} \cite{farnell}.
+
+\subsection{Chip Selection}
+Usually, the particular functionality of the module which is to be designed drastically boils down the list of potential chips.
+For example, when designing a simple 16-bit register, like the \emph{A register} \ref{a-reg}, the \emph{74LS273} 8-bit flip-flop
+\cite{74ls273} poses a great option. By just putting two \emph{74ls273} chips next to each other, most of the functionality of the
+register has been designed. Whenever there is a need for extra functionality, for example in the case of the \emph{74ls273}
+where there is no enable line, additional logic can be implemented using chips containing simple logic gates, like \emph{AND, OR,
+NOT}. In this case, the clock signal can be AND'ed together with the \emph{AI} line to ensure that the register only reads from the
+data bus when the control signal is set high.
+
+\subsection{Schematic Creation}
+With the right chips chosen for a module, the next step is to create a module schematic, which serves as a blueprint or design
+document. The open-source computer-aided design software chosen to facilitate the creation of module schematics is \emph{KiCad}
+\cite{kicad}. An overview of the application, as well as of the process of designing 16-bit computer modules with it will be
+presented in detail in the next section.
+
+\subsection{Electornic Design Tools with KiCad/Eeschema}
+The main tool used to to design schematics for the 16-bit breadboard computer is \emph{KiCad} \cite{kicad}. KiCad is a broad and
+mature electronics design software widley used in industry. It contains many tools which together from a tightly integrated
+toolchain for designing complex electronics from the concept phase all the way to the printed circuit board. Since the goal of the
+project is to build a computer on breadboards by hand and not create printed circuit boards, only the first step of the KiCad
+pipeline has been used, namley \emph{Eeschema} \cite{eeschema}.
+
+\paragraph{Eeschema}
+\emph{Eeschema} is a electronic schematic computer design software. It is fully featured, easily accessible and has a relatively
+shallow learning curve. By using \emph{Eeschema,} the entire module design process has been streamlined significantly.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{eeschema}
+  \caption{Eeschema Schematic Design software - part of the KiCad suite}
+  \label{eeschema-interface}
+\end{figure}
+\clearpage
+
+In the following paragraphs the most important features of Eeschema will be presented.
+
+\paragraph{Intuitive Interface}
+The graphical user interface provided by Eeschema is similar to many other widley used photo or video editing software packages.
+As such, navigation is easy and intuitive. All tools and commands can be accessed both by pointer and keyboard, so one can become
+proficient in whatever interface method is preferred. Drag and drop functionality allows the user to easily reposition misplaced
+or misalligned circuits and components.
+
+\paragraph{Hierarchical Sheets}
+Hierarchical sheets is an Eeschema feature which allows one to embed entire schematics inside other schematics and seamlessly
+transition between child and parent schematics. This is a great way to organise the modular design of the 16-bit breadboard
+computer. Besides this, Eeschema offers the option to import input and output pins from the child schematic into the parent,
+so that they can be connected to the wider circuit. This makes designing a high-level overview diagram significantly easier.
+
+\paragraph{Bus connections}
+Wiring up 16 separate wires which are connected to most modules as both input and output can be extremley tedious. Fortunatley,
+\emph{Eeschema} offers the option to ~~bundle up'' mutliple wires as a single Bus and then have connections going in and out
+of that single wire. Besides this, \emph{Eeschema} can resolve which pins are connected to which over the bus by use of labels
+on the inputs and outputs \ref{ee-bus}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{ee-bus}
+  \caption{Labeled Bus Connections in Eeschema}
+  \label{ee-bus}
+\end{figure}
+
+\paragraph{Integrated Circuit Database}
+\emph{Eeschema} ships with a pre-loaded database of commonly used chips and circuits, called the \emph{Symbol Library}.
+This makes rapid schematic prototyping possible by just looking up potential circuits for the module and then dragging and dropping
+them into the worksheet and then seeing if the connections would match up.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{ee-circuit-db}
+  \caption{Component Database in Eeschema}
+  \label{ee-circuit-db}
+\end{figure}
+
+\paragraph{Sympbol Editor}
+In the rare case where the \emph{Symbol Library} didn't contain a circuit needed for a module, \emph{Eeschema} provides
+a simple circuit symbol editor. This ensures that the final schematics produced were accurate and reliable, regardless of wherer
+the chip symbols were origianlly available in \emph{Eeschema} or not.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{ee-editor}
+  \caption{Symbol editor in Eeschema}
+  \label{ee-editor}
+\end{figure}
+
+\paragraph{Electrical Rules Check}
+Besides providing an easy to use interface for designing accurate schematics, \emph{Eeschema} also offers active help in the
+design process. By using the electrical rules checker, \emph{Eeschema} can check all connections against a user-defined set of
+rules and report errors. This can be used to detect potetential human errors or even chip incompatibilities and resolve them
+early on.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{ee-rules}
+  \caption{The Eeschema Electrical Rules Checker}
+  \label{ee-rules}
+\end{figure}
+
+\paragraph{Automatic Annotation}
+When designing electrical circuits, it is common to use many identical or similar circuits next to one another. As such,
+when actually building the circuit, one can be confused about which chip correlates to which symbol in the schematics.
+To solve this, \emph{Eeschema} assignes a unique identifier, or annotation, to each symbol. This annotation process can be
+done automatically.
+
+\paragraph{Bill of Materials}
+\emph{Eeschema} can also generate a bill of materials, or \emph{BOM}, based on all the symbols present in the schematic and
+hierarchical schemaitcs. The BOM is essential towards ensuring that all needed components are purchased.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{ee-bom}
+  \caption{Simple Bill of Materials generated by Eeschema}
+  \label{ee-bom}
+\end{figure}
+
+\paragraph{PDF export}
+Finally, Eeschema has been outfitted with an ~~Export to PDF'' option. This makes printing and compiling of the
+schematics into other documents, like this report, significantly easier.
+
+\subsection{Eeschema Design Process}
+The following design process has been followed when creating schematics for a module as a part of the 16-bit breadboard
+computer:
+\begin{enumerate}
+  \item Make an adequate chip selection
+  \item Create a new hierarchial sheet and enter it
+  \item Use the Symbol Editor to create chip symbols (in case the chips don't exist in the Symbol Library)
+  \item Place all needed chips in the schematic
+  \item Place all external control and I/O pins
+  \item Connect all the pins apropiateley
+  \item Leave the hierarchical sheet and import all I/O and control pins
+  \item Run the automated annotation tool
+  \item Run the electrical rules checker
+  \item Correct any errors
+\end{enumerate}
+
+\subsection{Finalised 16-bit breadboard computer design and schematics}
+The tools and processes discussed in the previous sections where extensivley used to produce the final schematics
+for the 16-bit breadboard computer, which were used as templates for the physical implementation of the computer.
+This section presents and discusses the schematics and the design decisions which were made during their creation.
+
+\paragraph{High-Level Schematic}
+The high-level schematic provides a layout and scale overview for the finished computer. It also contains the \emph{Data Bus LEDs}
+module \ref{data-bus-leds}, as well as the actual \emph{Common Data Bus} \ref{common-data-bus}, to which all components connect.
+Towards the bottom of the schematic the \emph{Control Signals} module \ref{control-sigs} can also be found.
+
+\includepdf[page={1}]{./pdf/kicad}
+\clearpage
+
+\paragraph{Clock} \ref{clock}
+The clock module is very similar to the clock designed and built by Ben Eater \cite{eater2020clock}. It uses \emph{555 timers}
+\cite{555} to generate a square wave which acts as the clock for the system. The \emph{555} is presented in all three most commonly
+used configurations:
+\begin{itemize}
+  \item \emph{Astable: } it oscillates between to states (This 555 generates the main clock)
+  \item \emph{Monostable: } it always ~~settles down`` to one state after a short period of time (used for the manual push-button
+  clock mode)
+  \item \emph{Bistable: } it has two states between which it can toggle (used for the toggle switch which goes from automatic to
+  manual mode)
+\end{itemize}
+The clock-pulse generating \emph{555} is connected to a variable resistor which can be adjusted to increase or decrease the
+frequency accordingly. A simple combinatorial circuit is used to select the appropiate clock signal and inhibit it if the \emph{HLT}
+ (Halt) signal is active. The main addition to the Eater design is a \emph{74ls245 buffer} \cite{74ls245} used to amplify and
+ isolate clock signals going to each module.
+
+ \includepdf[page={2}]{./pdf/kicad}
+
+\paragraph{A Register} \ref{a-reg}
+The A register consists of two \emph{74ls273} \cite{74ls273} 8-bit flip-flop chips and two \emph{74ls245} \cite{74ls245} buffer
+interfaces to the bus. The buffers are \emph{tri-state} buffers, which means that they can pass through their input, either high or
+low, or they can  disconnect their input from their output by putting themselves in a high-impedence state. This functionaility,
+used across most modules which interface with the bus, is used to allow the register to assert its contents onto the bus when
+reading from it (this happens when the \emph{$\overline{AO}$} signal is taken low). Writing to the register is handled by
+ANDing together the \emph{AI} signal with the clock pulse. The contents of the A, which can be foud on the \emph{Q} pins, are
+connected directly to the \emph{ALU} \ref{alu}.
+
+\includepdf[page={3}]{./pdf/kicad}
+
+\paragraph{B Register} \ref{b-reg}
+The B register is built essentially the same as the A register.
+
+\includepdf[page={4}]{./pdf/kicad}
+
+\paragraph{Arithmetic-Logic Unit} \ref{alu}
+The \emph{ALU} has been designed around the \emph{74LS283} \cite{74ls283} chip. It contains a 4-bit binary full adder.
+They can be chained together by connecting the Carry-Out of one chip to the Carry-In of the next chip. This way, by using 4
+chips, a full 16-bit adder can be constructed. The A inputs are connected to the A register \ref{a-reg} and the B inputs
+are conected to the B register \ref{b-reg}. The sum output is connect to two \emph{74LS245} \cite{74ls245} buffers which make the
+connection to the data bus. To achieve subtraction functionality, the inputs from the B register are converted to two's complement
+binary  notation, since subtracting a value equates to adding up the same negative value. To convert a positive binary value to a
+two's complement negative value of the same magnitude, all 16 bits have to be flipped and then 1 has to be added to the number.
+Flipping the bits is accomplished using the \emph{74LS86} \cite{74ls86} , which provides four independet XOR (exclusive or) gates.
+By XORing each bit of the bit register with the value of the \emph{SU} control signal, each bit will just pass through the gate
+if \emph{SU} is low and it will be flipped if \emph{SU} is high. Besides this, \emph{SU} is also connected directly to the Carry-
+In Input of the first \emph{74LS283} full adder chip, to artificially add one to the final sum, representing the one which needs
+to be added in for the two's complement form of the B register contents. \\
+The \emph{ALU} also has three \emph{flag signals} which go out to the \emph{Flags Register} \ref{flags}. These are the \emph{Parity
+Flag (PF)}, which represents the state of the lowest-significand bit of the sum, the \emph{Zero Flag (ZF)}, which is high if the
+sum is 0 and low otherwise, and the \emph{Carry FLag (CF)}, which is set if the sum inside the \emph{ALU} cannot be expressed
+within 16 bits. These flags can be used to make branching decisions based on the result of a calculation. The \emph{Carry Flag} and
+\emph{Paritiy Flag} are straight-forward to obtain. The \emph{Carry Flag} is the Carry-Out pin of the most-significand adder
+circuit. The \emph{Parity Flag} is the least significand sum pin of the least significand adder circuit. To calculate the
+\emph{Zero Flag}, \emph{NOR} (inverted or) gates are employed on each pair of two sum bits. These gate can be found on the
+\emph{74LS02} \cite{74ls02} chips. If any of the sum bits goes high, then the output of at least one \emph{NOR} gate will go low.
+Subsequently, all \emph{NOR} outputs are ANDed together using successive \emph{AND} gates found on \emph{74LS08} \cite{74ls08}
+chips. By using the and operator, if any one of the \emph{NOR} gates goes low, then the final output, which is the \emph{Zero Flag},
+will go low. The only case where the \emph{Zero Flag} will go high is if all sum bits are 0.
+
+\includepdf[page={5}]{./pdf/kicad}
+
+\paragraph{Flags Register} \ref{flags}
+The Flags register consists of just one \emph{74LS273} \cite{74ls273} and some simple logic to handle the selective reads.
+Allthough it is inneficient to use an 8-bit register to store only three bits, this design decision has been made because
+the \emph{74ls273} is used in many other modeuls of the system and to avoid having to understand how another chip works and how
+to use it.
+
+\includepdf[page={11}]{./pdf/kicad}
+
+\paragraph{C Register} \ref{c-reg}
+The C register is a general purpose 16-bit register built just like the A register \ref{a-reg} or the B register \ref{b-reg}.
+
+\includepdf[page={7}]{./pdf/kicad}
+
+\paragraph{Shift Register} \ref{shift-reg}
+For the design of the shift register, the \emph{74LS194} \cite{74ls194} was chosen. It is a 4-bit register which implements
+bit shifting in both directions. Multiple \emph{74LS194} chips can be chained together to create a larger shift register by
+connecting the Serial-Left and Serial-Right inputs of one chip to the data outputs of the chips to its left and right.
+The chips have two control inputs, \emph{S0} and \emph{S1}. If both inputs are low, the register will do nothing on the next clock
+pulse. If S0 or S1 is high, but not both, then a shift-right or a shift-left will occur, depending on which input is high.
+If both are high, then a parallel load will occur. The data outputs of each chips are connected two two \emph{74LS245}
+\cite{74ls245} chips to provided the interface to the data bus. The two control inputs are fed in from a simple combinatorial
+circuit which converts the three control signals, \emph{SI}, or shift register in, \emph{SFL}, or shift left and \emph{SFR}, or
+shift right, into the two lines which connect directly to the register chips.
+
+\includepdf[page={6}]{./pdf/kicad}
+
+\paragraph{Random Access Memory (RAM)} \ref{ram}

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 19
+Sheet 7 18
 Title ""
 Date ""
 Rev ""
@@ -373,7 +373,7 @@ Text Label 1950 3000 1    50   ~ 0
 B15
 Text HLabel 750  1800 0    50   Input ~ 0
 CLK
-Text HLabel 750  2000 0    50   Input ~ 0
+Text HLabel 3400 1200 2    50   Input ~ 0
 CI
 Text HLabel 1250 2150 0    50   Input ~ 0
 ~CO
@@ -1331,8 +1331,6 @@ Wire Wire Line
 Wire Wire Line
 	6350 2150 8500 2150
 Wire Wire Line
-	1000 2000 750  2000
-Wire Wire Line
 	1600 1900 1750 1900
 Wire Wire Line
 	1750 1900 1750 3250
@@ -1393,6 +1391,113 @@ Wire Wire Line
 	7350 5350 7350 4250
 Wire Wire Line
 	2950 5350 7350 5350
+$Comp
+L Device:R R?
+U 1 1 5F642D9C
+P 1950 1200
+AR Path="/5F50482F/5F642D9C" Ref="R?"  Part="1" 
+AR Path="/5F46F293/5F642D9C" Ref="R?"  Part="1" 
+AR Path="/5E638028/5F642D9C" Ref="R193"  Part="1" 
+F 0 "R193" H 2020 1246 50  0000 L CNN
+F 1 "100" V 1950 1150 50  0000 L CNN
+F 2 "" V 1880 1200 50  0001 C CNN
+F 3 "~" H 1950 1200 50  0001 C CNN
+	1    1950 1200
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5F642DA2
+P 1700 950
+AR Path="/5F50482F/5F642DA2" Ref="C?"  Part="1" 
+AR Path="/5F46F293/5F642DA2" Ref="C?"  Part="1" 
+AR Path="/5E638028/5F642DA2" Ref="C27"  Part="1" 
+F 0 "C27" V 1448 950 50  0000 C CNN
+F 1 "0.01uF" V 1539 950 50  0000 C CNN
+F 2 "" H 1738 800 50  0001 C CNN
+F 3 "~" H 1700 950 50  0001 C CNN
+	1    1700 950 
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1700 1200 1700 1100
+Connection ~ 1700 1200
+Wire Wire Line
+	1700 1200 1800 1200
+$Comp
+L power:GND #PWR?
+U 1 1 5F642DAB
+P 1850 650
+AR Path="/5F50482F/5F642DAB" Ref="#PWR?"  Part="1" 
+AR Path="/5F46F293/5F642DAB" Ref="#PWR?"  Part="1" 
+AR Path="/5E638028/5F642DAB" Ref="#PWR0283"  Part="1" 
+F 0 "#PWR0283" H 1850 400 50  0001 C CNN
+F 1 "GND" H 1855 477 50  0000 C CNN
+F 2 "" H 1850 650 50  0001 C CNN
+F 3 "" H 1850 650 50  0001 C CNN
+	1    1850 650 
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1700 650  1700 800 
+Wire Wire Line
+	1700 650  1850 650 
+$Comp
+L 74xx:74LS08 U?
+U 2 1 5F642DB3
+P 2750 1200
+AR Path="/5F46F293/5F642DB3" Ref="U?"  Part="2" 
+AR Path="/5E638028/5F642DB3" Ref="U38"  Part="2" 
+F 0 "U38" H 2750 1525 50  0000 C CNN
+F 1 "74LS08" H 2750 1434 50  0000 C CNN
+F 2 "" H 2750 1200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 2750 1200 50  0001 C CNN
+	2    2750 1200
+	-1   0    0    1   
+$EndComp
+$Comp
+L 74xx:74LS08 U?
+U 3 1 5F642DB9
+P 1200 1200
+AR Path="/5F46F293/5F642DB9" Ref="U?"  Part="3" 
+AR Path="/5E638028/5F642DB9" Ref="U28"  Part="3" 
+F 0 "U28" H 1200 1525 50  0000 C CNN
+F 1 "74LS08" H 1200 1434 50  0000 C CNN
+F 2 "" H 1200 1200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 1200 1200 50  0001 C CNN
+	3    1200 1200
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1700 1200 1600 1200
+Wire Wire Line
+	1600 1200 1600 1300
+Wire Wire Line
+	1600 1300 1500 1300
+Connection ~ 1600 1200
+Wire Wire Line
+	1500 1100 1600 1100
+Wire Wire Line
+	1600 1100 1600 1200
+Wire Wire Line
+	2450 1200 2100 1200
+Wire Wire Line
+	3400 1200 3200 1200
+Wire Wire Line
+	3200 1200 3200 1100
+Wire Wire Line
+	3200 1100 3050 1100
+Wire Wire Line
+	3050 1300 3200 1300
+Wire Wire Line
+	3200 1300 3200 1200
+Connection ~ 3200 1200
+Wire Wire Line
+	900  1200 500  1200
+Wire Wire Line
+	500  1200 500  2000
+Wire Wire Line
+	500  2000 1000 2000
 Wire Bus Line
 	1850 2400 9600 2400
 $EndSCHEMATC

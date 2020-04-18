@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 5 19
+Sheet 5 18
 Title ""
 Date ""
 Rev ""
@@ -685,10 +685,8 @@ Wire Wire Line
 	850  1800 6800 1800
 Wire Wire Line
 	6800 1800 6800 3800
-Text HLabel 10550 650  2    50   Input ~ 0
+Text HLabel 11200 1850 3    50   Input ~ 0
 SU
-Wire Wire Line
-	10550 650  9900 650 
 Wire Wire Line
 	9900 650  9900 4500
 Wire Wire Line
@@ -732,15 +730,11 @@ Wire Wire Line
 	5800 650  6200 650 
 Connection ~ 6200 650 
 Wire Wire Line
-	5800 650  4800 650 
-Connection ~ 5800 650 
-Wire Wire Line
 	4800 650  4800 3800
 Wire Wire Line
 	4400 3800 4400 650 
 Wire Wire Line
 	4400 650  4800 650 
-Connection ~ 4800 650 
 Wire Wire Line
 	4400 650  4000 650 
 Wire Wire Line
@@ -2080,6 +2074,42 @@ Wire Wire Line
 	6400 6350 6900 6350
 Connection ~ 6400 7450
 Connection ~ 6900 6350
+$Comp
+L 74xx:74LS08 U87
+U 4 1 5F47772C
+P 11500 1150
+F 0 "U87" H 11500 950 50  0000 C CNN
+F 1 "74LS08" H 11500 1150 50  0000 C CNN
+F 2 "" H 11500 1150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 11500 1150 50  0001 C CNN
+	4    11500 1150
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	11200 1850 11200 1700
+Wire Wire Line
+	11200 1700 11400 1700
+Wire Wire Line
+	11600 1700 11600 1450
+Wire Wire Line
+	11400 1450 11400 1700
+Connection ~ 11400 1700
+Wire Wire Line
+	11400 1700 11600 1700
+Wire Wire Line
+	11200 1700 11200 650 
+Wire Wire Line
+	9900 650  11200 650 
+Connection ~ 11200 1700
+Wire Wire Line
+	4800 650  4950 650 
+Wire Wire Line
+	4950 650  4950 550 
+Wire Wire Line
+	4950 550  11500 550 
+Wire Wire Line
+	11500 550  11500 850 
 Wire Bus Line
 	1650 10600 6400 10600
+Connection ~ 4800 650 
 $EndSCHEMATC

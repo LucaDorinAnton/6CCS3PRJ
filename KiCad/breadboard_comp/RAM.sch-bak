@@ -337,56 +337,10 @@ Wire Wire Line
 	1700 4500 2200 4500
 Wire Wire Line
 	2200 4600 1700 4600
-Text HLabel 5050 7300 2    50   Input ~ 0
+Text HLabel 5050 7050 2    50   Input ~ 0
 CLK
 Text HLabel 5050 6850 2    50   Input ~ 0
 ~RI
-$Comp
-L Device:C C22
-U 1 1 602CA653
-P 4550 7300
-F 0 "C22" H 4500 7200 50  0000 C CNN
-F 1 "0.01 μF" H 4400 7400 50  0000 C CNN
-F 2 "" H 4588 7150 50  0001 C CNN
-F 3 "~" H 4550 7300 50  0001 C CNN
-	1    4550 7300
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R156
-U 1 1 602CB23C
-P 3900 7300
-F 0 "R156" H 3800 7300 50  0000 C CNN
-F 1 "1k" V 3900 7300 50  0000 C CNN
-F 2 "" V 3830 7300 50  0001 C CNN
-F 3 "~" H 3900 7300 50  0001 C CNN
-	1    3900 7300
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	4050 7300 4250 7300
-Wire Wire Line
-	4700 7300 5050 7300
-$Comp
-L power:GND #PWR0258
-U 1 1 602FBBBF
-P 3600 7300
-F 0 "#PWR0258" H 3600 7050 50  0001 C CNN
-F 1 "GND" V 3605 7172 50  0000 R CNN
-F 2 "" H 3600 7300 50  0001 C CNN
-F 3 "" H 3600 7300 50  0001 C CNN
-	1    3600 7300
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	3600 7300 3750 7300
-Wire Wire Line
-	3700 7050 4250 7050
-Wire Wire Line
-	4250 7050 4250 7300
-Connection ~ 4250 7300
-Wire Wire Line
-	4250 7300 4400 7300
 Text HLabel 1800 7400 3    50   Input ~ 0
 PROG
 Text HLabel 800  7300 3    50   Input ~ 0
@@ -1375,6 +1329,8 @@ Wire Wire Line
 Connection ~ 5500 600 
 Wire Wire Line
 	5500 600  6500 600 
+Wire Wire Line
+	3700 7050 5050 7050
 Wire Bus Line
 	11050 1600 11050 4800
 $EndSCHEMATC

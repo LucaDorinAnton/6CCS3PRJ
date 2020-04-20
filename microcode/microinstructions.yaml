@@ -485,10 +485,60 @@ instructions:
         -
           signals: [E, RO]
           description: Enable I/O, set write mode; Move RAM contents to I\O
+# Display instructions
+  -
+    name: DWA
+    opcode: 0x2E
+    description: Write register A contents to the Display
+    flags:
+      other:
+        -
+          signals: [AO, OUT]
+          description: Move contents of the A register to the Display
+  -
+    name: DWB
+    opcode: 0x2F
+    description: Write register B contents to the Display
+    flags:
+      other:
+        -
+          signals: [BO, OUT]
+          description: Move contents of the B register to the Display
+  -
+    name: DWC
+    opcode: 0x30
+    description: Write register C contents to the Display
+    flags:
+      other:
+        -
+          signals: [CO, OUT]
+          description: Move contents of the C register to the Display
+  -
+    name: DWS
+    opcode: 0x31
+    description: Write shift register contents to the Display
+    flags:
+      other:
+        -
+          signals: [SO, OUT]
+          description: Move contents of the shift register to the Display
+  -
+    name: DWR
+    opcode: 0x32
+    description: Write RAM contents at address specified by instruction operand to the Display
+    flags:
+      other:
+        -
+          signals: [IO, MI]
+          description: Move IR contents to the MAR
+        -
+          signals: [AO, OUT]
+          description: Move RAM contents to the Display
+
 # Computer and clock manipulation
   -
     name: RST
-    opcode: 0x3D
+    opcode: 0x3E
     description: Reset the computer
     flags:
       other:
@@ -497,20 +547,10 @@ instructions:
           description: Reset the computer
   -
     name: HLT
-    opcode: 0x3E
+    opcode: 0x3F
     description: Stop the clock
     flags:
       other:
         -
           signals: [HLT]
           description: Stop the clock
-# Display instructions
-  -
-    name: OUT
-    opcode: 0x3F
-    description: Move contents of the A register to the display
-    flags:
-      other:
-        -
-          signals: [AO, OUT]
-          description: Move contents of the A register to the Display

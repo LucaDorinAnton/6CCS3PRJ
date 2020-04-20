@@ -218,16 +218,33 @@ IWR.insert_step(MicroStep([CtrlSigs.IO, CtrlSigs.MI], "Move IR contents to MAR")
 IWR.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.RO], "Enable I/O, set in write mode. Move RAM contents to I/O"))
 instr_lst.append(IWR)
 
+# Display instructions
+DWA = Instruction('DWA', 0b101110, "Write register A contents to the Display")
+DWA.insert_step(MicroStep([CtrlSigs.AO, CtrlSigs.OUT], "Move contents of reg. A to Display"))
+instr_lst.append(DWA)
+
+DWB = Instruction('DWB', 0b101111, "Write register B contents to the Display")
+DWB.insert_step(MicroStep([CtrlSigs.BO, CtrlSigs.OUT], "Move contents of reg. A to Display"))
+instr_lst.append(DWB)
+
+DWC = Instruction('DWC', 0b110000, "Write register C contents to the Display")
+DWC.insert_step(MicroStep([CtrlSigs.CO, CtrlSigs.OUT], "Move contents of reg. C to Display"))
+instr_lst.append(DWC)
+
+DWS = Instruction('DWS', 0b110001, "Write shift register contents to the Display")
+DWS.insert_step(MicroStep([CtrlSigs.SO, CtrlSigs.OUT], "Move contents of shift register to Display"))
+instr_lst.append(DWS)
+
+DWR = Instruction('DWR', 0b110010, "Write RAM contents at address specified by instruction operand to the Display")
+DWR.insert_step(MicroStep([CtrlSigs.IO, CtrlSigs.MI], "Move IR contents to the MAR"))
+DWR.insert_step(MicroStep([CtrlSigs.RO, CtrlSigs.OUT], "Move RAM contents to Display"))
+instr_lst.append(DWR)
+
 # Computer and clock manipulation
-RST = Instruction('RST', 0b111101, "Reset the computer")
+RST = Instruction('RST', 0b111110, "Reset the computer")
 RST.insert_step(MicroStep([CtrlSigs.RST], "Reset the computer"))
 instr_lst.append(RST)
 
-HLT = Instruction('HLT', 0b111110, "Stop the clock")
+HLT = Instruction('HLT', 0b111111, "Stop the clock")
 HLT.insert_step(MicroStep([CtrlSigs.HLT], "Stop the clock"))
 instr_lst.append(HLT)
-
-# Display instructions
-OUT = Instruction('OUT', 0b111111, "Move contents of reg. A to Display")
-OUT.insert_step(MicroStep([CtrlSigs.AO, CtrlSigs.OUT], "Move contents of reg. A to Display"))
-instr_lst.append(OUT)

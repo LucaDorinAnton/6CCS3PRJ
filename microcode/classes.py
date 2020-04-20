@@ -57,6 +57,9 @@ class MicroStep():
         self.sigs = sigs
         self.desc = desc
 
+    def end_instruction(self):
+        self.sigs.append(CtrlSigs.DONE)
+
     def split_sigs(self):
         eeprom_bytes = [0b00000000] * 4
         for sig in self.sigs:
@@ -81,19 +84,30 @@ def create_fetch_cycle():
 class Instruction():
 
     def __init__(self, name, opcode=0b000000, desc=''):
-        self.steps = {'other' : create_fetch_cycle()}
+        self.flag_agnostic_steps = create_fetch_cycle()
+        self.steps = {}
         self.name = name
         self.opcode = opcode
         self.desc = desc
 
+    def insert_step(self, step, flag='other'):
+        if flag not in ['other', 'CF', 'ZF', 'PF']:
+            raise Exception("Incorrect Flag")
+        if flag == "other":
+            self.flag_agnostic_steps.append(step)
+            return
+        if flag not in self.steps.keys():
+            self.steps[flag] = create_fetch_cycle()
+        self.steps[flag].append(step)
+
 
     def __str__(self):
         s = "Name: %s Opcode: %s Desc: %s\n" % (self.name, format(self.opcode, '06b'), self.desc)
+        s += "  Flag agnostic:\n"
+        for i in range(len(self.flag_agnostic_steps)):
+            s += "      Step %s: %s \n" % (format(i, '03b'), str(self.flag_agnostic_steps[i]))
         for key in sorted(self.steps.keys()):
-            if key == 'other' :
-                s += "  Flag agnostic:\n"
-            else:
-                s += "  Flags (CF/ZF/PF) : %s\n" % format(key, '03b')
+            s += "  Flag: %s\n" % key
             for i in range(len(self.steps[key])):
                 s += "      Step %s: %s \n" % (format(i, '03b'), str(self.steps[key][i]))
         return s

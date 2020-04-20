@@ -1,31 +1,44 @@
 from microinstructions import instr_lst
 import sys, time
-# print(NOP)
 
-# for step in NOP.steps['other']:
-#     test = step.split_sigs()
-#     s = ''
-#     for b in test:
-#         s += format(b, '08b') + " "
-#     print(s)
 
+def flag_to_pattern(flag):
+    if flag not in ['CF', 'ZF', 'PF']:
+        raise Exception("Incorrect Flag")
+    if flag == 'CF':
+        pattern = 0b100
+    elif flag == 'ZF':
+        pattern = 0b010
+    else:
+        pattern = 0b100
+    return pattern
 
 def generate_microcode(instr_lst):
     eeproms = []
     for i in range(4):
         eeproms.append(bytearray([0b00] * 8192))
     for instr in instr_lst:
-        for flags in range(8):
-            if flags in instr.steps.keys():
-                steps = instr.steps[flags]
-            else:
-                steps = instr.steps['other']
+        for flag_pattern in range(8):
+            steps = None
+            found = False
+            for flag in instr.steps.keys():
+                if found:
+                    break
+                if flag_pattern & flag_to_pattern(flag):
+                    steps = instr.steps[flag]
+                    found = True
+            if not found:
+                steps = instr.flag_agnostic_steps
+            if len(steps) < 8:
+                steps[-1].end_instruction()
             for step in range(8):
                 if step < len(steps):
-                    addr = int(format(instr.opcode, '06b') + format(flags, '03b')+ format(step, '03b'), 2)
+                    addr = int(format(instr.opcode, '06b') + format(flag_pattern, '03b')+ format(step, '03b'), 2)
                     byte_lst = steps[step].split_sigs()
                     for i in range(4):
                         eeproms[i][addr] = byte_lst[i]
+                else:
+                    break
     return eeproms
 
 def write_files(instr_lst):
@@ -51,6 +64,8 @@ def write_files(instr_lst):
 def print_instr_lst(instr_lst):
     for i in instr_lst:
         print(i)
+    print("Printed %i instructions." % len(instr_lst))
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

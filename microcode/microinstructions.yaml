@@ -1,0 +1,516 @@
+
+# template:
+# name:
+# opcode:
+# description:
+# flags:
+#   other:
+#     -
+#       signals: []
+#       description:
+
+
+instructions:
+# No Operation
+  -
+    name: NOP
+    opcode: 0x00
+    description: Do absolutely nothing
+    flags:
+        other:
+          -
+            signals:
+            description: Do absolutley nothing
+# A Load Instructions
+  -
+    name: LDA
+    opcode: 0x01
+    description: Load RAM contents to Register A
+    flags:
+      other:
+        -
+          signals: [IO, MI]
+          description: Move IR Address to MAR
+        -
+          signals: [RO, AI]
+          description: Move RAM contents to reg. A
+  -
+    name: LAI
+    opcode: 0x02
+    description: Load a value to Register A immediately
+    flags:
+      other:
+        -
+          signals: [IO, AI]
+          description: Move IR value to reg. A
+# B Load Instructions
+  -
+    name: LDB
+    opcode: 0x03
+    description: Load RAM contents to Register B
+    flags:
+      other:
+        -
+          signals: [IO, MI]
+          description: Move IR contents to the MAR
+        -
+          signals: [RO, BI]
+          description: Move RAM contents to reg. B
+  -
+    name: LBI
+    opcode: 0x04
+    description: Load a alue to Register B immediately
+    flags:
+      other:
+        -
+          signals: [IO, BI]
+          description: Move IR value to reg. B
+# C Load Instructions
+  -
+    name: LDC
+    opcode: 0x05
+    description: Load RAM contents to Register C
+    flags:
+      other:
+        -
+          signals: [IO, MI]
+          description: Move IR contents to the MAR
+        -
+          signals: [RO, CI]
+          description: Move RAM contents to reg. C
+  -
+    name: LCI
+    opcode: 0x06
+    description: Load a value to register C immediately
+    flags:
+      other:
+        -
+          signals: [IO, CI]
+          description: Move IR value to reg. C
+# Shift Register Load Instructions
+  -
+    name: LDS
+    opcode: 0x07
+    description: Load a value to the shift register immediately
+    flags:
+      other:
+        -
+          signals: [IO, MI]
+          description: Move IR contents to the MAR
+        -
+          signals: [RO, SI]
+          description: Move RAM contents to the shift register
+  -
+    name: LSI
+    opcode: 0x08
+    description: Load a value to the shift register immediately
+    flags:
+      other:
+        -
+          signals: [IO, SI]
+          description: Move IR contents to the shift register
+# Data Processing Instructions
+  -
+    name: ADD
+    opcode: 0x09
+    description: Add up reg. A contents to reg. B contents and store result in reg. A
+    flags:
+      other:
+        -
+          signals: [EO, AI, FI]
+          description: Move ALU contents to A register; Update flags
+  -
+    name: SUB
+    opcode: 0x0A
+    description: Subtract reg. B contents from reg. A contents and store result in reg. A
+    flags:
+      other:
+        -
+          signals: [EO, AI, SU, FI]
+          description: Set Subtract Flag; Move ALU contents to reg. A; Update flags
+  -
+    name: SFL
+    opcode: 0x0B
+    description: Perform a left shift on the contents of the shift register
+    flags:
+      other:
+        -
+          signals: [SFL]
+          description: Performa left shift on the contents of the shift register
+  -
+    name: SFR
+    opcode: 0x0C
+    description: Perform a right shift on the contents of the shift register
+    flags:
+      other:
+        -
+          signals: [SFR]
+          description: Perform a right shift on the contents of the shift register
+# Jump and Branch Instructions
+  -
+    name: JMP
+    opcode: 0x0D
+    description: Jump to specified address
+    flags:
+      other:
+        -
+          signals: [IO, JMP]
+          description: Move IR contents to the program counter
+  -
+    name: JPI
+    opcode: 0x0E
+    description: Jump indirectly to an address stored at the RAM address
+    flags:
+      other:
+        -
+          signals: [IO, MI]
+          description: Move IR contents to the MAR
+        -
+          signals: [RO, JMP]
+          description: Move RAM contents to the program counter
+  -
+    name: BRZ
+    opcode: 0x0F
+    description: Branch to an address if the Zero Flag is set
+    flags:
+      ZF:
+        -
+          signals: [IO, JMP]
+          description: Move IR contents to the program counter if the Zero Flag is set
+  -
+    name: BRP
+    opcode: 0x10
+    description: Branch to an address if the Parity Flag is set
+    flags:
+      PF:
+        -
+          signals: [IO, JMP]
+          description:  Move IR contents to the program counter if the Parity Flag is set
+  -
+    name: BRC
+    opcode: 0x11
+    description: Branch to an address if the Carry Flag is set
+    flags:
+      CF:
+        -
+          signals: [IO, JMP]
+          description: Move IR contents to the program counter if the Carry Flag is set
+# Move from A instructions
+  -
+    name: MAB
+    opcode: 0x12
+    description: Move register A contents to the B register
+    flags:
+      other:
+        -
+          signals: [AO, BI]
+          description: Move register A contents to the B register
+  -
+    name: MAC
+    opcode: 0x13
+    description: Move register A contents to the C register
+    flags:
+      other:
+        -
+          signals: [AO, CI]
+          description: Move register A contents to the C register
+  -
+    name: MAS
+    opcode: 0x14
+    description: Move register A contents to the shift register
+    flags:
+      other:
+        -
+          signals: [AO, SI]
+          description: Move register A contents to the shift register
+# Move from B instructions
+  -
+    name: MBA
+    opcode: 0x15
+    description: Move register B contents to the A register
+    flags:
+      other:
+        -
+          signals: [BO, AI]
+          description: Move register B contents to the A register
+  -
+    name: MBC
+    opcode: 0x16
+    description: Move register B contents to the C register
+    flags:
+      other:
+        -
+          signals: [BO, CI]
+          description: Move register B contents to the C register
+  -
+    name: MBS
+    opcode: 0x17
+    description: Move register B contents to the shift register
+    flags:
+      other:
+        -
+          signals: [BO, SI]
+          description: Move register B contents to the shift register
+# Move from C instructions
+  -
+    name: MCA
+    opcode: 0x18
+    description: Move register C contents to the A register
+    flags:
+      other:
+        -
+          signals: [CO, AI]
+          description: Move register C contents to the A register
+  -
+    name: MCB
+    opcode: 0x19
+    description: Move register C contents to the B register
+    flags:
+      other:
+        -
+          signals: [CO, BI]
+          description: Move register C contents to the B register
+  -
+    name: MCS
+    opcode: 0x1A
+    description: Move register C contents to the shift register
+    flags:
+      other:
+        -
+          signals: [CO, SI]
+          description: Move register C contents to the shift register.
+# Move from shift register instructions
+  -
+    name: MSA
+    opcode: 0x1B
+    description: Move shift register contents to the A register
+    flags:
+      other:
+        -
+          signals: [SO, AI]
+          description: Move shift register contents to the A register
+  -
+    name: MSB
+    opcode: 0x1C
+    description: Move shift register contents to the B register
+    flags:
+      other:
+        -
+          signals: [SO, BI]
+          description: Move shift register contents to the B register
+  -
+    name: MSC
+    opcode: 0x1D
+    description: Move shift register contents to the C register
+    flags:
+      other:
+        -
+          signals: [SO, CI]
+          description: Move shift register contents to the C register
+# RAM write instructions
+  -
+    name: STA
+    opcode: 0x1E
+    description: Write the contents of the A register to RAM address stored in operand
+    flags:
+      other:
+        -
+          signals: [IO, MI]
+          description: Move IR contents to the MAR
+        -
+          signals: [AO, RI]
+          description: Move register A contents to RAM
+  -
+    name: STB
+    opcode: 0x1F
+    description: Write the contents of the B register to RAM address stored in operand
+    flags:
+      other:
+        -
+          signals: [IO, MI]
+          description: Move IR contents to MAR
+        -
+          signals: [BO, RI]
+          description: Move register B contents to RAM
+  -
+    name: STC
+    opcode: 0x20
+    description: Write the contents of the C register to RAM address stored in the operand
+    flags:
+      other:
+        -
+          signals: [IO, MI]
+          description: Move IR contents to MAR
+        -
+          signals: [CO, RI]
+          description: Move register C contents to RAM
+  -
+    name: STS
+    opcode: 0x21
+    description: Write the contents of the shift register to RAM address stored in the operand
+    flags:
+      other:
+        -
+          signals: [IO, MI]
+          description: Move IR contents to RAM
+        -
+          signals: [SO, RI]
+          description: Move shift register contents to RAM
+# Stack Manipulation
+  -
+    name: JSR
+    opcode: 0x22
+    description: Jump to subroutine
+    flags:
+      other:
+        -
+          signals: [STO, MI]
+          description: Move stack pointer contents to the MAR
+        -
+          signals: [CTO, MI]
+          description: Store program counter contents in RAM stack
+        -
+          signals: [STI, IO, JMP]
+          description: Increment stack pointer; Move IR contents to the program counter
+  -
+    name: RET
+    opcode: 0x23
+    description: Return from subroutine
+    flags:
+      other:
+        -
+          signals: [STD]
+          description: Decrement stack pointer
+        -
+          signals: [STO, MI]
+          description: Move Stack pointer contents to the MAR
+        -
+          signals: [RO, JMP]
+          description: Move RAM contents to the program counter
+# I/O Read Instructions
+  -
+    name: IRA
+    opcode: 0x24
+    description: Read from I/O to the A register
+    flags:
+      other:
+        -
+          signals: [E, RW, AI]
+          description: Enable I/O, set in read mode; Move data word to the A register
+  -
+    name: IRB
+    opcode: 0x25
+    description: Read from I/O to the B register
+    flags:
+      other:
+        -
+          signals: [E, RW, BI]
+          description: Enable I/O, set in read mode; Move data word to the B register
+  -
+    name: IRC
+    opcode: 0x26
+    description: Read from I/O to the C register
+    flags:
+      other:
+        -
+          signals: [E, RW, CI]
+          description: Enable I/O, set in read mode; Move data word to the C register
+  -
+    name: IRS
+    opcode: 0x27
+    description: Read from I/O to the shift register
+    flags:
+      other:
+        -
+          signals: [E, RW, SI]
+          description: Enable I/O, set in read mode; Move data word to the shift register
+  -
+    name: IRR
+    opcode: 0x28
+    description: Read from I/O to RAM address specified in the instruction operand
+    flags:
+      other:
+        -
+          signals: [IO, MI]
+          description: Move IR contents to MAR
+        -
+          signals: [E, RW, RI]
+          description: Enable I/O, set in read mode, Move data word to RAM
+# I/O write instructions
+  -
+    name: IWA
+    opcode: 0x29
+    description: Write A register contents to I/O
+    flags:
+      other:
+        -
+          signals: [E, AO]
+          description: Enable I/O, set write mode; Move register A contents to I/O
+  -
+    name: IWB
+    opcode: 0x2A
+    description: Write B register contents to I/O
+    flags:
+      other:
+        -
+          signals: [E, BO]
+          description: Enable I/O, set write mode; Move register B contents to I/O
+  -
+    name: IWC
+    opcode: 0x2B
+    description: Write C register contents to I/O
+    flags:
+      other:
+        -
+          signals: [E, CO]
+          description: Enable I/O, set write mode; Move register C contents to I/O
+  -
+    name: IWS
+    opcode: 0x2C
+    description: Write shift register contents to I/O
+    flags:
+      other:
+        -
+          signals: [E, SO]
+          description: Enable I/O, set write mode; Move shift register contents to I/O
+  -
+    name: IWR
+    opcode: 0x2D
+    description: Write RAM contents at address specified by instruction operand to I/O
+    flags:
+      other:
+        -
+          signals: [IO, MI]
+          description: Move IR contents to the MAR
+        -
+          signals: [E, RO]
+          description: Enable I/O, set write mode; Move RAM contents to I\O
+# Computer and clock manipulation
+  -
+    name: RST
+    opcode: 0x3D
+    description: Reset the computer
+    flags:
+      other:
+        -
+          signals: [RST]
+          description: Reset the computer
+  -
+    name: HLT
+    opcode: 0x3E
+    description: Stop the clock
+    flags:
+      other:
+        -
+          signals: [HLT]
+          description: Stop the clock
+# Display instructions
+  -
+    name: OUT
+    opcode: 0x3F
+    description: Move contents of the A register to the display
+    flags:
+      other:
+        -
+          signals: [AO, OUT]
+          description: Move contents of the A register to the Display

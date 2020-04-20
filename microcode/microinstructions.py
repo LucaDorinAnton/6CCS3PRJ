@@ -227,7 +227,7 @@ HLT = Instruction('HLT', 0b111110, "Stop the clock")
 HLT.insert_step(MicroStep([CtrlSigs.HLT], "Stop the clock"))
 instr_lst.append(HLT)
 
-# Display
+# Display instructions
 OUT = Instruction('OUT', 0b111111, "Move contents of reg. A to Display")
 OUT.insert_step(MicroStep([CtrlSigs.AO, CtrlSigs.OUT], "Move contents of reg. A to Display"))
 instr_lst.append(OUT)

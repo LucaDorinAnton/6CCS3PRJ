@@ -83,12 +83,13 @@ def create_fetch_cycle():
 
 class Instruction():
 
-    def __init__(self, name, opcode=0b000000, desc=''):
+    def __init__(self, name, opcode=0b000000, desc='', op=False):
         self.flag_agnostic_steps = create_fetch_cycle()
         self.steps = {}
         self.name = name
         self.opcode = opcode
         self.desc = desc
+        self.op = op
 
     def insert_step(self, step, flag='other'):
         if flag not in ['other', 'CF', 'ZF', 'PF']:
@@ -102,7 +103,7 @@ class Instruction():
 
 
     def __str__(self):
-        s = "Name: %s Opcode: %s Desc: %s\n" % (self.name, format(self.opcode, '06b'), self.desc)
+        s = "Name: %s Opcode: %s Desc: %s Needs operand: %s\n" % (self.name, format(self.opcode, '06b'), self.desc, str(self.op))
         s += "  Flag agnostic:\n"
         for i in range(len(self.flag_agnostic_steps)):
             s += "      Step %s: %s \n" % (format(i, '03b'), str(self.flag_agnostic_steps[i]))

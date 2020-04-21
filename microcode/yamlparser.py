@@ -12,7 +12,8 @@ def parse_instructions(f):
         if opcode > 63:
             raise Exception("Invalid Opcode: %i" % opcode)
         instr_desc = instr['description']
-        instruction = Instruction(name, opcode, instr_desc)
+        operand = bool(instr['requires_operand'])
+        instruction = Instruction(name, opcode, instr_desc, operand)
         for key in instr['flags'].keys():
             if key.lower() not in ['other', 'cf', 'zf', 'pf']:
                 raise Exception("Invalid Flag: %s" % key)

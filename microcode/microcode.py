@@ -61,6 +61,14 @@ def write_files(instr_lst):
     with open('eeprom4.bin', 'wb') as f:
         f.write(eeproms[3])
     print("eeprom4.bin saved")
+    print("Begin generating Assembler Instruction List")
+    instr_names = []
+    for i in instr_lst:
+        instr_names.append(i.name)
+    with open('instruction_list.txt', 'w') as f:
+        for i in instr_names:
+            f.write(i + '\n')
+    print("Assembler Instruction List generation finished")
 
 def print_instr_lst(instr_lst, to_print):
     if len(to_print) == 0:

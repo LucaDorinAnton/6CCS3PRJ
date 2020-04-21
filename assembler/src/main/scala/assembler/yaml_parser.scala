@@ -15,9 +15,8 @@ object YAMLParser {
 
   import ISAYamlProtocol._
 
-  def parseYamlISAFile(filename: String) : (ISA, List[String], Map[String, Instruction]) = {
-    val isaText = Source.fromFile(filename).mkString
-    val isaYaml = isaText.stripMargin.parseYaml.convertTo[ISA]
+  def parseYamlISA(yamlText: String) : (ISA, List[String], Map[String, Instruction]) = {
+    val isaYaml = yamlText.stripMargin.parseYaml.convertTo[ISA]
 
     val instr_names : List[String] = isaYaml.instructions.map(i => i.name).toList
     val instr_map : Map[String, Instruction] = instr_names.map(

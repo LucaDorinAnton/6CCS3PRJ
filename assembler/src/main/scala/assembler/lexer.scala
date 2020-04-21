@@ -4,7 +4,6 @@ object Lexer {
 
   import scala.language.implicitConversions
   import scala.language.reflectiveCalls
-  // import assembler.yaml_parser
 
   // regular expressions including records
   abstract class Rexp
@@ -249,16 +248,15 @@ object Lexer {
             val BINARY_NR = "0b" ~ PLUS("0" | "1")
             val HEX_NR = "0x" ~ PLUS(ZERO_DIGITS | RANGE(('a' to 'f').toSet) | RANGE(('A' to 'F').toSet))
             val DEC_NR = "0d" ~ PLUS(ZERO_DIGITS) | PLUS(ZERO_DIGITS)
-            val OPERAND = BINARY_NR | HEX_NR | DEC_NR | UPPER | LOWER
+            val OPERAND = BINARY_NR | HEX_NR | DEC_NR
             val COMMENT = "#" ~ STAR(NOT_NEWLINES)
-            val OPS = ":" | "="
+            val OPS = ":" | "=" | "set"
 
 
             def assembler_lex(s: String, r: Rexp) : List[(String, String)] =
               sanitize(lexing_simp(r, s))
 
-            def lex_assembly_based_on_isa(assembly_file: String, isa_file: String) : List[(String, String)] = {
-              val instr_names = YAMLParser.parseYamlISAFile(isa_file)._2
+            def lex_assembly_based_on_isa(assembly_text: String, instr_names: List[String]) : List[(String, String)] = {
               val INSTRUCTIONS = strListToRexp(instr_names)
 
               val ASSEMBLER_REGS = (("ins" $ INSTRUCTIONS) |
@@ -268,9 +266,7 @@ object Lexer {
                 ("whi" $ WHITESPACE) |
                 ("id" $ ID)).%
 
-                import scala.io.Source
-                val text = Source.fromFile(assembly_file).mkString
-                assembler_lex(text, ASSEMBLER_REGS)
+                assembler_lex(assembly_text, ASSEMBLER_REGS)
               }
 
 

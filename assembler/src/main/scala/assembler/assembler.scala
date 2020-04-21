@@ -35,6 +35,11 @@ object Assembler extends App {
     case a::rest => create_env(rest, env, processed:+a)
     }
 
+  def get_sub_order(tks: List[(String, String)], res: List[String] = Nil) : List[String] = tks match{
+    case Nil => res
+    case ("id", a)::("ops", ":")::rest => get_sub_order(rest, res:+a)
+    case _::rest => get_sub_order(rest, res)
+  }
 
   def separate_subroutines(tks: List[(String, String)],
                           subroutines: Map[String, List[(String, String)]] = Map(),
@@ -58,12 +63,12 @@ object Assembler extends App {
       }
 
   def solve_references(subroutines: Map[String, Int],
-                       env: Map[String, Int]) : Map[String, Int] = {
+                       env: Map[String, Int],
+                       keys: List[String]) : Map[String, Int] = {
       subroutines.getOrElse("main", throw new Exception("No main section defined!"))
       val base = 0
       val env1 = env + ("main" -> base)
       val base1 = base + subroutines.get("main").get
-      val keys = subroutines.keys.toList.filter({case n => n != "main" && n != "data"})
       solve_references_rec(keys, subroutines, env1, base1)
   }
 
@@ -135,7 +140,7 @@ object Assembler extends App {
                           instr_map: Map[String, YAMLParser.Instruction]
                         ) : Map[Int, String] = {
     val main = process_subroutine(subroutines.get("main").get, "main", MAIN_BASE, env, instr_map)
-    val data = process_subroutine(subroutines.get("data").get, "data", DATA_BASE, env, instr_map)
+    val data = process_subroutine(subroutines.getOrElse("data", Nil), "data", DATA_BASE, env, instr_map)
     val rest = subroutines.keys.toList.filter({case n => n != "main" && n != "data"})
     val result_rest = process_subroutines_rec(rest, subroutines, env, instr_map)
 
@@ -157,31 +162,44 @@ object Assembler extends App {
     print("Reading Assembly source... ")
     val assembly_text = Source.fromFile(args(0)).mkString
     println("Done.")
+
     print("Reading Instruction Set YAML source... ")
     val isa_text = Source.fromFile(args(1)).mkString
     println("Done.")
+
     print("Trying to parse YAML text... ")
     val yaml_obj = YAMLParser.parseYamlISA(isa_text)
     println("Done.")
+
     print("Trying to lex assembly source... ")
     val tks = Lexer.lex_assembly_based_on_isa(assembly_text, yaml_obj._2)
     println("Done.")
+
     print("Extracting aliases... ")
     val env_init = create_env(tks)
     println("Done.")
+
+    print("Ordering subroutines... ")
+    val sub_order = get_sub_order(env_init._1)
+    val sub_order_1 = sub_order.filter({case n => n != "data" && n != "main"})
+    println("Done")
+
     print("Extracting subroutines... ")
     val subroutines = separate_subroutines(env_init._1)
     println("Done.")
+
     print("Counting subroutine instructions... ")
     val subroutine_cnt_map = subroutines map {case (name, lst) => (name -> cnt_subroutine_instr(lst))}
     println("Done.")
+
     print("Solving references... ")
-    val env = solve_references(subroutine_cnt_map, env_init._2)
+    val env = solve_references(subroutine_cnt_map, env_init._2, sub_order_1)
     println("Done.")
+
     print("Decoding Instructions... ")
     val final_res = process_subroutines(subroutines, env, yaml_obj._3)
-    print(final_res)
     println("Done.")
+
     print("Generating byte array... ")
     val bytes = createByteList(final_res)
     println("Done.")

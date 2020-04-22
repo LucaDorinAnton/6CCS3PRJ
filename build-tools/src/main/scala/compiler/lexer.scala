@@ -1,6 +1,18 @@
-package assembler
+// Modiefied coursework2 to generate tokens to files
+// can be compiled/run directly with scalac/scala
+
+// Coursework 2 - 6CCS3CFL - Luca-Dorin Anton
+// Based on Dr. Christian Urban's lexer.scala - Lecture 4
+
+
+// A simple lexer inspired by work of Sulzmann & Lu
+//==================================================
+
+package buildtools.compiler
 
 object Lexer {
+
+
 
   import scala.language.implicitConversions
   import scala.language.reflectiveCalls
@@ -106,7 +118,7 @@ object Lexer {
 
 
     // extracts an environment from a value;
-    // used to tokenise a string
+    // used for tokenise a string
     def env(v: Val) : List[(String, String)] = v match {
       case Empty => Nil
       case Chr(c) => Nil
@@ -146,6 +158,43 @@ object Lexer {
       case (RECD(x, r1), _) => Rec(x, inj(r1, c, v))
     }
 
+    def lex(r: Rexp, s: List[Char]) : Val = s match {
+      case Nil => if (nullable(r)) mkeps(r) else
+      { throw new Exception("lexing error") }
+      case c::cs => inj(r, c, lex(der(c, r), cs))
+    }
+
+    def lexer(r: Rexp, s: String) =
+      env(lex(r, s.toList))
+
+    val UPPER = RANGE(('A' to 'Z').toSet)
+    val LOWER = RANGE(('a' to 'z').toSet)
+    val ZERO_DIGITS = RANGE(('0' to '9').toSet)
+    val ONE_DIGITS = RANGE(('1' to '9').toSet)
+    val SYM = RANGE(('A' to 'Z').toSet ++ ('a' to 'z').toSet ++ ('0' to '9').toSet ++ Set('_'))
+
+    val NOT_QUOTES = CFUN(_ != '"')
+    val NOT_NEWLINES = CFUN(_ != '\n')
+
+    val KEYWORD : Rexp =  "while" | "if" | "then" | "else" | "do" | "true" | "false" | "read" | "write" | "skip"
+    val OP: Rexp = "+" | "-" | "*" | "==" | "!=" | ">" | ">=" | "<" | "<=" | ":=" | "&&" | "||"
+    val PARA: Rexp = "{" | "}" | "(" | ")"
+    val SEMI: Rexp = ";"
+    val WHITESPACE = PLUS(" " | "\n" | "\t" | "\r")
+    val ID = SYM ~ (SYM | ZERO_DIGITS).%
+    val NUM = "0" | ONE_DIGITS ~ STAR(ZERO_DIGITS)
+    val COMM : Rexp = "//" ~ STAR(NOT_NEWLINES) ~ "\n" //in-line comments
+
+
+    val WHILE_REGS = (("k" $ KEYWORD) |
+    ("op" $ OP)     |
+    ("p" $ PARA)    |
+    ("s" $ SEMI)    |
+    ("w" $ WHITESPACE) |
+    ("n" $ NUM)     |
+    ("id" $ ID)     |
+    ("c" $ COMM)).%
+
     // some "rectification" functions for simplification
     def F_ID(v: Val): Val = v
     def F_RIGHT(f: Val => Val) = (v:Val) => Right(f(v))
@@ -159,115 +208,75 @@ object Lexer {
     }
     def F_SEQ_Empty1(f1: Val => Val, f2: Val => Val) =
       (v:Val) => Sequ(f1(Empty), f2(v))
-      def F_SEQ_Empty2(f1: Val => Val, f2: Val => Val) =
-        (v:Val) => Sequ(f1(v), f2(Empty))
-        def F_RECD(f: Val => Val) = (v:Val) => v match {
-          case Rec(x, v) => Rec(x, f(v))
+    def F_SEQ_Empty2(f1: Val => Val, f2: Val => Val) =
+      (v:Val) => Sequ(f1(v), f2(Empty))
+    def F_RECD(f: Val => Val) = (v:Val) => v match {
+      case Rec(x, v) => Rec(x, f(v))
+    }
+    def F_ERROR(v: Val): Val = throw new Exception("error")
+
+    def simp(r: Rexp): (Rexp, Val => Val) = r match {
+      case ALT(r1, r2) => {
+        val (r1s, f1s) = simp(r1)
+        val (r2s, f2s) = simp(r2)
+        (r1s, r2s) match {
+          case (ZERO, _) => (r2s, F_RIGHT(f2s))
+          case (_, ZERO) => (r1s, F_LEFT(f1s))
+          case _ => if (r1s == r2s) (r1s, F_LEFT(f1s))
+          else (ALT (r1s, r2s), F_ALT(f1s, f2s))
         }
-        def F_ERROR(v: Val): Val = throw new Exception("error")
-
-        def simp(r: Rexp): (Rexp, Val => Val) = r match {
-          case ALT(r1, r2) => {
-            val (r1s, f1s) = simp(r1)
-            val (r2s, f2s) = simp(r2)
-            (r1s, r2s) match {
-              case (ZERO, _) => (r2s, F_RIGHT(f2s))
-              case (_, ZERO) => (r1s, F_LEFT(f1s))
-              case _ => if (r1s == r2s) (r1s, F_LEFT(f1s))
-              else (ALT (r1s, r2s), F_ALT(f1s, f2s))
-            }
-          }
-          case SEQ(r1, r2) => {
-            val (r1s, f1s) = simp(r1)
-            val (r2s, f2s) = simp(r2)
-            (r1s, r2s) match {
-              case (ZERO, _) => (ZERO, F_ERROR)
-              case (_, ZERO) => (ZERO, F_ERROR)
-              case (ONE, _) => (r2s, F_SEQ_Empty1(f1s, f2s))
-              case (_, ONE) => (r1s, F_SEQ_Empty2(f1s, f2s))
-              case _ => (SEQ(r1s,r2s), F_SEQ(f1s, f2s))
-            }
-          }
-          case RECD(x, r1) => {
-            val (r1s, f1s) = simp(r1)
-            (RECD(x, r1s), F_RECD(f1s))
-          }
-          case r => (r, F_ID)
+      }
+      case SEQ(r1, r2) => {
+        val (r1s, f1s) = simp(r1)
+        val (r2s, f2s) = simp(r2)
+        (r1s, r2s) match {
+          case (ZERO, _) => (ZERO, F_ERROR)
+          case (_, ZERO) => (ZERO, F_ERROR)
+          case (ONE, _) => (r2s, F_SEQ_Empty1(f1s, f2s))
+          case (_, ONE) => (r1s, F_SEQ_Empty2(f1s, f2s))
+          case _ => (SEQ(r1s,r2s), F_SEQ(f1s, f2s))
         }
+      }
+      case RECD(x, r1) => {
+        val (r1s, f1s) = simp(r1)
+        (RECD(x, r1s), F_RECD(f1s))
+      }
+      case r => (r, F_ID)
+    }
 
-        // lexing functions including simplification
-        def lex_simp(r: Rexp, s: List[Char]) : Val = s match {
-          case Nil => if (nullable(r)) mkeps(r) else
-          { throw new Exception("lexing error") }
-          case c::cs => {
-            val (r_simp, f_simp) = simp(der(c, r))
-            inj(r, c, f_simp(lex_simp(r_simp, cs)))
-          }
-        }
+    // lexing functions including simplification
+    def lex_simp(r: Rexp, s: List[Char]) : Val = s match {
+      case Nil => if (nullable(r)) mkeps(r) else
+      { throw new Exception("lexing error") }
+      case c::cs => {
+        val (r_simp, f_simp) = simp(der(c, r))
+        inj(r, c, f_simp(lex_simp(r_simp, cs)))
+      }
+    }
 
-        def lexing_simp(r: Rexp, s: String) =
-          env(lex_simp(r, s.toList))
+    def lexing_simp(r: Rexp, s: String) =
+      env(lex_simp(r, s.toList))
 
-          // escapes strings and prints them out as "", "\n" and so on
-          def esc(raw: String): String = {
-            import scala.reflect.runtime.universe._
-            Literal(Constant(raw)).toString
-          }
+            // escapes strings and prints them out as "", "\n" and so on
+    def esc(raw: String): String = {
+      import scala.reflect.runtime.universe._
+      Literal(Constant(raw)).toString
+    }
 
-          def escape(tks: List[(String, String)]) =
-            tks.map{ case (s1, s2) => (s1, esc(s2))}
+    def escape(tks: List[(String, String)]) =
+      tks.map{ case (s1, s2) => (s1, esc(s2))}
 
-            // Remove comments and whitespace from the token List
-            def sanitize(tks: List[(String, String)]) : List[(String, String)]= tks match {
-              case Nil => Nil
-              case t::ts => t match {
-                case ("whi", _) => sanitize(ts)
-                case ("com", _) => sanitize(ts)
-                case _ => t::sanitize(ts)
-              }
-            }
+    // Remove comments and whitespace from the token List
+    def sanitize(tks: List[(String, String)]) : List[(String, String)]= tks match {
+      case Nil => Nil
+      case t::ts => t match {
+        case ("w", _) => sanitize(ts)
+        case ("c", _) => sanitize(ts)
+        case _ => t::sanitize(ts)
+      }
+    }
 
-            def strListToRexp(lst: List[String], r: Rexp = ZERO) : Rexp = {
-              lst match {
-                case Nil => r
-                case name::rest => strListToRexp(rest, r | name)
-              }
-            }
+    def lex_while(s: String) : List[(String, String)] =
+      sanitize(lexing_simp(WHILE_REGS, s))
 
-            val UPPER = RANGE(('A' to 'Z').toSet)
-            val LOWER = RANGE(('a' to 'z').toSet)
-            val ZERO_DIGITS = RANGE(('0' to '9').toSet)
-            val ONE_DIGITS = RANGE(('1' to '9').toSet)
-            val SYM = RANGE(('A' to 'Z').toSet ++ ('a' to 'z').toSet ++ Set('_'))
-
-            val NOT_QUOTES = CFUN(_ != '"')
-            val NOT_NEWLINES = CFUN(_ != '\n')
-
-            val WHITESPACE = PLUS(" " | "\n" | "\t" | "\r")
-            val ID = SYM ~ (SYM | ZERO_DIGITS).%
-            val BINARY_NR = "0b" ~ PLUS("0" | "1")
-            val HEX_NR = "0x" ~ PLUS(ZERO_DIGITS | RANGE(('a' to 'f').toSet) | RANGE(('A' to 'F').toSet))
-            val DEC_NR = "0d" ~ PLUS(ZERO_DIGITS) | PLUS(ZERO_DIGITS)
-            val OPERAND = BINARY_NR | HEX_NR | DEC_NR
-            val COMMENT = "#" ~ STAR(NOT_NEWLINES)
-            val OPS = ":" | "=" | "set"
-
-
-            def assembler_lex(s: String, r: Rexp) : List[(String, String)] =
-              sanitize(lexing_simp(r, s))
-
-            def lex_assembly_based_on_isa(assembly_text: String, instr_names: List[String]) : List[(String, String)] = {
-              val INSTRUCTIONS = strListToRexp(instr_names)
-
-              val ASSEMBLER_REGS = (("ins" $ INSTRUCTIONS) |
-                ("ops" $ OPS) |
-                ("ope" $ OPERAND) |
-                ("com" $ COMMENT) |
-                ("whi" $ WHITESPACE) |
-                ("id" $ ID)).%
-
-                assembler_lex(assembly_text, ASSEMBLER_REGS)
-              }
-
-
-            }
+  }

@@ -1,4 +1,4 @@
-package assembler
+package buildtools.assembler
 
 object Assembler extends App {
 

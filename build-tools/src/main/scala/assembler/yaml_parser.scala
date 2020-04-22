@@ -1,4 +1,4 @@
-package assembler
+package buildtools.assembler
 
 object YAMLParser {
   import net.jcazevedo.moultingyaml._

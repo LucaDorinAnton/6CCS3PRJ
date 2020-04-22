@@ -177,7 +177,7 @@ object Lexer {
     val NOT_NEWLINES = CFUN(_ != '\n')
 
     val KEYWORD : Rexp =  "while" | "if" | "then" | "else" | "do" | "true" | "false" | "read" | "write" | "skip"
-    val OP: Rexp = "+" | "-" | "*" | "==" | "!=" | ">" | ">=" | "<" | "<=" | ":=" | "&&" | "||"
+    val OP: Rexp = "+" | "-" | "*" | "==" | "!=" | ">" | ">=" | "<" | "<=" | ":=" 
     val PARA: Rexp = "{" | "}" | "(" | ")"
     val SEMI: Rexp = ";"
     val WHITESPACE = PLUS(" " | "\n" | "\t" | "\r")

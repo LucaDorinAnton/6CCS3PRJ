@@ -2,7 +2,7 @@ package buildtools.assembler
 
 object Assembler extends App {
 
-  import assembler._
+  import buildtools.assembler.{Lexer, YAMLParser}
   import scala.io.Source
   import java.io.BufferedOutputStream
   import java.io.FileOutputStream
@@ -10,6 +10,8 @@ object Assembler extends App {
   val MAIN_BASE = 0
   val DATA_BASE = 512
   val MEM_SIZE = 1024
+
+  type Env = Map[String, Int]
 
 
   def format_binary_string(nr: Int, length: Int) =
@@ -26,7 +28,7 @@ object Assembler extends App {
   }
 
   def create_env(tks: List[(String, String)],
-                 env: Map[String, Int] = Map(),
+                 env:Env = Map(),
                  processed: List[(String, String)] = Nil)
                 : (List[(String, String)], Map[String, Int]) = tks match {
     case Nil => (processed, env)
@@ -57,13 +59,13 @@ object Assembler extends App {
   }
 
   def solve_references_rec(keys: List[String], subroutines: Map[String, Int],
-                          env: Map[String, Int], base: Int) : Map[String, Int] = keys match {
+                          env: Env, base: Int) : Map[String, Int] = keys match {
         case Nil => env
         case s::rest => solve_references_rec(rest, subroutines, env + (s -> base), base + subroutines.get(s).get)
       }
 
   def solve_references(subroutines: Map[String, Int],
-                       env: Map[String, Int],
+                       env: Env,
                        keys: List[String]) : Map[String, Int] = {
       subroutines.getOrElse("main", throw new Exception("No main section defined!"))
       val base = 0
@@ -73,7 +75,7 @@ object Assembler extends App {
   }
 
   def process_subroutine(tks: List[(String, String)], name: String, base: Int,
-                         env: Map[String, Int],
+                         env: Env,
                          instrs: Map[String, YAMLParser.Instruction],
                          res: Map[Int, String] = Map()) : Map[Int, String] = name match {
       case "data" => tks match {
@@ -106,8 +108,18 @@ object Assembler extends App {
       }
       case _ => tks match {
           case Nil => res
-          case ("ins", a)::("id", b)::rest => process_subroutine(rest, name, base + 1, env, instrs,
-                                                res + (base -> make_bin_str2(instrs.get(a).get.opcode, env.get(b).get)))
+          case ("ins", a)::("id", b)::rest => try {
+            process_subroutine(rest, name, base + 1, env, instrs,
+              res + (base -> make_bin_str2(instrs.get(a).get.opcode, env.get(b).get)))
+          } catch {
+            case e: Exception => {
+              println(a, " ", b)
+              println(instrs.get(a))
+              println(env.get(b))
+              println(env)
+              throw e
+            }
+          }
           case ("ins", a)::("ope", b)::rest => process_subroutine(rest, name, base + 1, env, instrs,
                                                 res + (base -> make_bin_str2(instrs.get(a).get.opcode, parse_ope(b))))
           case ("ins", a)::rest => if(!instrs.get(a).get.requires_operand) process_subroutine(rest, name, base + 1,
@@ -120,7 +132,7 @@ object Assembler extends App {
   // ins | ops | ope | id
   def process_subroutines_rec(keys: List[String],
                               subroutines: Map[String, List[(String, String)]],
-                              env: Map[String, Int],
+                              env: Env,
                               instr_map: Map[String, YAMLParser.Instruction],
                               res: List[Map[Int, String]] = Nil) : List[Map[Int, String]] = keys match{
     case Nil => res
@@ -130,13 +142,13 @@ object Assembler extends App {
     }
 
                               }
-  def merge_maps_rec(acc: Map[Int, String]=Map(), maps: List[Map[Int, String]]) : Map[Int, String] = maps match {
+  def merge_maps_rec(acc: Map[Int, String] = Map(), maps: List[Map[Int, String]]) : Map[Int, String] = maps match {
     case Nil => acc
     case m::rest => merge_maps_rec(acc ++ m, rest)
   }
 
   def process_subroutines(subroutines: Map[String, List[(String, String)]],
-                          env: Map[String, Int],
+                          env: Env,
                           instr_map: Map[String, YAMLParser.Instruction]
                         ) : Map[Int, String] = {
     val main = process_subroutine(subroutines.get("main").get, "main", MAIN_BASE, env, instr_map)
@@ -158,21 +170,13 @@ object Assembler extends App {
     }
   }
 
-  def assemble() : List[Byte] = {
-    print("Reading Assembly source... ")
-    val assembly_text = Source.fromFile(args(0)).mkString
-    println("Done.")
-
-    print("Reading Instruction Set YAML source... ")
-    val isa_text = Source.fromFile(args(1)).mkString
-    println("Done.")
-
+  def assemble(asm_text : String, isa_text : String) : List[Byte] = {
     print("Trying to parse YAML text... ")
     val yaml_obj = YAMLParser.parseYamlISA(isa_text)
     println("Done.")
 
     print("Trying to lex assembly source... ")
-    val tks = Lexer.lex_assembly_based_on_isa(assembly_text, yaml_obj._2)
+    val tks = Lexer.lex_assembly_based_on_isa(asm_text, yaml_obj._2)
     println("Done.")
 
     print("Extracting aliases... ")
@@ -205,48 +209,4 @@ object Assembler extends App {
     println("Done.")
     bytes
   }
-
-  def write_bytes(bytes: List[Byte]) = {
-      print("Writing bytes to file... ")
-      val stream = new BufferedOutputStream(new FileOutputStream(args(2)))
-      stream.write(bytes.toArray)
-      stream.close
-      println("Done.")
-  }
-
-  def help() : String = {
-    val s1 = "Assmbler for the 16-bit breadboard computer instrunction set\n" +
-             "  Built by Luca-Dorin Anton. This software contributes towards a degree\n" +
-             "  Usage:\n" +
-             "    scala assembler [assembly_file] [isa_file] [result_file]\n" +
-             "  Argument description:\n" +
-             "    assembly_file: source assembly file. Should contain some 16-bit computer assembly\n" +
-             "    isa_file: YAML file containing the definitions of the instructions for the 16 bit computer Instruction Set\n" +
-             "    result_file: where to store the resulting binaries. This file will be truncated"
-    s1
-  }
-
-  def check_args() = {
-    import java.io.FileNotFoundException
-    import java.io.IOException
-    if(args.length < 3) {
-      println("Insufficient argument")
-      println(help())
-      System.exit(1)
-    }
-    for(i <- 0 to 1) {
-      try{
-        Source.fromFile(args(i)).mkString
-      } catch {
-        case e: FileNotFoundException => println("Couldn't find file " + args(i) + "\n" + help()); System.exit(1)
-        case e: IOException => println("IOException while trying to open " + args(i) + "\n" + help()) ; System.exit(1)
-        case e: Exception => println(e + "\n" + help()) ; System.exit(1)
-      }
-    }
-  }
-
-  check_args()
-  val bytes = assemble()
-  write_bytes(bytes)
-  println("Successfully generated binary file!")
 }

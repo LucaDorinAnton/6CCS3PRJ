@@ -33,7 +33,7 @@ void loop() {
       prog_instr();
       got1 = false;
       idx += 1;
-      Serial.write(1);
+      Serial.println(idx);
     } else {
       byte_1 = Serial.read();
       got1 = true;
@@ -70,7 +70,7 @@ void prog_instr() {
 
   digitalWrite(WRITE, HIGH);
 
-  delay(10);
+  delay(1);
 
   digitalWrite(WRITE, LOW);
   

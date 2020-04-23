@@ -84,6 +84,12 @@ After going through the content, it became apparent that such a computer could s
 
 \section{Objectives}
 The main goal of this project is the physical implementation of a 16-bit computer system modelled after an architecture designed around the ideas of \emph{explainability and ease of understanding} down to the transistor level. Breaking down this objective by specific hardware and software requirements, the following can be stated:
+The main anaysis goals are:
+\begin{enumerate}
+  \item Detailed analysis of computer architecture
+  \item Analysis of the computer designed and built by Ben Eater \cite{eater2019breadboard}
+\end{enumerate}
+
 The main hardware  objectives are:
 \begin{enumerate}
   \item 16 bit word length
@@ -92,17 +98,20 @@ The main hardware  objectives are:
   \item capability to decode and execute instructions sequentially
   \item program counter alteration (jumps)
   \item I/O functionality
-  \item hardware-implemented ability to perform basic arithmetical operations
+  \item hardware-implemented ability to perform basic arithmetical operations \label{aritm}
   \item simple branching
   \item variable speed clock
   \item single step clock function
-\end{enumerate}\pagebreak
+\end{enumerate}
+\pagebreak
 The main software objectives are:
 \begin{enumerate}
+  \item microcode generation tool
   \item adequate microcode for the control mechanisms
   \item assembly mnemonics
   \item assembler package to turn assembly files into binaries
   \item compiler for the WHILE-language to breadboard computer binaries
+  \item Arduino driver software
 \end{enumerate}
 
 \section{Project Structure}
@@ -116,15 +125,15 @@ With the software as well as the hardware ready, a rigorous testing phase will f
 Finally, the conclusion chapter summarises everything done so far and highlights the learning outcomes of the project and the possible continuation paths for future work. \\
 
 \include{Chapters/Background}
-% \include{Chapters/Body}
 \include{Chapters/HardDesignSpecification}
 \include{Chapters/HardImplementation}
 \include{Chapters/SoftSpecification}
 \include{Chapters/SoftDesign}
 \include{Chapters/SoftImplementation}
-% \include{Chapters/ProfessionalIssues}
-% \include{Chapters/Evaluation}
-% \include{Chapters/Conclusion}
+\include{Chapters/TestingEvaluation}
+\include{Chapters/ProfessionalIssues}
+\include{Chapters/NextStepsConclusion}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % References

@@ -1,16 +1,17 @@
-byte q1[10];
-byte q2[10];
+byte q1[10];  // low order byte queue
+byte q2[10];  // high order byte queue
 bool got1 = false;
 int idx = 0;
 byte byte_1;
 byte byte_2;
 int read_idx = 0;
-// Low-order to High-order bits`
+// Low-order to High-order bits
 const int data[] = {22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52};
 
 #define DIR 49
 #define E 2
 
+// Write the front of the queue to the digital pins
 void output_data() {
     for(int i = 0; i< 8; i++) {
     if(bitRead(q1[i], i)) {
@@ -27,6 +28,7 @@ void output_data() {
   }
 }
 
+// Read from the digital pins and built bytes. Send them over to the computer
 void input_data() {
   byte b1 = 0;
   byte b2 = 0;
@@ -40,6 +42,7 @@ void input_data() {
   Serial.write(b2);
 }
 
+// Interrupt Sub Routine for handling IO requests
 void ISR_handle_io() {
   if(digitalRead(DIR)) {
     set_read_mode();
@@ -69,15 +72,14 @@ void setup() {
 
   Serial.begin(9600);
   pinMode(DIR, INPUT);
-  pinMode(E, INPUT);  
+  pinMode(E, INPUT);
   set_write_mode();
   attachInterrupt(digitalPinToInterrupt(E), ISR_handle_io, RISING);
 
-  
+
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
   if (Serial.available() > 0) {
     if (got1) {
       byte_2 = Serial.read();

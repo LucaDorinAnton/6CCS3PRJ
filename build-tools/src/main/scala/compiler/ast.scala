@@ -1,5 +1,7 @@
 package buildtools.compiler
+// Based on the 6CCS3CFL coursework, taught by Dr. Christian Urban
 
+// WHILE Language abstract syntax trees
 object AST {
   abstract class Stmt
   abstract class AExp

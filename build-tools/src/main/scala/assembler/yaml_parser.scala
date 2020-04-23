@@ -1,5 +1,7 @@
 package buildtools.assembler
 
+
+// Scala YAML parser based on moultingyaml
 object YAMLParser {
   import net.jcazevedo.moultingyaml._
   import scala.io.Source

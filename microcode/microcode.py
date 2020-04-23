@@ -14,6 +14,7 @@ def flag_to_pattern(flag):
         pattern = 0b100
     return pattern
 
+# This is where the magic happens
 def generate_microcode(instr_lst):
     eeproms = []
     for i in range(4):
@@ -34,6 +35,7 @@ def generate_microcode(instr_lst):
                 steps[-1].end_instruction()
             for step in range(8):
                 if step < len(steps):
+                    # Cast three binary values together into an int
                     addr = int(format(instr.opcode, '06b') + format(flag_pattern, '03b')+ format(step, '03b'), 2)
                     byte_lst = steps[step].split_sigs()
                     for i in range(4):

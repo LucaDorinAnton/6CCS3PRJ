@@ -1,11 +1,7 @@
-// Coursework 4 - Luca-Dorin Anton - 6CCS3CFL
-
-//  Based on Dr Christian Urban's comb2.scala, compile.scala  and my cw3 implementation and
-
-// A parser and compiler for the While language
-
 package buildtools.compiler
 
+// Based on the 6CCS3CFL coursework, taught by Dr. Christian Urban
+// Based on regular expression derivatives
 
 object Compiler {
 
@@ -34,6 +30,7 @@ object Compiler {
     def l(args: Any*): String = sc.s(args:_*) ++ ":\n"
   }
 
+// Constants
   val OPSPACE = "0x3EF"
 
   val VARS_BASE = 512

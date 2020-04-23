@@ -206,165 +206,40 @@ to follow.
 The process outlined previously process was followed thoroughly for each module of the 16-bit
 breadboard computer. The modules were built in the following order:
 \begin{enumerate}
-  \item \textbf{Clock Module} \ref{clock-i}
-  \item \textbf{A Register} \ref{a-reg-i}
-  \item \textbf{B Register} \ref{b-reg-i}
-  \item \textbf{C Register} \ref{c-reg-i}
-  \item \textbf{Instruction Register} \ref{ir-i}
-  \item \textbf{Memory Address Register} \ref{mar-i}
-  \item \textbf{Flags Register} \ref{flags-i}
-  \item \textbf{I/O} \ref{io-i}
-  \item \textbf{ALU} \ref{alu-i}
-  \item \textbf{Shift Register} \ref{shift-reg-i}
-  \item \textbf{Program Counter} \ref{pc-i}
-  \item \textbf{Stack Pointer} \ref{sp-i}
-  \item \textbf{Word Selector} \ref{word-select-i}
-  \item \textbf{Address Selector} \ref{addr-select-i}
-  \item \textbf{RAM} \ref{ram}
-  \item \textbf{Display} \ref{display}
-  \item \textbf{Control Signals} \ref{control-sigs-i}
-  \item \textbf{Control Logic} \ref{control-logic-i}
-  \item \textbf{High level overview (with bus and LEDs visible)} \ref{high-level-i}
+  \item \textbf{Clock Module}
+  \item \textbf{A Register}
+  \item \textbf{B Register}
+  \item \textbf{C Register}
+  \item \textbf{Instruction Register}
+  \item \textbf{Memory Address Register}
+  \item \textbf{Flags Register}
+  \item \textbf{I/O}
+  \item \textbf{ALU}
+  \item \textbf{Shift Register}
+  \item \textbf{Program Counter}
+  \item \textbf{Stack Pointer}
+  \item \textbf{Word Selector}
+  \item \textbf{Address Selector}
+  \item \textbf{RAM}
+  \item \textbf{Display}
+  \item \textbf{Control Signals}
+  \item \textbf{Control Logic}
+  \item \textbf{High level overview (with bus and LEDs visible)}
 \end{enumerate}
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.18]{comp/high-level}
+  \caption{High level overview}
+\end{figure}
+\clearpage
 
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/clock}
-    \caption{Clock implementation}
-    \label{clock-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/a-reg}
-    \caption{A register implementation}
-    \label{a-reg-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/b-reg}
-    \caption{B register implementation}
-    \label{b-reg-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/c-reg}
-    \caption{C register implementation}
-    \label{c-reg-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/ir}
-    \caption{Instruction register implementation}
-    \label{ir-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/mar}
-    \caption{Memory address register implementation}
-    \label{mar-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/flags}
-    \caption{Flags register implementation}
-    \label{flags-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/io}
-    \caption{Input/Output implementation}
-    \label{io-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/alu}
-    \caption{Arithmetic-Logic Unit implementation}
-    \label{alu-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/shift-reg}
-    \caption{Shift Register implementation}
-    \label{shift-reg-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/pc}
-    \caption{Program Counter implementation}
-    \label{pc-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/sp}
-    \caption{Stack Pointer implementation}
-    \label{sp-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/word-select}
-    \caption{Word selector implementation}
-    \label{word-select-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/addr-select}
-    \caption{Address selector implementation}
-    \label{addr-select-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/ram}
-    \caption{Random Access Memory implementation}
-    \label{ram-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/display}
-    \caption{Display implementation}
-    \label{display-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/control-sigs}
-    \caption{Implementation of the contol signals module}
-    \label{control-sigs-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/control-logic}
-    \caption{Control Logic implementation}
-    \label{control-logic-i}
-  \end{figure}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.1]{comp/high-level}
-    \caption{High level overview (with bus and LEDs visible)}
-    \label{high-level-i}
-  \end{figure}
-
-\cleardoublepage
-\cleardoublepage
+\paragraph{Images} Images of each individual module can
+be found in the appendix.
 
 
+
+\paragraph{Implementation process}
 After the first few modules and with enough power strips gathered, the first segment of the data
 BUS was created. After that, all modules created so far were attached to the bus. From that point
 on, after each module was built, it was attached to the bus. After a module was attached to the

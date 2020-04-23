@@ -17,6 +17,9 @@ were also used to simplify and expedite the implementation process:
 used on the microcoed generator to parse instructions in YAML format. PyYAML converts a YAML
 file into a python object consisting of lists, dictionaries and primitives.
 
+\paragraph{PySerial} \cite{pyserial} PYSerial was used to implement the communication link
+between the computer and the two Arduinos.
+
 \paragraph{moultingYAML} \cite{moultingyaml} MoultingYAML is a YAML parser for Scala. It works
 more subtly than PyYAML, as it allows the user to specify a \emph{Protocol} with which to
 parse a YAML file directly into a user-defined custom Scala object. It was used in the
@@ -35,3 +38,14 @@ of the \textbf{6CCS3CFL} course taught by \emph{Dr. Christian Urban} \cite{6ccs3
 implementation of the microcode programmer and the two arduino drivers. For the implementation
 of the assembler and compiler, \emph{Scala Build Tools} (sbt) was used \cite{sbt}. Sbt handled
 dependecies, installation of scala, the interactive interpreter and the running of the script.
+
+\paragraph{EEPROM programming} The microcode generator creates binary files, but does not
+burn them to the EEPROMs, for this, a separate software and hardware solution was used.
+The \emph{TL866 II Plus} \cite{eepromg_prog} EEPROM programmer with its accompanying software
+\emph{XgPro} \cite{xgpro}. This programmer is widley adopted and offers compatibility with a wide rage
+of chips, including the \emph{AT28C64B} EEPROM \cite{at28c64b}. The software was simply used to
+interface with the programmer, read .bin files and program them into the chips. No other functionality
+provided by the software was used.
+
+\section{Source code Listing}
+A complete listing of the source code produced is availalble in the \emph{Appendix}.

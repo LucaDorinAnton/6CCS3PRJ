@@ -1,5 +1,7 @@
 package buildtools.assembler
 
+// Builds assmelby file into binaries
+
 object Assembler extends App {
 
   import buildtools.assembler.{Lexer, YAMLParser}
@@ -7,6 +9,7 @@ object Assembler extends App {
   import java.io.BufferedOutputStream
   import java.io.FileOutputStream
 
+// constants
   val MAIN_BASE = 0
   val DATA_BASE = 512
   val MEM_SIZE = 1024
@@ -20,6 +23,7 @@ object Assembler extends App {
   def make_bin_str2(nr1: Int, nr2: Int = 0) =
       format_binary_string(nr1, 6) + format_binary_string(nr2, 10)
 
+// parse an operator into an int
   def parse_ope(ope: String): Int = ope.toList match {
     case '0'::'b'::res => Integer.parseInt(res.mkString, 2)
     case '0'::'x'::res => Integer.parseInt(res.mkString, 16)
@@ -27,6 +31,7 @@ object Assembler extends App {
     case _ => Integer.parseInt(ope, 10)
   }
 
+// parse aliases
   def create_env(tks: List[(String, String)],
                  env:Env = Map(),
                  processed: List[(String, String)] = Nil)
@@ -37,6 +42,7 @@ object Assembler extends App {
     case a::rest => create_env(rest, env, processed:+a)
     }
 
+// oreder subroutines
   def get_sub_order(tks: List[(String, String)], res: List[String] = Nil) : List[String] = tks match{
     case Nil => res
     case ("id", a)::("ops", ":")::rest => get_sub_order(rest, res:+a)
@@ -52,12 +58,14 @@ object Assembler extends App {
                     (label -> (subroutines.getOrElse(label, Nil) :+ a)), label)
   }
 
+// count subroutine instructions. Used to determine the value for each subroutine lable
   def cnt_subroutine_instr(tks: List[(String, String)], acc: Int=0) : Int = tks match {
     case Nil => acc
     case ("ins", _)::rest => cnt_subroutine_instr(rest, acc + 1)
     case _::rest => cnt_subroutine_instr(rest, acc)
   }
 
+// Determine subroutine labels
   def solve_references_rec(keys: List[String], subroutines: Map[String, Int],
                           env: Env, base: Int) : Map[String, Int] = keys match {
         case Nil => env
@@ -74,6 +82,7 @@ object Assembler extends App {
       solve_references_rec(keys, subroutines, env1, base1)
   }
 
+// Turn a subroutine into a map from address to binary value as a string
   def process_subroutine(tks: List[(String, String)], name: String, base: Int,
                          env: Env,
                          instrs: Map[String, YAMLParser.Instruction],
@@ -129,7 +138,6 @@ object Assembler extends App {
 
     }
 
-  // ins | ops | ope | id
   def process_subroutines_rec(keys: List[String],
                               subroutines: Map[String, List[(String, String)]],
                               env: Env,
@@ -142,6 +150,7 @@ object Assembler extends App {
     }
 
                               }
+
   def merge_maps_rec(acc: Map[Int, String] = Map(), maps: List[Map[Int, String]]) : Map[Int, String] = maps match {
     case Nil => acc
     case m::rest => merge_maps_rec(acc ++ m, rest)
@@ -160,6 +169,7 @@ object Assembler extends App {
     merge_maps_rec(final_res, result_rest)
     }
 
+  // Turn the string binary data into bytes
   def createByteList(map: Map[Int, String], acc: List[Byte]=Nil, i: Int=0) : List[Byte] = {
     if(i >= 1024) acc else {
       val data_word = map.getOrElse(i, "0" * 16)

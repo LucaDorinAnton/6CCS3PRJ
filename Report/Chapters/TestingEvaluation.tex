@@ -1,0 +1,133 @@
+\chapter{Software Testing}
+
+\section{Testing Methodology}
+Since each piece of software was dependant on the software before it, each new tool
+developed was tested during and immediatley after its development process. Taken
+the relativley reduced complexity and size of each of the tools created, the decision
+was made to skip \emph{unit testing} and only conduct \emph{integration testing}.
+
+\section{Microcode programmer}
+The microcode programmer was tested by writing an instrution set consisting of only one instruction
+in both Python and YAML format and then generating binaries from that source. Then, the resulting
+binaries were checked by hand to ensure that the right byte sequences were generated. After the
+creation of richer instruction set, random samples were selected from the instruction set source
+and then the binaries were checked for those particular instructions. \\
+The microcode generator passed all tests successfully.
+
+\section{Assembler and Compiler}
+
+\paragraph{Assembler}
+The Assembler was tested with multiple source files designed to incorporate all the features it
+had specified: mnemonics, operators, aliases, labels. All files were assembled down to binaries
+correctly.
+
+\paragraph{Compiler}
+Similarly, the compiler was checked against three WHILE language source files, two of which were used
+as test files in the \textbf{6CCS3CFL} course thaught by \emph{Dr. Christian Urban} \cite{6ccs3cfl}.
+All files were correctly compiled down to assembly.
+
+\section{Arduino drivers}
+\paragraph{Programming driver}
+The programming driver was tested by generating zero-byte binaries, one-byte bineries and multiple
+binaries with repeating patterns of bytes and then using the computer script and the driver software
+to program the 16-bit breadboard computer. Then, using the manual programming mode to set the address
+and tying the \emph{RO} (RAM-Out) signal high, random samples accross the entire memory space of the
+computer were checked. All samples matched the expected bytes.
+
+\paragraph{I/O driver}
+The I/O driver was checked by having loading in sequences of \emph{LAI - IRA} instructions (Load A
+immediate and I/O read A) with specific bit sequences as the operand for the \emph{LAI} instructions,
+and then checking if the correct output was displayed back on the computer. To test the I/O reads,
+multiple\emph{IWA} instructions (I/O write A) were executed together with specific queue values. It
+was then checked if the expected value had been read into the A register. Unfortunatly,
+at the time of writing, the I/O Arduino behaves iratically, only sometimes writing and reading from the
+I/O module. It is unclear whether this is due to the software, the hardware or a combination of both.
+This will be discussed as a point of imporvement in a following section.
+
+
+
+\chapter{Evaluation}
+To evaluate the success of the 16-bit breadboard computer architecture project, a parallel between
+the goals set out at the start of the report and what was achieved in practice has to be drawn and
+each success criterion has to be considered.
+
+\section{Achieved Objectives}
+
+\subsection{Analysis objectives}
+\begin{enumerate}
+  \item \emph{Computer architecture analysis:} this goal was successfully met in the background
+  \ref{background} section of the report, where computer architecture, processor design,
+  microarchitecture and processor component design were presented and discussed
+  \item \emph{Analysis of the computer designed and built by Ben Eater: } \cite{eater2019breadboard}
+  this objective was also successfully achieved in the background section of the report
+  \ref{background}.
+\end{enumerate}
+
+\subsection{Hardware objectives}
+\begin{enumerate}
+  \item \emph{16 bit word length} : achieved both in design and implementation
+  \item \emph{appropiatley sized memory space} : achieved both in design and implementation
+  \item \emph{memory read/write capability} : achieved both in design and implementation
+  \item \emph{capability to decode and execute instructions sequentially} : achieved both in design and implementation
+  \item \emph{program counter alteration (jumps)} : achieved both in design and implementation
+  \item \emph{I/O functionality} : This goal has not been fully achieved at the time of writing
+  \item \emph{hardware-implemented ability to perform basic arithmetical operations} : achieved both in design and implementation
+  \item \emph{simple branching} : achieved both in design and implementation
+  \item \emph{variable speed clock} : achieved both in design and implementation
+  \item \emph{single step clock function} achieved both in design and implementation
+\end{enumerate}
+
+\subsection{Software objectives}
+\begin{enumerate}
+  \item \emph{microcode generation tool} - completed successfully
+  \item \emph{adequate microcode for the control mechanisms} - completed successfully
+  \item \emph{assembly mnemonics} - completed successfully
+  \item \emph{assembler package to turn assembly files into binaries} - completed successfully
+  \item \emph{compiler for the WHILE-language to breadboard computer binaries} - partially completed.
+  Discussed in the \emph{Unmet Objective} section \ref{unmet}
+  \item \emph{Arduino driver software} - partially completed.
+  Discussed in the \emph{Unmet Objective} section \ref{unmet}
+\end{enumerate}
+
+\section{Unmet Objectives} \label{unmet}
+Both the hardware and software produced meet most of their set out objectives. That being said, a few
+objectives have not been achieved fully. These will be discussed in this section of the report.
+
+\subsection{I/O Issues}
+While both the software and the hardware for the I/O module has been designed and built, it fails
+to operate consistently. This makes deugging challenging, since there is no clear point of failure.
+That being said, two theories have the largest likelyhood of successfully identifying the root cause.
+
+\paragraph{Voltge spikes produced by the EEPROMs} After the incidient concerning the undefined
+behaviour of the EEPROMs during an address change, this possibility first came to mind as a potential
+source for the issues. The patch which was tried immediately was the insertion of RC-network filters
+on the control signals which command the I/O module and the A register. This did not solve the abnormal
+behaviour, but only filtering either one or the other module at one time was tried, not both at the
+same time.
+
+\paragraph{Code timing issues} It is possible that due to the fact that all events happend in the
+computer at the same time, namely on the rising edge of the clock pulse, the interrupt triggered
+on the arduino immediately reads the bus contents while they are still switching. This theory
+is hard to prove though, since ISR (Interrupt Service Routine) of the Arduino has to be as short and
+without delay calls.
+
+\subsection{Compiler}
+While the \emph{WHILE} language compiler works as specified and produced valid assembly files,
+two features of the \emph{WHILE} language are missing from the implementation.
+
+\paragraph{Strings} The \emph{WHILE} language has the option to print out strings of characters
+to the screen. This feature has not been implemented in the Compiler for the language. That being
+said, strings are not a part of the objectives set out for the hardware implementation, so there is
+nothing to compile to. As such, it is debatable whether this constiutes an unmet objective.
+
+\paragraph{Operators} Two arithmetical operators are missing from the \emph{WHILE} language compiler,
+\emph{/ (Division)} and \emph{\% (the modulo operator)}.
+
+\section{General Objective}
+Given the main goal to create a hardware architecture which is both practically implementable
+and easy to understand to a low level, as well as the creation of a suite of software tools to
+accompany it and based on the list of achieved objectives, it is safe to say that the general objective
+has been successfully achieved. The 16-bit breadboard computer is a physically implemented, it is
+easy to understand how it functions and it can act as a great taching and learning medium for
+computer architecture, design, implementation, general low-level programming as well as compilers and
+assemblers.

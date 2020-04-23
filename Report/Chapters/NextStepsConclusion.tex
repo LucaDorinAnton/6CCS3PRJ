@@ -1,0 +1,46 @@
+\chapter{Next Steps and Conclusions}
+
+\section{Next Steps}
+While a significant amount of work has been done towards making the 16-bit breadboard
+computer a polished project, there are many goals which can still be achieved if the
+project were to be continued.
+\begin{itemize}
+  \item \emph{I/O Troubleshooting:} The I/O module is not fully functional. A first step
+  towards improving the 16-bit breadboard computer would be to ensure that this module
+  works as specified as well.
+  \item \emph{More Complex Instruction Set: } currently, the instruction set defined for the 16-bit
+  breadboard computer is mostly composed of instructions which execute very simple tasks, like moving
+  a value between registers or adding up two numbers. It might be interesting to see how the
+  functions of the computer, as well as the design of the assembler and compiler would change given
+  a minimal instruction set and an instruction set designed to be as complex as possible.
+  \item \emph{Compiler optimizations: } The Compiler produced in this project  achieves the goal
+  of compiling \emph{WHILE} language sources down to assembly, but it doesn't apply any compiler
+  optimizations. For example, the multiply subroutine, which currently essentially just adds the
+  multipliand with itself as many times as the multiplier, could be replaced with a shift-add
+  subroutine.
+  \item \emph{Added functionality } currently, the computer handles only unsigned integers. It would be
+  interesting to see if it is possible to extend to signed integers, characters, strings and arrays
+  without adding any more hardware.
+  \item \emph{More complex programs: } Another potential goal would be to test the 16-bit breadboard
+  computer with more complex programs. A good starting point might be sorting algorithms.
+  \item \emph{LLVM integration: } The LLVM suite of programs has at its core the \emph{LLVM IR}
+  \cite{llvm}, or \emph{Intermediate representation} This low-level language is designed to sit between
+  hardware and  programming languages and allows programming language designers to compile their
+  language down to the IR and then run on any hardware which implements a compiler from the IR to their
+  particular instruction set. It would be interesting to see if it possible to write a compiler from
+  a subset of the IR and then use this abstract language interface to run programs written in modern
+  high-level languages on the 16-bit breadboard computer.
+\end{itemize}
+
+
+\section{Conclusion}
+The 16-bit breadboard computer architecture project ended up being an outstanding learning experience
+for learning about computer architecture, processor design, hardware design and low level software
+design and implementation. The end product is something that can complete many of the tasks that
+modern computers complete, while still being simple and understandable down to a very low level of
+abstraction. This report can serve as a guide for anyone who might want to attempt a similar
+undertaking or just focus on learning about computer architecture. While offering few practical
+advantages, such a computer can be of significant use in modern life, not just as a teaching medium,
+but also as a way for a software engineer to become more connected with the hardware he uses in his
+day to day activities and to have a better grasp of the capabilities and limitations of the tools
+at his disposal.

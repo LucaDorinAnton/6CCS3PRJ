@@ -1,4 +1,4 @@
-  package buildtools.script
+package buildtools.script
 
 object CompAsm extends App{
 

@@ -51,6 +51,7 @@ class CtrlSigs(Enum):
     SI = ControlSig(4, 0b01000000, 'SI', "Shift Register In")
     SO = ControlSig(4, 0b10000000, 'SO', "Shift Register Out")
 
+# A microstep is one time step of the clock
 class MicroStep():
 
     def __init__(self, sigs, desc=""):
@@ -75,12 +76,13 @@ class MicroStep():
             s += ' | ' + sig.name
         return s + "; %s" % self.desc
 
-
+# All instructions start like this
 def create_fetch_cycle():
     t_0 = MicroStep([CtrlSigs.CTO, CtrlSigs.MI], "Move PC Contents to MAR")
     t_1 = MicroStep([CtrlSigs.RO, CtrlSigs.II, CtrlSigs.CE], "Move RAM Contents to IR; Increment PC")
     return [t_0, t_1]
 
+# Instruction have flags, flags have lists of microsteps
 class Instruction():
 
     def __init__(self, name, opcode=0b000000, desc='', op=False):

@@ -1,5 +1,6 @@
 package buildtools.compiler
-
+// Based on the 6CCS3CFL coursework, taught by Dr. Christian Urban
+// Based on parser combinators
 object Parser {
 
 

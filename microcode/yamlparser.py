@@ -2,6 +2,8 @@ import yaml
 from yaml import Loader
 from classes import Instruction, CtrlSigs, MicroStep
 
+
+# Parse a YAML object into a list of Instruction objects
 def parse_instructions(f):
     instr_lst = []
 

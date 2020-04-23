@@ -1,0 +1,37 @@
+\chapter{Software Implementation}
+This chapter details the process through which the software previously designed
+was implemented. Additionally, tools and libraries used were discussed.
+
+
+\section{Implementation Process}
+The different software tool were developed in sequence. This was because
+each tool was dependent on the previous to work. After each short development
+interation. Where possible, the software was tested against either the phyisical implementation
+of the 16-bit breadboard computer or against test files.
+
+\section{Libraries used}
+Besides the standard libraries of both \emph{Python} and \emph{Scala}, as well as
+the standard \emph{C++} functions provied by the \emph{Arduino IDE}, the following libraries
+were also used to simplify and expedite the implementation process:
+\paragraph{PyYAML} \cite{pyyaml} PyYAML provides a YAML parser for Python. In this case it was
+used on the microcoed generator to parse instructions in YAML format. PyYAML converts a YAML
+file into a python object consisting of lists, dictionaries and primitives.
+
+\paragraph{moultingYAML} \cite{moultingyaml} MoultingYAML is a YAML parser for Scala. It works
+more subtly than PyYAML, as it allows the user to specify a \emph{Protocol} with which to
+parse a YAML file directly into a user-defined custom Scala object. It was used in the
+assembler to parse instruction set files.
+
+\paragraph{Scala Binary Files pattern} \cite{scala-bin} This gist was used as an inspiration
+source for using Scala to write binary files to disk.
+
+\section{Source-code basis}
+The basis of the source code for both the assembler and the compiler is the fouth coursework
+of the \textbf{6CCS3CFL} course taught by \emph{Dr. Christian Urban} \cite{6ccs3cfl}.
+
+\section{Tools used}
+
+\paragraph{Build Tools} Given the simplicity of the scripts, no build tools were used for the
+implementation of the microcode programmer and the two arduino drivers. For the implementation
+of the assembler and compiler, \emph{Scala Build Tools} (sbt) was used \cite{sbt}. Sbt handled
+dependecies, installation of scala, the interactive interpreter and the running of the script.

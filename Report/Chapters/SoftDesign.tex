@@ -1,0 +1,193 @@
+\chapter{Software Design}
+
+\section{Microcode format and programmer}
+
+\subsection{Design Choices}
+
+\paragraph{Language choice}
+Given the fact that the microcode programmer will be tasked with processing
+both text and binary files, \emph{Python} \cite{py} comes up as an obvious choice
+for an implementation language. Python makes file manipulation and text
+processing enjoyable instead of frustrating, as in many other languages, because it
+requires essentially no boilerplate to achieve those goals. Moreover, Python is an
+implements object-oriented philosophy, which will facilitate the creation of an internal
+model for the instructions which are to be programmed. The syntax is also light weight,
+concise and understandable, which makes \emph{Python} a good choice for a scripting
+language as well. This is important because the microcode programmer will be a command-line
+script.
+
+\paragraph{Microcode Instruction Format}
+Given the specification for a simple to learn and used format for declaring
+microcode instructions, two possiblities come to mind:
+
+\paragraph{Language specific} One approach would be to create classes for the
+microcode instructions in some object-oriented programming language. This way,
+a user who is familiar with the language could easily create multiple objects which
+are instantiations of that particular class. After the user has created the class
+instances, he could run a script to generate microcode instructions from them.
+Since the implementation language chosen is \emph{Python}, Instructions would be
+represented as Python objects.
+
+\paragraph{Language agnostic} Another approach would be to make use of a format
+which doesn't depend on a specific programming language. The main advantage of this
+approach would that someone who isn't familiar with the implementation language
+could use the tool efectivley. This would also mean that the programmer would
+have to contain a parser for this format, separate from the parser of the implementation
+language. A good choice of format for such an approach might be \emph{YAML} \cite{yaml}.
+\emph{YAML Ain't Markup Language} (recursive definition), is a data serialization language
+designed around the main goal of being human-readable \cite{yaml}. As such, it poses itself
+as a great choice for the microcode definiton format, as it is so simple that one
+does not have to be familiar with it to quickly undestand it and use it. Both approaches
+towards formatting microcode instructions should be implemented.
+
+\subsection{Programmer design}
+Given a file in either of the two formats discussed in the previous section, the programmer
+should follow the following broad steps
+\begin{enumerate}
+  \item If provided a Python source file, parse it and extract the instruction objects
+  \item If provided a YAML file, parse it and then convert the YAML objects to Python instruction
+  objects
+  \item Generate 4 bytearrays containing zero bytes. The bytearrays should be of the size of the
+  memory arrays of the control logic EEPROMs
+  \item For each instruction, for each flag environment, for each step:
+  \item Concatenate the binary formatting of the opcode, flag environment and time step
+  \item Interpret the resulting string as a binary number and convert it to an integer
+  \item Use the resulting integer as a pointer to write
+  the control signal bytes of that timestep to the right place in the bytearrays
+  \item If no control signal sequence is provided for a certain flag environment, use the default
+  one
+  \item Write the resulting bytearrays to files
+\end{enumerate}
+
+
+\section{Assembler}
+
+\subsection{Design choices} \label{asm-des}
+
+\paragraph{Language} For the assembler for the 16-bit computer the choice was made to
+use a different language then the one used for the microcode programmer, namely \emph{Scala}
+\cite{scala}. \emph{Scala} is a modern multi-faceted multi-paradigm all-purpose built on top
+of the Java ecosystem. \emph{Scala} is large-scale widley-used and fully-featured to such an
+extent that it would be infeasable to cover all of its features in this report. However, noting
+the most important language features will shed light onto why it poses itself as a great tool
+for implementing assemblers and compilers:
+
+\paragraph{Functional programming}
+Scala has all the functionality needed to implement programs and scripts following a functional
+paradigm. This feature lends itself to the advantage in the task of implementing an assembler
+and compiler because of the natural tendency to solve assembling and compiling tasks using
+recursive functions. Functional programming encourages and simplifies the creation of recursive
+functions.
+
+\paragraph{Java Ecosystem}
+Since \emph{Scala} is built on top of \emph{Java} \cite{java}, the entire \emph{Java Ecosystem}
+is a subset of \emph{Scala}. As such, \emph{Scala} doesn't confine the developer to functional programming, allowing great freedom in mixing and matching styles and paradigms.
+
+\paragraph{Robust yet Concise Typesystem}
+\emph{Scala} comes with all the benefits of the \emph{Java} typesystem, including stron typing,
+type checks, object oriented approach, subclasses, abstract classes and many other, while at the
+same time not having the same downsides. The main advantage of the \emph{Scala} typesystem is the
+fact that it requires significantly less boilerplate than its \emph{Java} counterpart. This
+feature is useful given the inherent need of compilers and assemblers generally to create many
+internal data structures to faciliate the transformation of source code from one format to the
+next.
+
+
+\paragraph{Dynamic and flexible Syntax}
+The \emph{Scala} syntax is concise and understandable, similar to Python in many ways. Unlike
+Python syntax, it has some key advantages. It doesn't rely on indentation to determine scope,
+which can be a source of frustration allthough it makes code much more readable and it gives
+the user the option to extend and augment the syntax using implicit definitions. This makes
+the life of the assembler and compiler designer easier by allowing him to write shortcuts in
+places were repetitive tasks are undertaken.
+
+\paragraph{YAML Parser}
+Since the assembler will have to be aware of any changes in instruction set defined by the user
+for the 16-bit breadboard computer, the need for a YAML parser arrises. This parser will be used
+to process the same list of instructions used by the microcode programmer and then collect a list
+of mnemonics. Using this list, the parser can determin if the assembly source file conforms to
+that particular instruction set.
+
+\subsection{Assembler Design}
+The Assembler will be built around a two-module design. A \emph{Lexer} and a \emph{Code
+generator}.
+
+\paragraph{Lexer}
+The task of the \emph{Lexer} is to transform the contents of an assembly file, essentially a
+simple string, into a list of tokens. Then, the \emph{Lexer} can pass on the token list to the
+\emph{Code generator}. The \emph{Lexer} uses \emph{regular expressions} to read the input string
+and break it down into tokens. When a piece of the input string matches a particular token
+pattern, an instance of that token is created with that specific piece and then added to the
+list. Then the \emph{Lexer} continues to process the remaining input string. Besides this, the
+\emph{Lexer} also has the task of eliminating whitespace and comments from the token list,
+as these play no role in code generation. The lexer contains a custom-built regular expression
+engine built around the concept of \emph{regular expression derivates}. This alternate way
+to think about and implement regular expressions is taught by \emph{Dr. Christian Urban} in the
+\textbf{6CCS3CFL} course\cite{6ccs3cfl}. The use of derivative regular expressions significantly
+improves performance in certain edge cases. When a match is found, an injection function is used
+to rebuild a ``value'' from the derivative which points towards which token has matched.
+
+\paragraph{Code generator}
+The \emph{code generator} receives the list of tokens from the \emph{Lexer} and then does further
+processing on it. Since assembly doesn't have a complex syntax or structure, there is no need
+for a parses. The assembler completes the following steps to fullfil its task:
+\begin{enumerate}
+  \item Alias extraction
+  \item Subroutine ordering
+  \item Subroutine separation
+  \item Reference solving
+  \item Instruction decoding
+\end{enumerate}
+Once these steps are completed, the code generator is able to generate a bytearray and write a
+binary file to disk.
+
+
+\section{Compiler}
+\subsection{Design Choices}
+\paragraph{Language}
+Since the Compiler and the Assembler share a significant amount of structure and code, the choice was made to also
+use \emph{Scala} for the compiler. The reasons for this choice have been stated in the Assembler design choices
+section \ref{asm-des}.
+\paragraph{Structure}
+The compiler has a similar structure to the assembler. It also has a \emph{Lexer} and a \emph{Code Generator}.
+The main difference is the presence of a third module, namely the \emph{Parser}. The \emph{Parser} sits between
+the \emph{Lexer} and the \emph{Code Generator} and is tasked with generating an \emph{Abstract Syntax Tree} from
+the list of tokens.
+\subsection{Compiler Design}
+\paragraph{Lexer} The compiler \emph{Lexer} follows the same design pattern as the one used for the assembler.
+The main difference between the two is that they use different regular expressions to parse the input string.
+
+\paragraph{Parser} The \emph{Parser} has the task of taking the token list, which has no structure except for the
+total ordering imposed onto it and then turn it into a \emph{Abstract Syntax Tree}, or \emph{AST} for short. An
+\emph{AST} encapsulates the internal structure of a program, like for example nested loops, if-else branches and the
+order of operations in an arithmetic expression. The \emph{Parser} of the compiler is based on a parsing philosophy
+called ``parser combinators'', which is also taught by \emph{Dr. Christian Urban} in the \textbf{6CCS3CFL} module
+\cite{6ccs3cfl}. Parser combinators work by defining simple as objects which try to parse as much of the input tokens
+as possible and then return the amount they could parse, as well as the remaining part of the input which they
+couldn't process. By taking multiple simple parsers and \emph{combining} them (hence the name), a more complex parser
+can be created. Their nature is to return a set of pairs of processed and unprocessesed input. This way,
+the next parser in line can try to parse based on all the different ways the previous parsers parsed.
+When the infrastructure has been set up, writing parser combinators for a language can be as simple as declaring
+the grammar of that particular language. Parser combinators make use of \emph{lazy evaluation}
+which is a mode in which arguments are only evaluated at the last possible moment in time.
+
+\paragraph{Code generator}
+The code generation stage for the Compiler is simplified, since most of the processing has been completed by the
+\emph{Parser}. In this case, the \emph{Code generator} has to traverse an abstract syntax tree recursivley and then
+map its elements to chunks of code from the target language, in this case 16-bit breadboard computer assembly.
+
+
+\section{Programming and I/O Arduino Drivers}
+\subsection{Design choices}
+
+\paragraph{Language} For the design of the programming and I/O Arduino drivers, \emph{Python} was chosen for the
+script on the computer side and \emph{C} was chosen for the Arduino script. \emph{Python} is a great scripting
+language and it handles file I/O, both binary and text, in an elegant manner. So it presented itself as a good
+choice for the scripts running on the computer. \emph{C} was chosen for the Arduino scripts because it is the only
+language supported by the Arduino Integrated Development Environment \cite{arduino_ide}.
+
+\subsection{Script Design}
+The scripts for running the Arduinos do not offer much in term of design depth, since they are relativley short
+and simple. What is notable is the need to use interrupts to interface with the breadboard computer and the use of
+the serial port to communicate to the computer. The Arduinos also make extensive use of bitshifting and bit
+extraction to convert data from the internal datatypes to voltages on multiple pins and pin voltages to datatypes.

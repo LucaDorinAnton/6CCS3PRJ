@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{pdfpages}
+\usepackage{listings}
 \graphicspath{ {./Images/} }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -109,8 +110,8 @@ The report begins with an in-depth circuit specification, design and analysis li
 The next section is concerned with a detailed analysis of the computer built by Ben Eater \cite{eater2019breadboard}. Eater's computer serves as the template from which the design of the computer described in this report will originate. As such, it makes sense to analyse it carefully and classify its capabilities. \\
 This will be followed by a specification of what the new computer should achieve in contrast to the capabilities of the existing computer. \\
 The next chapter will cover the updated design of the computer. Important design decisions will be scrutinised and held against the main goals of the project. Both high-level, as well as in-depth design choices, will be taken into account. Main design challenges will be discussed and appropriate solutions presented. \\
-After the design stage is complete, the following chapter will document the implementation phase. A detailed chronological breakdown of build progress will be presented. Testing will be executed in parallel with the building, so testing documentation will be found in this chapter as well. \\
-With the build phase complete, the software development phase will follow. The design and implementation of the various software tools necessary for running the breadboard computer will be documented in this chapter.
+After the design stage is complete, the following chapter will document the implementation phase. A detailed chronological breakdown of build progress will be presented. Testing will be executed in parallel with the implementation. \\
+With the implementation phase complete, the software development phase will follow. The design and implementation of the various software tools necessary for running the breadboard computer will be documented in this chapter.
 With the software as well as the hardware ready, a rigorous testing phase will follow, coupled with an in-depth evaluation of the end product in comparison to the success criteria set at the start of the report. \\
 Finally, the conclusion chapter summarises everything done so far and highlights the learning outcomes of the project and the possible continuation paths for future work. \\
 
@@ -118,6 +119,8 @@ Finally, the conclusion chapter summarises everything done so far and highlights
 % \include{Chapters/Body}
 \include{Chapters/HardDesignSpecification}
 \include{Chapters/HardImplementation}
+\include{Chapters/SoftSpecification}
+\include{Chapters/SoftDesign}
 % \include{Chapters/ProfessionalIssues}
 % \include{Chapters/Evaluation}
 % \include{Chapters/Conclusion}

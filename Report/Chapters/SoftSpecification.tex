@@ -1,0 +1,148 @@
+\chapter{Software Specification}
+To transform the 16-bit breadoard computer from an exercise in logic design
+into an advanced and rich learning meadium, a suite of feature-rich software
+tools is needed.
+
+\section{Main functionailty to be implemented}
+The software for the breadboard computer should implement the following pieces
+of high-level pieces of functionailty to be considered successfull:
+\begin{itemize}
+  \item \emph{Microcode definition and re-programming: } The computer needs the
+  control logic EEPROM's \ref{control-logic} to be programmed with microcode. There
+  should also be an accessible way to define and modify microcode.
+  \item \emph{Assembler: } Given a set of instructions defined through microcode,
+  there should be a way to write assembly instead of plain binaries and then assemble
+  the code produced down to binaries
+  \item \emph{Compiler: } Going up one more level of abstraction, one should be able
+  to write a program in the WHILE programming language and then compile it down to
+  either assembly or binaries directly.
+  \item \emph{Programming arduino drivers: } Currently, the computer is programmed
+  by setting the \emph{PROG} switch and then manually flipping dip switches on
+  the word selector \ref{word-select} and the address selector \ref{addr-select}. This
+  process is tedious, prone to mistakes and it can take a relativley long period of time
+  to program a small number of instructions. Since an Arduino is connected to the word
+  and address selectors, there should be a way to have th arduino program a binary produced
+  by the assembler.
+  \item \emph{I/O Arduino drivers: } While the I/O \ref{io} module has been built to its
+  specification, it relies on the Arduino handling its read and write request. To achieve this,
+  some driver software needs to be created.
+\end{itemize}
+The specification for each piece of software will be detailed in the following sections.
+
+\section{Microcode Definition and Programming}
+\subsection{Microcode format}
+Currently, the only way to define instructions for the 16-bit breadboard computer is to write
+binaries by hand, and then program them to the control logic EEPROMs. This is tedious and
+prone to errors. There should exist a format through which instructions for the 16-bit breadboard
+computer can be designed and stored. This format should be simple to read, understand, write and
+change. The format should be high-level enough, so that the instruction designer doesn't have to
+think about setting individual bits, while still being able to thik about which control signals
+are set at which time step during which flag conditions. The format should specify the following
+pieces of information regarding an instruction:
+\begin{enumerate}
+  \item Mnemonic (three-letter code)
+  \item Opcode (6-bit number)
+  \item Description (String)
+  \item Whether the instruction requires an operand or not (boolean)
+\end{enumerate}
+Following this, each instruction should have associated to it at least one execution path.
+This path should be dependant on the flag environment, but there should be at least one path
+to serve as a default in all flag environments conditions which are not specified. An execution
+path consists of a list of steps, each step detailing which control signals should be activated
+at that particular time step.
+
+ \subsection{Parsing and code generation}
+ After a file declaring instructions conforming to the format described above is created, a script
+ should exist which parses that file and generates 4 binaries from it, one for each EEPROM.
+
+\section{Assembler}
+Given a microcode generation tool, while it is now easy to write an \emph{instruction set} for the
+16-bit breadboard computer, one would still have to write \emph{programs} in binary format. The
+first level of abstraction away from writing binaries by hand should be an assembler.
+The Assembler should fulfill the following requirements:
+\begin{enumerate}
+  \item  Dynamically recognize mnemonics based on a provided instruction definiton file
+  \item  Recognise labels and replace them with memory locations
+  \item  Recognise aliases and replace them accordingly
+  \item  Recognise operands in decimal, hexadecimal and binary format
+  \item Generate binaries based on an assembly source file and an instruction definiton file
+\end{enumerate}
+
+\section{Compiler}
+To have a thorough understanding of the requirements and specifications for the \emph{WHILE}
+language compiler, the language must be first presented and discussed.
+
+\subsection{WHILE language}
+The \emph{WHILE} language is a very simple Turing-complete programming language which is in syntax
+very similar to pseudocode \ref{while-demo}.
+
+\lstinputlisting[caption= \emph{WHILE} language Fibonacci program]{code/fib.while} \label{while-demo}
+
+Some of the most important features of the \emph{WHILE} language are:
+\begin{itemize}
+  \item \emph{Limited types: } the language only has two types \emph{strings}, which can only be
+  printed out, and \emph{integers}
+  \item \emph{Simple statements: } the statements possible in the while language are \emph{while,
+  if, assign, read, write}
+  \item \emph{Restricted boolean and arithmetic expressions: } The while language an process data
+  by executing instructions using simple arithmetic and boolean expressions. The allowed arithemtic
+  operators are \emph{$+, -, *, /, \%$}. The allowed boolean operators are \emph{$\&\&, ||,  \leq, <, ==,
+  >,  \geq$}
+  \item \emph{Simplified I/O: } The \emph{WHILE} language uses the read and write statements to
+  abstract the process of reading and writing data.
+\end{itemize}
+
+\subsection{Requirements}
+Given the feature list of the \emph{WHILE} programming language described in the previous
+section, a compiler should fulfill the following requirements:
+
+\begin{itemize}
+  \item Parse \emph{WHILE} source files
+  \item Understand the underlying structure of the program
+  \item Generate assembly code for a certain instruction set for the 16-bit breadboard computer
+  which is built into the compiler.
+\end{itemize}
+
+\section{Programming Arduino driver}
+In order to program the 16-bit breadboard computer with a binary generated by the assembler,
+an Arduino driver coupled with a script to run on the main computer. The two pieces of software
+should work in tandem to transmit a source file to the arduino and then on to the breadboard
+computer. This should work as follows.
+
+\subsection{Protocol specification}
+\begin{enumerate}
+  \item The Arduino is connected to the computer over USB
+  \item The Arduino is manually reset
+  \item The Arduino maintains an internal address counter, reset to 0
+  \item The computer-side script reads a binary file and stores it in memory
+  \item The computer sends the arduino two bytes at a time (two bytes form 1 breadboard
+  computer instruction)
+  \item The Arduino receives the 2 bytes and constructs a data word from them
+  \item The Arduino programs the byte in the breadboard PC RAM at the address specified by its
+  counter and then increments the counter
+  \item The Arduino replies to the computer with a success message
+  \item After the computer receives the success message, repeat from step 5
+\end{enumerate}
+
+\section{I/O Driver}
+The I/O driver should work in a similar manner to the programming driver. It should allow the
+the breadboard computer to interface with a personal computer by using the Arduino as an
+information relay.
+
+\subsection{Protocol Specification}
+\begin{itemize}
+  \item The Arduino is connected to the computer over USB
+  \item The Arduino is manually reset
+  \item The Arduino maintains an internal circular queue of 10 16-bit data words, which is
+  initially reset to 0.
+  \item If the computer sends data over to the Arduino, it should store that data at the end of
+  the queue and update its queue pointer.
+  \item If the breadboard computer triggers a read request, the Arduino should serve it a data
+  word from the queue and then update its queue pointer.
+  \item If the breadboard computer triggers a write request, the Arduino should read the data word
+  found in the I/O module and then send it on to the main computer.
+  \item The main computer should then display that data on the screen.
+  \item At the start of the script on the main computer, a file should be provided which
+  contains 10 numbers in either decimal, hexadecimal or binary format. This numbers should
+  form the basis for the queue to be sent to the Arduino
+\end{itemize}

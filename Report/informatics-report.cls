@@ -34,7 +34,7 @@
 \def\supervisor#1{\gdef\@supervisor{#1}}
 \def\abstractFile#1{\gdef\@abstractFile{#1}}
 \def\studentID#1{\gdef\@studentID{#1}}
-%\def\wordCount#1{\gdef\@wordCount{#1}}
+\def\wordCount#1{\gdef\@wordCount{#1}}
 
 %Acknowledgements
 \newif\ifacknowledgements@
@@ -59,12 +59,13 @@
 			\large{Author: \@author\\*
 			           Supervisor: \@supervisor}\\*
 			           Student ID: \@studentID\\*
+                 Programme of Study: \textbf{MSci Computer Science} \\
 			\vspace*{0.2in}
 			{\@date}\\*
 		}
 	\end{center}
 	\restoregeometry
-	
+
 	%Abstract
 	\begin{abstract}
     	     \setlength{\parindent}{0.3in}
@@ -99,9 +100,9 @@
      	               \input{\@ackFile}
 		\end{flushleft}
                     \end{quotation}
-          }\fi	
+          }\fi
 
-\setcounter{page}{0}	
+\setcounter{page}{0}
 }
 
 \renewcommand{\bibname}{References}

@@ -1,4 +1,4 @@
-\chapter{Specification \& Design}
+\chapter{Hardware Specification \& Design}
 This chapter of the report focuses on creating a comprehensive set of specifications for the computer
 to be built as a part of the project and then provides a detailed listing of the design choices made to satisfy
 the specifications provided. Since the design will be based on Bean Eater's 8-bit breadboard computer \cite{eater2019breadboard}, but it will also include parts of SAP-2 and SAP-3 \cite{malvino1992digital}. Most specification criterions will be phrased as additions and enhancements to the existing designs.
@@ -495,7 +495,7 @@ This section presents and discusses the schematics and the design decisions whic
 \paragraph{High-Level Schematic}
 The high-level schematic provides a layout and scale overview for the finished computer. It also contains the \emph{Data Bus LEDs}
 module \ref{data-bus-leds}, as well as the actual \emph{Common Data Bus} \ref{common-data-bus}, to which all components connect.
-Towards the bottom of the schematic the \emph{Control Signals} module \ref{control-sigs} can also be found.
+Towards the bottom of the schematic the \emph{LEDs} module \ref{control-sigs} can also be found.
 
 \includepdf[page={1}]{./pdf/kicad}
 \clearpage
@@ -693,7 +693,101 @@ of the I/O request is and handle it accordingly.
 \includepdf[page={15}]{./pdf/kicad}
 
 \paragraph{Address Selector} \ref{addr-select}
-The Address selector is designed the same way as the Word Selector described in the previous paragraph. The main difference is that,
-since it only has a final output of 10 bits, each selector stage only contains three \emph{74LS157} \cite{74ls157} selector chips.
+The Address selector is designed the same way as the Word Selector described in the previous
+paragraph. The main difference is that, since it only has a final output of 10 bits,
+each selector stage only contains three \emph{74LS157} \cite{74ls157} selector chips.
 
 \includepdf[page={8}]{./pdf/kicad}
+
+\paragraph{Control Signals}
+The design of the Control Logic module \ref{control-logic} is centered around the \emph{AT28C64B}
+EEPROM chip from \emph{Atmel} \cite{at28c64b}. EEPROM stands for \emph{Electronically Erasable
+and programmable Read-Only Memory}. Essentially, an EEPROM memory acts as a look-up table.
+It's input is an address and the output is a word of data. This can be used as a substitute
+for any combinatorial circuit made out of ANDs, ORs, inverters etc.. By choosing an EEPROM,
+instead of building a combinatorial circuit, the completed design benefits from multiple
+advantages:
+\begin{itemize}
+  \item \emph{Simplified design:} if a combinatorial circuit would be designed in the place of
+  EEPROMS, it would be of a significant size, given the large number of variables (10 binary
+  inputs and 31 binary outputs). Such a circuit would not only be very dificult to design and
+  physically implement with chips and wires, it would also go against the core design principle
+  of simplicity of understanding.
+  \item \emph{Easy re-progamming:} EEPROMs can be re-programmed using an of-the-shelf USB
+  programmer, a microcontroller like an Arduino \ref{arduino2020mega} or even a simple custom
+  built circuit. This makes them especially suitable for application in the design of 16-bit
+  breadboard computer as they can easily be removed from the module, reprogrammed to include
+  new instructions or modify existing ones and then re-inserted into to rest of the circuit.
+  \item \emph{No extra conceptual abstraction}: While the EEPROM chips themselves are much more
+  complex chips compared to most of the chips used in other modules (their data sheet doesn't
+  provide a transistor diagram or even a low-level diagram, just a high-level block diagram),
+  conceptually they don't increase the complexity of the design, since they can be thought of
+  as a combinatorial circuit made of simple gates or a memory array made up of rows of registers
+  with a selection circuit. As such, the simplicity of both concept and physical implementation
+  is maintained.
+\end{itemize}
+The reasons for choosing this particular EEPROM chip are as follows:
+\begin{itemize}
+  \item \emph{Parallel Interface: } There are two main types of EEPROMs: parallel and serial. A
+  serial interface uses a single pin to transmit addresses and data respecitvley. This poses
+  issue to the design of the module since a separate, faster clock and a shift circuit would be
+  needed to shift in addresses and shift out data on each clock cycle. This significantly adds
+  to the complexity of the entire design. A parallel interface, on the other hand, is much
+  easier to work with, since all address bits and all data bits are available at the same time,
+  which means they can be accessed synchronously on the same clock cycle.
+  \item \emph{Address width: } The \emph{AT28C64B} \cite{at28c64b} is part of a larger family
+  of EEPROM chips designed and built by atmel. The main differences between the chips are access
+  time and address width. They all have the same data width of 1 byte. Since the plan is to
+  run the clock of the breadboard computer at a relatively low frequency (under 1 kHz), the
+  access time will not make a significant difference. What is important to consider, though,
+  is the address width. The different chips in the Atmel EEPROM Family (AT28C16, AT28C64,
+  AT28C256 etc.) have addresses of different widths. The \emph{AT28C64B} \cite{at28c64b}
+  offers 13 address bits, enough to accommodate the 10-bit address width of the breadboard
+  computer (this requirement will be explained shortly).
+  \item \emph{Wide-spread adoption and compatibiliy: } The \emph{AT28C64B} is a widley used chip
+  and thoroughly understood chip. As such, it makes interfacing with programmers trivial, as
+  most programmers have a profile for it already built in, and it also comes with a plethora
+  of online tools, documentation, personal experiences and tips and tricks from other users of
+  the chip.
+\end{itemize}
+The design of the \emph{Control Logic} module \ref{control-logic} makes use of 4 \emph{AT28C64}
+chips. Each chip is reasponsible for 8 control signals, with the exception of one chip which
+handles only 7 signals (the computer features 31 contol signals without the two clock signals).
+The 13 address bits of the EEPROMs are split up into a logical address of 10 bits and a zero-
+address of three bits, since only 10 address bits are required by the computer. This 10 bit
+address is split up into three components:
+\begin{itemize}
+  \item \emph{6-bit opcode: } The lowest six bits of the address are the opcode of the
+  instruction. These are connected directly from the \emph{Instruction Register} \ref{ir}
+  \item \emph{3-bit flags: } The next three bits are the flags which come directly from the
+  \emph{Flags register} \ref{flags}
+  \item \emph{3-bit time step: } The last three bits form a step counter.
+\end{itemize}
+The reasoning for including a time-step counter into the address is because of the fact that
+each instruction has to execute multiple sequences of control signals to fullfil its task. The
+counter is built out of a \emph{74LS161} \cite{74ls161} 4-bit counter chip, from which only the
+lowest order three bits are used. These bits are fed into the four eeprom chips, as well as
+into a \emph{74LS138} \cite{74ls138}  chip which turns a three bit code into 8 bits, where only
+one bit is active at one time. The decoded 8 bits are connected to LEDs to make visually
+recognising the current time-step easier. The \emph{74LS161} \cite{74ls161} chip counts based on
+the negative, or inverted clock. As a consequence of this, the control logic module has time
+between the clock pulses of the main clock to set a new address and then set appropiate control
+signal for the next main clock pulse. To make programming of the EEPROM chips easier, all signals
+which are active-low are inverted, so that a logic 1 will be programmed if the signal should be
+active and a logic zero if the signal should be inactive. Besides this, the \emph{control
+signals} module \ref{control-sigs}, which just consists of LEDs on all control signal lines, was
+built into this diagram. The final part to discuss on the design of the control logic module is
+the reset circuit. Three elements play into the reset circuitry:
+\begin{itemize}
+  \item \emph{A simple push button}, so that the computer can be manually reset
+  \item \emph{The RST control signal}, whih allows the computer to reset itself
+  \item \emph{The DONE control signal}, which allows the computer to terminate an instruction
+  early, in case it has less then 8 steps.
+\end{itemize}
+The reset push-button as well as the \emph{RST} signal are combined and together create the
+\emph{RST control signal}, which is then spread out to all modules of the computer. Besides this,
+this signal is further combined with the \emph{DONE} signal, as this signal, if taken high, should
+reset \emph{only} the \emph{74LS161} step counter. \\
+This concludes the design of the control logic module.
+
+\includepdf[page={16}]{./pdf/kicad}

@@ -788,10 +788,6 @@ Wire Wire Line
 	2800 5000 2900 5000
 Wire Wire Line
 	2700 5000 2700 5150
-Wire Bus Line
-	8850 1800 8850 3100
-Wire Bus Line
-	1350 6900 5550 6900
 Connection ~ 2700 5000
 Wire Wire Line
 	2700 5000 2750 5000
@@ -809,4 +805,8 @@ $EndComp
 Connection ~ 2750 5000
 Wire Wire Line
 	2750 5000 2800 5000
+Wire Bus Line
+	8850 1800 8850 3100
+Wire Bus Line
+	1350 6900 5550 6900
 $EndSCHEMATC

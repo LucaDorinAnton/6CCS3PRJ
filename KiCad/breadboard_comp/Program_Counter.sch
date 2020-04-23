@@ -693,10 +693,6 @@ Wire Wire Line
 	3050 2150 3050 2700
 Wire Wire Line
 	3150 1900 3150 2700
-Wire Bus Line
-	3150 1050 7900 1050
-Wire Bus Line
-	2950 6500 7350 6500
 Wire Wire Line
 	3150 1900 5250 1900
 Wire Wire Line
@@ -729,4 +725,8 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS245" H 7150 5750 50  0001 C CNN
 	1    7150 5750
 	0    -1   -1   0   
 $EndComp
+Wire Bus Line
+	3150 1050 7900 1050
+Wire Bus Line
+	2950 6500 7350 6500
 $EndSCHEMATC

@@ -148,26 +148,21 @@ Wire Wire Line
 $Comp
 L power:VCC #PWR0179
 U 1 1 5E7563C3
-P 2550 5000
-F 0 "#PWR0179" H 2550 4850 50  0001 C CNN
-F 1 "VCC" H 2567 5173 50  0000 C CNN
-F 2 "" H 2550 5000 50  0001 C CNN
-F 3 "" H 2550 5000 50  0001 C CNN
-	1    2550 5000
+P 2350 5000
+F 0 "#PWR0179" H 2350 4850 50  0001 C CNN
+F 1 "VCC" H 2367 5173 50  0000 C CNN
+F 2 "" H 2350 5000 50  0001 C CNN
+F 3 "" H 2350 5000 50  0001 C CNN
+	1    2350 5000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2550 5000 2600 5000
-Wire Wire Line
-	2900 5000 2900 5150
-Wire Wire Line
 	2200 5150 2200 5000
-Connection ~ 2550 5000
 Wire Wire Line
 	2300 5150 2300 5000
 Connection ~ 2300 5000
 Wire Wire Line
-	2300 5000 2400 5000
+	2300 5000 2350 5000
 Wire Wire Line
 	2400 5000 2400 5150
 Connection ~ 2400 5000
@@ -175,24 +170,6 @@ Wire Wire Line
 	2400 5000 2500 5000
 Wire Wire Line
 	2500 5150 2500 5000
-Connection ~ 2500 5000
-Wire Wire Line
-	2500 5000 2550 5000
-Wire Wire Line
-	2600 5000 2600 5150
-Connection ~ 2600 5000
-Wire Wire Line
-	2600 5000 2700 5000
-Wire Wire Line
-	2700 5150 2700 5000
-Connection ~ 2700 5000
-Wire Wire Line
-	2700 5000 2800 5000
-Wire Wire Line
-	2800 5000 2800 5150
-Connection ~ 2800 5000
-Wire Wire Line
-	2800 5000 2900 5000
 Text Notes 3000 7000 0    50   ~ 10
 16-Bit Common Bus\n
 Entry Wire Line
@@ -795,8 +772,41 @@ F 3 "" H 4100 6300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4100 6300 4100 6150
+Connection ~ 2350 5000
+Wire Wire Line
+	2350 5000 2400 5000
+Wire Wire Line
+	2600 5150 2600 5000
+Wire Wire Line
+	2600 5000 2700 5000
+Wire Wire Line
+	2900 5000 2900 5150
+Wire Wire Line
+	2800 5150 2800 5000
+Connection ~ 2800 5000
+Wire Wire Line
+	2800 5000 2900 5000
+Wire Wire Line
+	2700 5000 2700 5150
 Wire Bus Line
 	8850 1800 8850 3100
 Wire Bus Line
 	1350 6900 5550 6900
+Connection ~ 2700 5000
+Wire Wire Line
+	2700 5000 2750 5000
+$Comp
+L power:GND #PWR?
+U 1 1 5FFAD838
+P 2750 5000
+F 0 "#PWR?" H 2750 4750 50  0001 C CNN
+F 1 "GND" H 2755 4827 50  0000 C CNN
+F 2 "" H 2750 5000 50  0001 C CNN
+F 3 "" H 2750 5000 50  0001 C CNN
+	1    2750 5000
+	-1   0    0    1   
+$EndComp
+Connection ~ 2750 5000
+Wire Wire Line
+	2750 5000 2800 5000
 $EndSCHEMATC

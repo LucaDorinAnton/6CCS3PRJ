@@ -1,8 +1,58 @@
 \chapter{Source Code}
-\section{Instructions}
-Complete source code listings must be submitted as an appendix to the report. The project source codes are usually spread out over several files/units. You should try to help the reader to navigate through your source code by providing a ``table of contents'' (titles of these files/units and one line descriptions). The first page of the program listings folder must contain the following statement certifying the work as your own: ``I verify that I am the sole author of the programs contained in this folder, except where explicitly stated to the contrary''. Your (typed) signature and the date should follow this statement.
+This chapter contains the list of all source code created during this project.
 
-All work on programs must stop once the code is submitted to KEATS. You are required to keep safely several copies of this version of the program and you must use one of these copies in the project examination. Your examiners may ask to see the last-modified dates of your program files, and may ask you to demonstrate that the program files you use in the project examination are identical to the program files you have uploaded to KEATS. Any attempt to demonstrate code that is not included in your submitted source listings is an attempt to cheat; any such attempt will be reported to the KCL Misconduct Committee.
+\section{Originality Pledge}
+``I verify that I am the sole author of the programs contained in this folder, except where explicitly stated to the contrary'' \\
+Luca-Dorin Anton - 23 April 2020
+\section{MicroCode generator}
 
-\textbf{You may find it easier to firstly generate a PDF of your source code using a text editor and then merge it to the end of your report. There are many free tools available that allow you to merge PDF files.}
+\subsection{classes.py}
+\lstinputlisting[language=Python]{../../microcode/classes.py}
+\subsection{microcode.py}
+\lstinputlisting[language=Python]{../../microcode/microcode.py}
+\subsection{microinstructions.py}
+\lstinputlisting[language=Python]{../../microcode/microinstructions.py}
+\subsection{yamlparser.py}
+\lstinputlisting[language=Python]{../../microcode/yamlparser.py}
+\subsection{microinstructions.yaml}
+\lstinputlisting{../../microcode/microinstructions.yaml}
 
+\section{Assembler}
+\subsection{assembler.scala}
+\lstinputlisting[language=Scala]{../../build-tools/src/main/scala/assembler/assembler.scala}
+\subsection{lexer.scala}
+\lstinputlisting[language=Scala]{../../build-tools/src/main/scala/assembler/lexer.scala}
+\subsection{LexerCore.scala}
+\lstinputlisting[language=Scala]{../../build-tools/src/main/scala/assembler/LexerCore.scala}
+\subsection{regexdef.scala}
+\lstinputlisting[language=Scala]{../../build-tools/src/main/scala/assembler/regexdef.scala}
+\subsection{regexdef.scala}
+\lstinputlisting[language=Scala]{../../build-tools/src/main/scala/assembler/regexdef.scala}
+\subsection{yamlparser.scala}
+\lstinputlisting[language=Scala]{../../build-tools/src/main/scala/assembler/yaml_parser.scala}
+
+\section{Compiler}
+\subsection{ast.scala}
+\lstinputlisting[language=Scala]{../../build-tools/src/main/scala/compiler/ast.scala}
+\subsection{compiler.scala}
+\lstinputlisting[language=Scala]{../../build-tools/src/main/scala/compiler/compiler.scala}
+\subsection{lexer.scala}
+\lstinputlisting[language=Scala]{../../build-tools/src/main/scala/compiler/lexer.scala}
+\subsection{parser.scala}
+\lstinputlisting[language=Scala]{../../build-tools/src/main/scala/compiler/parser.scala}
+
+\section{Assembler and Compiler Script}
+\subsection{script.scala}
+\lstinputlisting[language=Scala]{../../build-tools/src/main/scala/script/script.scala}
+
+\section{I/O Driver}
+\subsection{io.ino}
+\lstinputlisting[language=C++]{../../ardu-drivers/io/io.ino}
+\subsection{io.py}
+\lstinputlisting[language=Python]{../../ardu-drivers/io/io.py}
+
+\section{Programming Driver}
+\subsection{prog.ino}
+\lstinputlisting[language=C++]{../../ardu-drivers/prog/prog.ino}
+\subsection{prog.py}
+\lstinputlisting[language=Python]{../../ardu-drivers/prog/prog.py}

@@ -61,9 +61,9 @@ void prog_instr() {
     }
 
     if(bitRead(byte_2, i)) {
-      digitalWrite(data[i * 2 + 1], HIGH);
+      digitalWrite(data[i  + 8], HIGH);
     } else {
-      digitalWrite(data[i * 2 + 1], LOW);
+      digitalWrite(data[i  + 8], LOW);
     }
   }
 

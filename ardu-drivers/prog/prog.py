@@ -24,6 +24,7 @@ def prog(ser, bytes):
                 print("75%..", end="")
             if ret == 1023:
                 print("100%")
+            sys.stdout.flush()
 
 def help():
     s = "Programmer Script for the 16-bit BreadBoard computer.\n"

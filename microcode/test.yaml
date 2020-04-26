@@ -1,0 +1,12 @@
+instructions:
+# No Operation
+  -
+    name: NOP
+    opcode: 0x00
+    description: Do absolutely nothing
+    requires_operand: False
+    flags:
+        other:
+          -
+            signals: []
+            description: Do absolutley nothing

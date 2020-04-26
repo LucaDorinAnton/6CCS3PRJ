@@ -4,11 +4,15 @@ import time
 
 def prog(ser, bytes):
     bytes = list(bytes)
+    bytes.reverse()
+    i = 0
     while len(bytes) != 0:
         byte_1 = bytes.pop()
         byte_2 = bytes.pop()
-
-        bts = bytearray([byte_1, byte_2])
+        if( i < 16):
+            print(byte_1, byte_2)
+            i += 1
+        bts = bytearray([byte_2, byte_1])
         ser.write(bts)
         ret = int(ser.readline().strip())
         if not ret:

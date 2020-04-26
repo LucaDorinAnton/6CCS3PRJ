@@ -31,8 +31,9 @@ def generate_microcode(instr_lst):
                     found = True
             if not found:
                 steps = instr.flag_agnostic_steps
-            if len(steps) < 8:
-                steps[-1].end_instruction()
+            # Instruction length optimization
+            # if len(steps) < 8:
+            #     steps[-1].end_instruction()
             for step in range(8):
                 if step < len(steps):
                     # Cast three binary values together into an int

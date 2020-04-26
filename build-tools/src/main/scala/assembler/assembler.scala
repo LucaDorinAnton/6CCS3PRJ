@@ -173,9 +173,9 @@ object Assembler extends App {
   def createByteList(map: Map[Int, String], acc: List[Byte]=Nil, i: Int=0) : List[Byte] = {
     if(i >= 1024) acc else {
       val data_word = map.getOrElse(i, "0" * 16)
-      if(data_word.length != 16) throw new Exception("Invalid data word: " + data_word)
+      if(data_word.length != 16) throw new Exception("Invalid data word: " + data_word + " " + i)
       val byte1 = Integer.parseInt(data_word.slice(0, 8), 2).toByte
-      val byte2 = Integer.parseInt(data_word.slice(9, 16), 2).toByte
+      val byte2 = Integer.parseInt(data_word.slice(8, 16), 2).toByte
       createByteList(map, acc ::: List(byte1, byte2), i + 1)
     }
   }

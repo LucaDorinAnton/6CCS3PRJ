@@ -7,7 +7,7 @@ def flag_to_pattern(flag):
     if flag not in ['CF', 'ZF', 'PF']:
         raise Exception("Incorrect Flag")
     if flag == 'CF':
-        pattern = 0b100
+        pattern = 0b001
     elif flag == 'ZF':
         pattern = 0b010
     else:

@@ -1,17 +1,44 @@
-  TEST1 = 0x200
-  TEST2 = 0x201
+  FS = 0x200
+  CLEAR = 0x201
+  ON = 0x202
+  H = 0x203
+  E = 0x204
+  L = 0x205
+  O = 0x206
+  SPACE = 0x207
+  W = 0x208
+  R = 0x209
+  D = 0x20A
+  EXCLA = 0x20B
 
 main:
-  LAI 1
-  IWA
-  LBI 2
-  IWB
-  LCI 3
-  IWC
-  LSI 4
-  IWS
-  IWR TEST1
+  DWR FS
+  DWR CLEAR
+  DWR ON
+  DWR H
+  DWR E
+  DWR L
+  DWR L
+  DWR O
+  DWR SPACE
+  DWR W
+  DWR O
+  DWR R
+  DWR L
+  DWR D
+  DWR EXCLA
+  HLT
 
 data:
-  TEST1 set 0xAAAA
-  TEST2 set 0xFFFF
+  FS set 0b000111000
+  CLEAR set 0b000000001
+  ON set 0b000001111
+  H set 0b101001000
+  E set 0b101100101
+  L set 0b101101100
+  O set 0b101101111
+  SPACE set 0b100100000
+  W set 0b101010111
+  R set 0b101110010
+  D set 0b101100100
+  EXCLA set 0b100100001

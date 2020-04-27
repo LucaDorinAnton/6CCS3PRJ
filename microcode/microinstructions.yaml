@@ -584,7 +584,7 @@ instructions:
           signals: [IO, MI]
           description: Move IR contents to the MAR
         -
-          signals: [AO, OUT]
+          signals: [RO, OUT]
           description: Move RAM contents to the Display
 
 # Computer and clock manipulation

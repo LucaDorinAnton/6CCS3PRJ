@@ -5,14 +5,18 @@ import time
 
 def start_io_loop(ser, data):
     print("Sending read queue ...", end="")
-    for d in Data:
+    for d in data:
         ser.write(d)
+        if int(ser.readline().strip()) != d[0]:
+            raise Exception("Queue Lost in tranmission! Aborting!")
+        if int(ser.readline().strip()) != d[1]:
+            raise Exception("Queue Lost in tranmission! Aborting!")
     print("Done.")
     print("Starting write loop. Use Ctrl+C to exit.")
     while True:
-        bytes = ser.read(2)
-        if bytes:
-            display_bytes(bytes)
+        ans = ser.readline()
+        if ans:
+            print(ans.strip())
         time.sleep(1)
 
 def display_bytes(bytes):
@@ -32,11 +36,11 @@ def process_data(data):
     for d in data:
         d= d.strip()
         if d[0:2].lower() == "0x":
-            res.append(int(d, 16))
+            res.append(int(d[2:], 16))
         elif d[0:2].lower() == "0b":
-            res.append(int(d, 2))
+            res.append(int(d[2:], 2))
         elif d[0:2].lower() == "0d":
-            res.append(int(d, 10))
+            res.append(int(d[2:], 10))
         else:
             res.append(int(d))
     return res

@@ -403,7 +403,7 @@ instructions:
           signals: [STO, MI]
           description: Move stack pointer contents to the MAR
         -
-          signals: [CTO, MI]
+          signals: [CTO, RI]
           description: Store program counter contents in RAM stack
         -
           signals: [STI, IO, JMP]
@@ -433,7 +433,7 @@ instructions:
     flags:
       other:
         -
-          signals: [E, RW, AI]
+          signals: [E, AI]
           description: Enable I/O, set in read mode; Move data word to the A register
   -
     name: IRB
@@ -443,7 +443,7 @@ instructions:
     flags:
       other:
         -
-          signals: [E, RW, BI]
+          signals: [E, BI]
           description: Enable I/O, set in read mode; Move data word to the B register
   -
     name: IRC
@@ -453,7 +453,7 @@ instructions:
     flags:
       other:
         -
-          signals: [E, RW, CI]
+          signals: [E, CI]
           description: Enable I/O, set in read mode; Move data word to the C register
   -
     name: IRS
@@ -463,7 +463,7 @@ instructions:
     flags:
       other:
         -
-          signals: [E, RW, SI]
+          signals: [E, SI]
           description: Enable I/O, set in read mode; Move data word to the shift register
   -
     name: IRR
@@ -476,7 +476,7 @@ instructions:
           signals: [IO, MI]
           description: Move IR contents to MAR
         -
-          signals: [E, RW, RI]
+          signals: [E, RI]
           description: Enable I/O, set in read mode, Move data word to RAM
 # I/O write instructions
   -
@@ -487,7 +487,7 @@ instructions:
     flags:
       other:
         -
-          signals: [E, AO]
+          signals: [E, RW, AO]
           description: Enable I/O, set write mode; Move register A contents to I/O
   -
     name: IWB
@@ -497,7 +497,7 @@ instructions:
     flags:
       other:
         -
-          signals: [E, BO]
+          signals: [E, RW, BO]
           description: Enable I/O, set write mode; Move register B contents to I/O
   -
     name: IWC
@@ -507,7 +507,7 @@ instructions:
     flags:
       other:
         -
-          signals: [E, CO]
+          signals: [E, RW, CO]
           description: Enable I/O, set write mode; Move register C contents to I/O
   -
     name: IWS
@@ -517,7 +517,7 @@ instructions:
     flags:
       other:
         -
-          signals: [E, SO]
+          signals: [E, RW, SO]
           description: Enable I/O, set write mode; Move shift register contents to I/O
   -
     name: IWR
@@ -530,7 +530,7 @@ instructions:
           signals: [IO, MI]
           description: Move IR contents to the MAR
         -
-          signals: [E, RO]
+          signals: [E, RW, RO]
           description: Enable I/O, set write mode; Move RAM contents to I\O
 # Display instructions
   -

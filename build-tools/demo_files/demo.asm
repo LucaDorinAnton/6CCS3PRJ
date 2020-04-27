@@ -1,9 +1,17 @@
-  TEST = 0x200
+  TEST1 = 0x200
+  TEST2 = 0x201
 
 main:
   LAI 1
-  ADD
-  BRP 0b1010101010
+  IWA
+  LBI 2
+  IWB
+  LCI 3
+  IWC
+  LSI 4
+  IWS
+  IWR TEST1
 
 data:
-  TEST set 0xFFFF
+  TEST1 set 0xAAAA
+  TEST2 set 0xFFFF

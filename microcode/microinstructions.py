@@ -176,46 +176,46 @@ instr_lst.append(RET)
 
 # I/O Read Instructions
 IRA = Instruction('IRA', 0b100100, "Read from I/O to the A register")
-IRA.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.RW, CtrlSigs.AI], "Enable IO, set in read mode. Move data word to the A register"))
+IRA.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.AI], "Enable IO, set in read mode. Move data word to the A register"))
 instr_lst.append(IRA)
 
 IRB = Instruction('IRB', 0b100101, "Read from I/O to the B register")
-IRB.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.RW, CtrlSigs.BI], "Enable I/O, set in read mode. Move data word to the B register"))
+IRB.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.BI], "Enable I/O, set in read mode. Move data word to the B register"))
 instr_lst.append(IRB)
 
 IRC = Instruction('IRC', 0b100110, "Read from I/O to the C register")
-IRC.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.RW, CtrlSigs.CI], "Enable I/O, set in read mode. Move data word to the C register"))
+IRC.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.CI], "Enable I/O, set in read mode. Move data word to the C register"))
 instr_lst.append(IRC)
 
 IRS = Instruction('IRS', 0b100111, "Read from I/O to the shift register")
-IRS.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.RW, CtrlSigs.SI], "Enable I/O, set in read mode. Move data word to the shift register"))
+IRS.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.SI], "Enable I/O, set in read mode. Move data word to the shift register"))
 instr_lst.append(IRS)
 
 IRR = Instruction('IRR', 0b101000, "Read from I/O to the RAM address specified in the instr. operand", True)
 IRR.insert_step(MicroStep([CtrlSigs.IO, CtrlSigs.MI], "Move IR contents to the MAR"))
-IRR.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.RW, CtrlSigs.RI], "Enable I/O, set in read mode. Move data word to RAM"))
+IRR.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.RI], "Enable I/O, set in read mode. Move data word to RAM"))
 instr_lst.append(IRR)
 
 # I/O Write Instructions
 IWA = Instruction('IWA', 0b101001, "Write A register contents to I/O")
-IWA.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.AO], "Enable I/O, set in write mode. Move A reg. contents to I/O"))
+IWA.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.RW, CtrlSigs.AO], "Enable I/O, set in write mode. Move A reg. contents to I/O"))
 instr_lst.append(IWA)
 
 IWB = Instruction('IWB', 0b101010, "Write B register contents to I/O")
-IWB.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.BO], "Enable I/O, set in write mode. Move B reg. contents to I/O"))
+IWB.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.RW, CtrlSigs.BO], "Enable I/O, set in write mode. Move B reg. contents to I/O"))
 instr_lst.append(IWB)
 
 IWC = Instruction('IWC', 0b101011, "Write C register contents to I/O")
-IWC.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.CO], "Enable I/O, set in write mode. Move C reg. contents to I/O"))
+IWC.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.RW, CtrlSigs.CO], "Enable I/O, set in write mode. Move C reg. contents to I/O"))
 instr_lst.append(IWC)
 
 IWS = Instruction('IWS', 0b101100, "Write shift register contents to I/O")
-IWS.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.SO], "Enable I/O, set in write mode. Move shift register contents to I/O"))
+IWS.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.RW, CtrlSigs.SO], "Enable I/O, set in write mode. Move shift register contents to I/O"))
 instr_lst.append(IWS)
 
 IWR = Instruction('IWR', 0b101101, "Write RAM contents at address specified by instruction operand to I/O", True)
 IWR.insert_step(MicroStep([CtrlSigs.IO, CtrlSigs.MI], "Move IR contents to MAR"))
-IWR.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.RO], "Enable I/O, set in write mode. Move RAM contents to I/O"))
+IWR.insert_step(MicroStep([CtrlSigs.E, CtrlSigs.RW, CtrlSigs.RO], "Enable I/O, set in write mode. Move RAM contents to I/O"))
 instr_lst.append(IWR)
 
 # Display instructions

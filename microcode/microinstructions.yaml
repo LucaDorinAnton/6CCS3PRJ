@@ -3,8 +3,8 @@
 # name:
 # opcode:
 # description:
-# flags:
 # requires_operand:
+# flags:
 #   other:
 #     -
 #       signals: []
@@ -586,7 +586,59 @@ instructions:
         -
           signals: [RO, OUT]
           description: Move RAM contents to the Display
-
+# Pointers
+  -
+    name: LAP
+    opcode: 0x33
+    description: Replace A with RAM contents stored at address stored in A
+    requires_operand: False
+    flags:
+      other:
+        -
+          signals: [AO, MI]
+          description: Move A contents to the MAR
+        -
+          signals: [RO, AI]
+          description: Move RAM contents to the A register
+  -
+    name: LBP
+    opcode: 0x34
+    description: Replace B with RAM contents stored at address stored in B
+    requires_operand: False
+    flags:
+      other:
+        -
+          signals: [BO, MI]
+          description: Move B contents to the MAR
+        -
+          signals: [RO, BI]
+          description: Move RAM contents to the B register
+  -
+    name: LCP
+    opcode: 0x35
+    description: Replace C with RAM contents stored at address stored in C
+    requires_operand: False
+    flags:
+      other:
+        -
+          signals: [CO, MI]
+          description: Move C contents to the MAR
+        -
+          signals: [RO, CI]
+          description: Move RAM contents to the C register
+  -
+    name: LSP
+    opcode: 0x36
+    description: Replace Shift register with RAM contents stored at address stored in the Shist register
+    requires_operand: False
+    flags:
+      other:
+        -
+          signals: [SO, MI]
+          description: Move Shift register contents to the MAR
+        -
+          signals: [RO, SI]
+          description: Move RAM contents to the Shift register
 # Computer and clock manipulation
   -
     name: RST

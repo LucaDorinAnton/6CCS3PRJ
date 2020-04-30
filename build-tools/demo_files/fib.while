@@ -1,4 +1,4 @@
-read n;
+n := 5
 minus1 := 0;
 minus2 := 1;
 while n > 0 do {

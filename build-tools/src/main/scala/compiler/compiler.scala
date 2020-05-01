@@ -35,11 +35,130 @@ object Compiler {
 
   val VARS_BASE = 512
 
-  val CONSTANTS = i"MAXINT = 0x3EE"
+  val CONSTANTS = i"MAXINT = 0x3EE" ++
+                  i"DISPLAY_WORD = 0x3ED"
 
-  val DATA = l"data" ++ i"MAXINT = 0xFFFF"
+  val CHARS = """
+  C0 = 0x200
+  C1 = 0x201
+  C2 = 0x202
+  C3 = 0x203
 
-  val beginning = CONSTANTS ++ DATA
+  C4 = 0x204
+  C5 = 0x205
+  C6 = 0x206
+  C7 = 0x207
+
+  C8 = 0x208
+  C9 = 0x209
+  CA = 0x20A
+  CB = 0x20B
+
+  CC = 0x20C
+  CD = 0x20D
+  CE = 0x20E
+  CF = 0x20F
+  CX = 0x210
+
+  FS = 0x21C
+  CLEAR = 0x21D
+  ON = 0x21E
+  NEWLINE = 0x21F
+  """
+
+  val DATA = l"data" ++
+            i"MAXINT set 0xFFFF" ++
+            i"DISPLAY_WORD set 0x0" ++
+"""
+  C0 set 0b100110000
+  C1 set 0b100110001
+  C2 set 0b100110010
+  C3 set 0b100110011
+  C4 set 0b100110100
+  C5 set 0b100110101
+  C6 set 0b100110110
+  C7 set 0b100110111
+  C8 set 0b100111000
+  C9 set 0b100111001
+  CA set 0b101000001
+  CB set 0b101000010
+  CC set 0b101000011
+  CD set 0b101000100
+  CE set 0b101000101
+  CF set 0b101000110
+  CX set 0b101111000
+  FS set 0b000111000
+  CLEAR set 0b000000001
+  ON set 0b000001111
+  NEWLINE set 0b011000000
+"""
+
+  val init_display = l"init_display" ++
+                      i"DWR FS" ++
+                      i"DWR CLEAR" ++
+                      i"DWR ON" ++
+                      i"RET"
+
+  val display_word = l"display_word" ++
+                    i"JSR init_display" ++
+                    i"DWR C0" ++
+                    i"DWR CX" ++
+                    i"LDS DISPLAY_WORD" ++
+                    i"LAI 1" ++
+                    i"JSR display_nibble" ++
+                    i"LDS DISPLAY_WORD" ++
+                    i"LAI 5" ++
+                    i"JSR display_nibble" ++
+                    i"LDS DISPLAY_WORD" ++
+                    i"LAI 9" ++
+                    i"JSR display_nibble" ++
+                    i"LDS DISPLAY_WORD" ++
+                    i"LAI 13" ++
+                    i"JSR display_nibble" ++
+                    i"RET"
+
+  val display_nibble = l"display_nibble" ++
+                      i"LBI 1" ++
+                      i"JSR shift_left" ++
+                      i"LAI 13" ++
+                      i"LBI 1" ++
+                      i"JSR shift_right" ++
+                      i"JSR display_s_p" ++
+                      i"RET"
+
+  val shift_left = l"shift_left" ++
+                  i"SUB" ++
+                  i"BRZ done" ++
+                  i"SFL" ++
+                  i"JMP shift_left"
+
+  val shift_right = l"shift_right" ++
+                    i"SUB" ++
+                    i"BRZ done" ++
+                    i"SFR" ++
+                    i"JMP shift_right"
+
+  val done = l"done" ++
+              i"RET"
+
+  val display_s_p = l"display_s_p" ++
+                    i"MSB" ++
+                    i"LAI 0x200" ++
+                    i"ADD" ++
+                    i"LAP" ++
+                    i"DWA" ++
+                    i"RET"
+
+  val beginning = CONSTANTS ++ CHARS ++ DATA ++
+                  init_display ++
+                  display_word ++
+                  display_nibble ++
+                  shift_left ++
+                  shift_right ++
+                  done ++
+                  display_s_p
+
+
 
   val ending = i"\n# Compiled assembly for the 16-bit breadboard computer"
 
@@ -164,7 +283,8 @@ object Compiler {
       val loop_begin = Fresh("Loop_begin")
       val loop_end = Fresh("Loop_end")
       val (instrs1, env1) = compile_block(bl, env)
-      (l"$loop_begin" ++
+      (i"JMP $loop_begin" ++
+        l"$loop_begin" ++
         compile_bexp(b, env, loop_end) ++
         instrs1 ++
         i"JMP $loop_begin" ++
@@ -173,7 +293,7 @@ object Compiler {
       }
     case WriteAExp(x) => {
       val instr = compile_aexp(x, env)
-      ( instr ++ i"IWA", env)
+      ( instr ++ i"STA DISPLAY_WORD" ++ i"JSR display_word", env)
     }
     case Read(x) => {
       val index = env.getOrElse(x, env.keys.size)

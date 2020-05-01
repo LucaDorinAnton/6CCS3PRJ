@@ -215,17 +215,17 @@ display_word:
   RET
 
 
-shift_left:
-  SUB
-  BRZ done
-  SFR
-  JMP shift_left
-
 shift_right:
   SUB
   BRZ done
-  SFL
+  SFR
   JMP shift_right
+
+shift_left:
+  SUB
+  BRZ done
+  SFL
+  JMP shift_left
 
 display_s_p:
   MSB
@@ -237,10 +237,10 @@ display_s_p:
 
 display_nibble:
   LBI 1
-  JSR shift_right
+  JSR shift_left
   LAI 13
   LBI 1
-  JSR shift_left
+  JSR shift_right
   JSR display_s_p
   RET
 
